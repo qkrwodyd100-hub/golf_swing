@@ -43,6 +43,12 @@
 - 솔라고 36홀: 공식 홀별 페이지에 공략문구(tip) 미공개(전 홀 null) → tip/tipSource 미기록(스킵).
 - 출처·수집 메모: `data/attribution.md`.
 
+## 공개자료 공통 의견 (consensus) 등급 정의
+
+- `strong` 복수 일치: 독립 출처 2곳 이상이 같은 공략 포인트에 일치 (천안상록은 파일 표기 strength 그대로 사용 — 공식+press 조합은 `weak`).
+- `weak` 약한 일치: 공식+외부 1곳 일치 등 독립 출처가 1곳뿐인 합의 (출처 수·등급 뱃지를 함께 표시).
+- 단일 출처는 consensus에 넣지 않고 `singleNote`로 분리해 '참고(단일 출처)'로 표시한다.
+
 ## 데이터 갱신 방법
 
 1. `/home/jinha/.hermes/cache/scratch/golf-data/*.json` 수집 팩트를 갱신한다.

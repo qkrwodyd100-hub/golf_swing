@@ -20,6 +20,11 @@ interface Props {
   diagram?: HoleDiagramData | null;
   pin: PinKey;
   holeNo?: number;
+  /** 선택 티의 홀 전장(m). IP 밴드 상대 위치 계산용. */
+  teeDist?: number | null;
+  par?: number | null;
+  /** 선택 티 표시명 (예: "화이트 350m"). IP 밴드 근거 라벨용. */
+  teeName?: string;
 }
 
 const W = 200;
@@ -42,13 +47,24 @@ function pathFrom(pts: Array<[number, number]>): string {
  * 홀 개념도 SVG. 미확인 홀은 티→그린 개념(직선 회랑)만 그리고
  * 해저드 위치는一切 그리지 않고 '미확인'으로 표시한다.
  */
-export default function HoleDiagram({ diagram, pin, holeNo }: Props) {
+export default function HoleDiagram({ diagram, pin, holeNo, teeDist, par, teeName }: Props) {
   const confirmed = diagram?.confirmed === true;
   const dogleg: Dogleg = confirmed ? (diagram?.dogleg ?? "straight") : "straight";
   const spots: HazardSpot[] = confirmed ? (diagram?.hazardSpots ?? []) : [];
   const pts = fairwayPoints(dogleg, confirmed);
   const d = pathFrom(pts);
   const [gx, gy] = pts[pts.length - 1];
+
+  // IP(낙구 지점) 밴드: 파4·파5 + 티 거리 확인 시에만, 티→그린 상대 위치 예시로 표시.
+  // 절대 좌표가 아니라 선택 티 전장 대비 상대 비율이므로 픽셀 정확을 주장하지 않음.
+  const teeY = pts[0][1];
+  const greenY = pts[pts.length - 1][1];
+  const showIpBand =
+    par !== 4 && par !== 5 ? false : typeof teeDist === "number" && teeDist > 0;
+  const ipFrac = par === 5 ? 0.38 : 0.55; // 티에서 그린 방향 상대 비율(예시)
+  const ipY = teeY - ipFrac * (teeY - greenY);
+  const ipRefM =
+    typeof teeDist === "number" && teeDist > 0 ? Math.round((teeDist * ipFrac) / 10) * 10 : null;
 
   // 핀 위치: back=그린 상단(홀 끝 방향), front=티 방향
   const pinOffset = pin === "back" ? -12 : pin === "front" ? 12 : 0;
@@ -118,6 +134,26 @@ export default function HoleDiagram({ diagram, pin, holeNo }: Props) {
             TEE
           </text>
         </g>
+        {/* IP(낙구 지점) 밴드: 선택 티 거리 기반 상대 위치 예시 */}
+        {showIpBand && (
+          <g>
+            <rect
+              x="72"
+              y={ipY - 14}
+              width="56"
+              height="28"
+              rx="8"
+              fill="#FDE68A"
+              fillOpacity="0.55"
+              stroke="#000"
+              strokeWidth="2.5"
+              strokeDasharray="6 4"
+            />
+            <text x="100" y={ipY + 5} textAnchor="middle" fontSize="13" fontWeight="900" fill="#000">
+              IP 예시
+            </text>
+          </g>
+        )}
         {/* 그린 */}
         <ellipse cx={gx} cy={gy} rx="26" ry="20" fill="#22C55E" stroke="#000" strokeWidth="3.5" />
         {/* 핀 위치 */}
@@ -177,6 +213,20 @@ export default function HoleDiagram({ diagram, pin, holeNo }: Props) {
         <span className="inline-flex items-center gap-1">
           <span className="inline-block h-3 w-3 rounded-full border border-black bg-[#DC2626]" /> 핀
         </span>
+        {showIpBand && (
+          <span className="inline-flex items-center gap-1">
+            <span className="inline-block h-3 w-3 rounded-full border border-dashed border-black bg-[#FDE68A]" />{" "}
+            IP 위치 예시
+            {teeName || ipRefM != null ? (
+              <span className="font-normal">
+                ({[teeName, ipRefM != null ? `티 기준 약 ${ipRefM}m` : null].filter(Boolean).join(" · ")} — 상대
+                위치이며 실제와 다름)
+              </span>
+            ) : (
+              <span className="font-normal">(상대 위치이며 실제와 다름)</span>
+            )}
+          </span>
+        )}
       </div>
     </div>
   );

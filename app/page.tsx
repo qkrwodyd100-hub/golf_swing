@@ -15,6 +15,24 @@ import {
 import raw from "@/data/courses.json";
 import HoleDiagram, { type HoleDiagramData } from "@/components/HoleDiagram";
 
+interface ConsensusSource {
+  type: string | null;
+  author: string | null;
+  title: string | null;
+  date: string | null;
+  url: string | null;
+}
+interface HoleConsensus {
+  fairway: string | null;
+  green: string | null;
+  strength: "strong" | "weak";
+  sources: ConsensusSource[];
+  note?: string | null;
+}
+interface HoleSingleNote {
+  text: string;
+  sources: ConsensusSource[];
+}
 interface Hole {
   par: number;
   handicap: number | null;
@@ -28,12 +46,19 @@ interface Hole {
   holeName?: string;
   tip?: string | null;
   tipSource?: string | null;
+  consensus?: HoleConsensus | null;
+  singleNote?: HoleSingleNote | null;
+}
+interface ClubLevelConsensus {
+  text: string;
+  sources: ConsensusSource[];
 }
 interface Club {
   id: string;
   name: string;
   region: string;
   courses: string[];
+  courseLevelConsensus?: ClubLevelConsensus[];
 }
 interface Data {
   clubs: Club[];
@@ -233,6 +258,24 @@ export default function YardageBookPage() {
             </button>
           ))}
         </div>
+        {/* 클럽 단위 공통 의견 (로얄링스·예미지) */}
+        {club.courseLevelConsensus && club.courseLevelConsensus.length > 0 && (
+          <div className="mt-3 rounded-xl border border-sky-300/50 bg-fairway-950/60 px-4 py-3">
+            <h3 className="text-lg font-extrabold text-sky-200">
+              클럽 공통 의견 <span className="text-sm font-bold text-sky-200/70">({club.name})</span>
+            </h3>
+            <ul className="mt-1.5 space-y-1.5">
+              {club.courseLevelConsensus.map((cc, i) => (
+                <li key={i} className="text-base leading-snug text-white">
+                  · {cc.text}{" "}
+                  <span className="text-sm text-emerald-100/60">
+                    (출처 {cc.sources.length}곳)
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       {/* 홀 선택: 실제 홀 수만큼 탭 (9홀 코스는 9개) */}
@@ -344,7 +387,14 @@ export default function YardageBookPage() {
               </figure>
             ) : (
               <div>
-                <HoleDiagram diagram={null} pin={pin} holeNo={holeNo} />
+                <HoleDiagram
+                  diagram={null}
+                  pin={pin}
+                  holeNo={holeNo}
+                  par={hole.par}
+                  teeDist={teeDist}
+                  teeName={`${teeLabel(tee)} ${teeDist != null ? `${teeDist.toLocaleString()}m` : "미표기"}`}
+                />
                 <div className="mt-2 flex flex-wrap items-center gap-1.5">
                   <span className="rounded-full bg-emerald-300 px-3 py-1 text-lg font-extrabold text-fairway-950">
                     {holeNo}H · Par {hole.par}
@@ -422,6 +472,114 @@ export default function YardageBookPage() {
                   공식 공략 TIP © {hole.tipSource ?? club.name}
                 </cite>
               </blockquote>
+            )}
+
+            {/* 공개자료 공통 의견 (2곳 이상 일치 consensus) */}
+            {hole.consensus && (
+              <div className="mt-2.5 rounded-xl border border-emerald-300/50 bg-fairway-950/60 px-3 py-2.5">
+                <div className="mb-1.5 flex flex-wrap items-center gap-2">
+                  <h3 className="text-lg font-extrabold text-emerald-200">
+                    공개자료 공통 의견
+                  </h3>
+                  {hole.consensus.strength === "strong" ? (
+                    <span className="rounded-full bg-emerald-300 px-2.5 py-0.5 text-sm font-extrabold text-fairway-950">
+                      복수 일치
+                    </span>
+                  ) : (
+                    <span className="rounded-full border border-amber-300 px-2.5 py-0.5 text-sm font-extrabold text-amber-200">
+                      약한 일치
+                    </span>
+                  )}
+                  <span className="text-sm font-bold text-emerald-100/60">
+                    출처 {hole.consensus.sources.length}곳
+                  </span>
+                </div>
+                {hole.consensus.fairway && (
+                  <p className="text-lg font-bold leading-snug">
+                    <span className="text-emerald-300">노릴 곳 · </span>
+                    {hole.consensus.fairway}
+                  </p>
+                )}
+                {hole.consensus.green && (
+                  <p className="mt-1 text-lg font-bold leading-snug">
+                    <span className="text-emerald-300">그린 · </span>
+                    {hole.consensus.green}
+                  </p>
+                )}
+                {hole.consensus.note && (
+                  <p className="mt-1 text-base text-emerald-100/70">{hole.consensus.note}</p>
+                )}
+                <details className="mt-1.5">
+                  <summary className="cursor-pointer text-base font-bold text-sky-300">
+                    출처 {hole.consensus.sources.length}곳 보기
+                  </summary>
+                  <ul className="mt-1.5 space-y-1.5">
+                    {hole.consensus.sources.map((s, i) => (
+                      <li key={i} className="text-base leading-snug text-emerald-100/90">
+                        · {[s.author, s.title].filter(Boolean).join(" — ")}
+                        {s.date ? ` (${s.date})` : ""}
+                        {s.url && (
+                          <>
+                            {" "}
+                            <a
+                              href={s.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-bold text-sky-300 underline"
+                            >
+                              원문
+                            </a>
+                          </>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </div>
+            )}
+
+            {/* 단일 출처 참고 (consensus 미달) */}
+            {hole.singleNote && (
+              <div className="mt-2.5 rounded-xl border border-neutral-500 bg-fairway-950/60 px-3 py-2.5">
+                <div className="mb-1 flex flex-wrap items-center gap-2">
+                  <h3 className="text-lg font-extrabold text-neutral-200">
+                    참고
+                    <span className="ml-1.5 rounded-full border border-neutral-400 px-2.5 py-0.5 align-middle text-sm font-extrabold text-neutral-300">
+                      단일 출처
+                    </span>
+                  </h3>
+                  <span className="text-sm font-bold text-emerald-100/60">
+                    출처 {hole.singleNote.sources.length}곳
+                  </span>
+                </div>
+                <p className="text-base leading-snug text-neutral-100">{hole.singleNote.text}</p>
+                <details className="mt-1.5">
+                  <summary className="cursor-pointer text-base font-bold text-sky-300">
+                    출처 보기
+                  </summary>
+                  <ul className="mt-1.5 space-y-1.5">
+                    {hole.singleNote.sources.map((s, i) => (
+                      <li key={i} className="text-base leading-snug text-emerald-100/90">
+                        · {[s.author, s.title].filter(Boolean).join(" — ")}
+                        {s.date ? ` (${s.date})` : ""}
+                        {s.url && (
+                          <>
+                            {" "}
+                            <a
+                              href={s.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-bold text-sky-300 underline"
+                            >
+                              원문
+                            </a>
+                          </>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </div>
             )}
 
             {/* 공식 팩트 한 줄 (창작 공략문구 없음 — 공식 키워드만) */}
