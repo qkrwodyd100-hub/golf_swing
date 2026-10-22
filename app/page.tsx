@@ -26,6 +26,8 @@ interface Hole {
   imageUrl: string | null;
   memo: string | null;
   holeName?: string;
+  tip?: string | null;
+  tipSource?: string | null;
 }
 interface Club {
   id: string;
@@ -411,6 +413,16 @@ export default function YardageBookPage() {
                 </p>
               )}
             </div>
+
+            {/* 공식 공략 TIP (공식 문구 그대로, 출처 표기) */}
+            {hole.tip && (
+              <blockquote className="mt-2.5 rounded-xl border-l-4 border-amber-300 bg-fairway-950/60 px-3 py-2">
+                <p className="text-lg font-bold leading-snug">{hole.tip}</p>
+                <cite className="mt-1 block text-sm font-bold not-italic text-emerald-100/70">
+                  공식 공략 TIP © {hole.tipSource ?? club.name}
+                </cite>
+              </blockquote>
+            )}
 
             {/* 공식 팩트 한 줄 (창작 공략문구 없음 — 공식 키워드만) */}
             {factLine && (
