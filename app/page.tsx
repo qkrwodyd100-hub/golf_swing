@@ -17,6 +17,7 @@ import {
   CircleDot,
 } from "lucide-react";
 import raw from "@/data/courses.json";
+import HoleDiagram, { type HoleDiagramData } from "@/components/HoleDiagram";
 
 type TeeKey = "champion" | "tour" | "front" | "senior" | "lady";
 type PinKey = "front" | "middle" | "back";
@@ -33,6 +34,8 @@ interface Hole {
   hazards: Hazard[];
   strategy: { teeShot: string; approach: string; green: string };
   pinTips: Record<PinKey, string>;
+  imageUrl?: string;
+  diagram?: HoleDiagramData;
 }
 interface Club {
   id: string;
@@ -59,6 +62,33 @@ const PIN_LABELS: { key: PinKey; label: string }[] = [
   { key: "back", label: "뒷핀" },
 ];
 
+/** 홀 정보 상태: 미입력(회색) / 예시(노랑) / 실측확인(초록). 부정확한 정보는 없는 것만 못하므로, 미확인 수치는 표시하지 않는다. */
+type HoleStatus = "missing" | "example" | "verified";
+function holeStatus(h: Hole | undefined): HoleStatus {
+  if (!h) return "missing";
+  return h.sample === true ? "example" : "verified";
+}
+
+function StatusBadge({ status }: { status: HoleStatus }) {
+  if (status === "verified")
+    return (
+      <span className="rounded-full border-2 border-emerald-300 px-3 py-0.5 text-base font-extrabold text-emerald-300">
+        실측확인
+      </span>
+    );
+  if (status === "example")
+    return (
+      <span className="rounded-full border-2 border-amber-300 px-3 py-0.5 text-base font-extrabold text-amber-300">
+        예시
+      </span>
+    );
+  return (
+    <span className="rounded-full border-2 border-neutral-400 px-3 py-0.5 text-base font-extrabold text-neutral-300">
+      미입력
+    </span>
+  );
+}
+
 function hazardIcon(type: string) {
   switch (type) {
     case "water":
@@ -83,6 +113,9 @@ export default function YardageBookPage() {
   const [pin, setPin] = useState<PinKey>("middle");
   const [note, setNote] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
+  const [imgSaved, setImgSaved] = useState(false);
+  const [view, setView] = useState<"diagram" | "photo">("diagram");
 
   const club = useMemo(() => DATA.clubs.find((c) => c.id === clubId)!, [clubId]);
 
@@ -99,12 +132,18 @@ export default function YardageBookPage() {
 
   const holeKey = `${clubId}:${course}`;
   const hole: Hole | undefined = DATA.holes[holeKey]?.[String(holeNo)];
-  const isSample = hole?.sample === true;
+  const status = holeStatus(hole);
 
   const noteKey = useMemo(
     () => `yardage-note:${clubId}:${course}:${holeNo}`,
     [clubId, course, holeNo]
   );
+  const imgKey = useMemo(
+    () => `yardage-img:${clubId}:${course}:${holeNo}`,
+    [clubId, course, holeNo]
+  );
+  const photoSrc = (imgUrl || hole?.imageUrl || "").trim();
+  const hasPhoto = photoSrc.length > 0;
 
   useEffect(() => {
     setNoteSaved(false);
@@ -113,7 +152,14 @@ export default function YardageBookPage() {
     } catch {
       setNote("");
     }
-  }, [noteKey]);
+    setImgSaved(false);
+    setView("diagram");
+    try {
+      setImgUrl(localStorage.getItem(imgKey) ?? "");
+    } catch {
+      setImgUrl("");
+    }
+  }, [noteKey, imgKey]);
 
   function selectClub(id: string) {
     const c = DATA.clubs.find((x) => x.id === id)!;
@@ -129,6 +175,17 @@ export default function YardageBookPage() {
       setTimeout(() => setNoteSaved(false), 2000);
     } catch {
       setNoteSaved(false);
+    }
+  }
+
+  function saveImgUrl() {
+    try {
+      if (imgUrl.trim()) localStorage.setItem(imgKey, imgUrl.trim());
+      else localStorage.removeItem(imgKey);
+      setImgSaved(true);
+      setTimeout(() => setImgSaved(false), 2000);
+    } catch {
+      setImgSaved(false);
     }
   }
 
@@ -222,6 +279,7 @@ export default function YardageBookPage() {
         <div className="flex gap-2 overflow-x-auto pb-2" role="tablist">
           {Array.from({ length: 18 }, (_, i) => i + 1).map((n) => {
             const h = DATA.holes[holeKey]?.[String(n)];
+            const st = holeStatus(h);
             const active = n === holeNo;
             return (
               <button
@@ -242,8 +300,19 @@ export default function YardageBookPage() {
                     active ? "bg-fairway-950 text-emerald-200" : "bg-fairway-700 text-emerald-100"
                   }`}
                 >
-                  {h ? `Par ${h.par}` : "―"}
+                  {h && h.par > 0 ? `Par ${h.par}` : "―"}
                 </span>
+                <span
+                  className={`mt-1 h-2 w-2 rounded-full ${
+                    st === "verified"
+                      ? "bg-emerald-400"
+                      : st === "example"
+                        ? "bg-amber-300"
+                        : "bg-neutral-500"
+                  }`}
+                  title={st === "verified" ? "실측확인" : st === "example" ? "예시" : "미입력"}
+                  aria-label={st === "verified" ? "실측확인" : st === "example" ? "예시" : "미입력"}
+                />
               </button>
             );
           })}
@@ -256,29 +325,27 @@ export default function YardageBookPage() {
           <h2 className="text-2xl font-extrabold">
             {club.name} {course} {holeNo}번 홀
           </h2>
+          <StatusBadge status={status} />
           {hole && (
             <>
               <span className="rounded-full bg-emerald-300 px-3 py-1 text-base font-extrabold text-fairway-950">
-                Par {hole.par}
+                {hole.par > 0 ? `Par ${hole.par}` : "Par 미입력"}
               </span>
               <span className="rounded-full bg-fairway-700 px-3 py-1 text-base font-bold text-emerald-100">
-                핸디캡 {hole.handicap}
+                {hole.handicap > 0 ? `핸디캡 ${hole.handicap}` : "핸디캡 미입력"}
               </span>
-              {isSample ? (
-                <span className="rounded-full border-2 border-amber-300 px-3 py-0.5 text-base font-extrabold text-amber-300">
-                  샘플
-                </span>
-              ) : (
-                <span className="rounded-full border-2 border-emerald-300 px-3 py-0.5 text-base font-extrabold text-emerald-300">
-                  실측
-                </span>
-              )}
             </>
           )}
         </div>
-        {hole && isSample && (
+        {status === "example" && (
           <p className="mb-3 text-base text-amber-200">
-            이 홀의 거리·전략 수치는 예시(샘플)이며 실제 코스 데이터가 아닙니다.
+            예시 상태의 홀입니다. 거리·전략 수치는 실측이 아니며, 미입력 항목은 표시하지
+            않습니다.
+          </p>
+        )}
+        {status === "verified" && (
+          <p className="mb-3 text-base text-emerald-200">
+            실측확인된 홀입니다(스코어카드·공식 야디지북 근거).
           </p>
         )}
 
@@ -317,11 +384,76 @@ export default function YardageBookPage() {
               </div>
               <p className="mt-2 text-2xl font-extrabold text-emerald-200" aria-live="polite">
                 <Navigation className="mr-1 inline h-6 w-6" aria-hidden />
-                {hole.teeBox[tee].toLocaleString()} m
-                <span className="ml-2 text-base font-normal text-emerald-100/80">
-                  {TEE_LABELS.find((t) => t.key === tee)?.label} 티 기준
-                </span>
+                {hole.teeBox[tee] > 0 ? (
+                  <>
+                    {hole.teeBox[tee].toLocaleString()} m
+                    <span className="ml-2 text-base font-normal text-emerald-100/80">
+                      {TEE_LABELS.find((t) => t.key === tee)?.label} 티 기준
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-xl text-neutral-300">
+                    거리 미입력
+                    <span className="ml-2 text-base font-normal text-emerald-100/80">
+                      {TEE_LABELS.find((t) => t.key === tee)?.label} 티 기준
+                    </span>
+                  </span>
+                )}
               </p>
+            </div>
+
+            {/* 홀 시각 자료: 개략도 / 실사진 */}
+            <div className="mb-4">
+              <div className="mb-2 flex gap-2" role="group" aria-label="시각 자료 선택">
+                <button
+                  type="button"
+                  onClick={() => setView("diagram")}
+                  aria-pressed={view === "diagram"}
+                  className={`flex-1 rounded-xl px-3 py-2.5 text-lg font-bold ${
+                    view === "diagram"
+                      ? "bg-emerald-300 text-fairway-950"
+                      : "bg-fairway-700 text-white hover:bg-fairway-600"
+                  }`}
+                >
+                  개략도
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setView("photo")}
+                  aria-pressed={view === "photo"}
+                  className={`flex-1 rounded-xl px-3 py-2.5 text-lg font-bold ${
+                    view === "photo"
+                      ? "bg-emerald-300 text-fairway-950"
+                      : "bg-fairway-700 text-white hover:bg-fairway-600"
+                  }`}
+                >
+                  실사진
+                </button>
+              </div>
+              {view === "diagram" ? (
+                <HoleDiagram diagram={hole.diagram} pin={pin} holeNo={holeNo} />
+              ) : hasPhoto ? (
+                <figure className="overflow-hidden rounded-xl border-2 border-black bg-white">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photoSrc}
+                    alt={`${club.name} ${course} ${holeNo}번 홀 실사진`}
+                    className="block h-auto w-full"
+                    loading="lazy"
+                  />
+                  <figcaption className="bg-white px-3 py-2 text-sm font-bold text-black">
+                    홀 실사진 · 위치 예시가 아닌 실제 촬영 이미지입니다
+                    {imgUrl.trim() ? "(내가 등록한 사진)" : "(공식 이미지)"}
+                  </figcaption>
+                </figure>
+              ) : (
+                <div className="rounded-xl border-2 border-dashed border-neutral-500 bg-fairway-950/60 p-5 text-center">
+                  <p className="text-xl font-bold text-neutral-200">실측 사진 없음</p>
+                  <p className="mt-1 text-base text-emerald-100/80">
+                    아래 &lsquo;내 메모&rsquo;에서 이 홀 실사진 URL을 등록하면 표시됩니다.
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* 해저드 알림 */}
@@ -330,17 +462,23 @@ export default function YardageBookPage() {
                 <AlertTriangle className="h-5 w-5 text-amber-300" aria-hidden />
                 해저드 주의
               </h3>
-              <ul className="space-y-2">
-                {hole.hazards.map((hz, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2 rounded-xl border-2 border-amber-300/50 bg-fairway-950/60 px-3 py-2.5 text-lg"
-                  >
-                    {hazardIcon(hz.type)}
-                    <span>{hz.message}</span>
-                  </li>
-                ))}
-              </ul>
+              {hole.hazards.length === 0 ? (
+                <p className="rounded-xl border-2 border-neutral-500 bg-fairway-950/60 px-3 py-2.5 text-lg text-neutral-300">
+                  해저드 정보 미확인 — 실측 확인 후 표시됩니다.
+                </p>
+              ) : (
+                <ul className="space-y-2">
+                  {hole.hazards.map((hz, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2 rounded-xl border-2 border-amber-300/50 bg-fairway-950/60 px-3 py-2.5 text-lg"
+                    >
+                      {hazardIcon(hz.type)}
+                      <span>{hz.message}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {/* 공략 카드 */}
@@ -356,7 +494,9 @@ export default function YardageBookPage() {
               ].map((s) => (
                 <article key={s.title} className="rounded-xl bg-fairway-950/60 px-4 py-3">
                   <h4 className="text-lg font-extrabold text-emerald-200">{s.title}</h4>
-                  <p className="text-lg">{s.body}</p>
+                  <p className={`text-lg ${s.body.trim() ? "" : "text-neutral-400"}`}>
+                    {s.body.trim() ? s.body : "미입력 — 실측 확인 후 표시됩니다."}
+                  </p>
                 </article>
               ))}
             </div>
@@ -385,7 +525,9 @@ export default function YardageBookPage() {
                 ))}
               </div>
               <p className="mt-2 rounded-xl bg-sky-950/60 px-4 py-3 text-lg" aria-live="polite">
-                {hole.pinTips[pin]}
+                {hole.pinTips[pin].trim()
+                  ? hole.pinTips[pin]
+                  : "미입력 — 실측 확인 후 표시됩니다."}
               </p>
             </div>
           </>
@@ -415,12 +557,40 @@ export default function YardageBookPage() {
           <p className="mt-1 text-base text-emerald-100/70">
             이 기기의 브라우저에만 저장됩니다.
           </p>
+          {/* 이 홀 실사진 URL (개인 저장) */}
+          <label
+            htmlFor="hole-photo-url"
+            className="mt-4 mb-2 block text-lg font-bold"
+          >
+            이 홀 실사진 URL
+          </label>
+          <input
+            id="hole-photo-url"
+            type="url"
+            value={imgUrl}
+            onChange={(e) => setImgUrl(e.target.value)}
+            placeholder="https://… (직접 촬영 후 업로드한 이미지 주소)"
+            inputMode="url"
+            className="w-full rounded-xl border-2 border-fairway-700 bg-fairway-950 px-3 py-3 text-lg text-white placeholder:text-emerald-100/50 focus:border-emerald-400 focus:outline-none"
+          />
+          <button
+            type="button"
+            onClick={saveImgUrl}
+            className="mt-2 w-full rounded-xl border-2 border-emerald-300 py-2.5 text-lg font-extrabold text-emerald-200 hover:bg-fairway-700"
+          >
+            {imgSaved ? "사진 저장됨 ✓" : "실사진 저장"}
+          </button>
+          <p className="mt-1 text-base text-emerald-100/70">
+            이 기기의 브라우저에만 저장되며, 위 &lsquo;실사진&rsquo; 탭에 표시됩니다.
+            비우면 등록된 사진이 삭제됩니다.
+          </p>
         </div>
       </section>
 
       <footer className="mt-6 text-center text-base text-emerald-100/60">
-        클럽·코스명은 안내용이며, 거리/전략 수치는 &apos;샘플&apos; 표시가 없는 경우에만 실측
-        데이터입니다.
+        클럽·코스명은 안내용이며, 거리/전략 수치는 &apos;실측확인&apos; 표시가 있는
+        홀만 실측 데이터입니다. &apos;예시&apos;·&apos;미입력&apos; 홀의 빈 항목은
+        측정이 아닌 미확인 표시입니다.
       </footer>
     </main>
   );

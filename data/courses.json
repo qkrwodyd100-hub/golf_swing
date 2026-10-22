@@ -1,5 +1,5 @@
 {
-  "_comment": "실제 클럽/코스명은 디렉토리 정보로만 수록. 홀별 거리·전략 수치는 전부 샘플(sample:true)이며 실제 코스 데이터가 아님. 상세: README_DATA.md",
+  "_comment": "실제 클럽/코스명은 디렉토리 정보로만 수록. 홀별 거리·핸디캡·파·전략 수치는 실측 확인 전에는 입력하지 않음(0·빈값). 상세: README_DATA.md",
   "clubs": [
     { "id": "baekje", "name": "백제CC", "region": "충남 부여", "courses": ["백제", "청자", "사비"] },
     { "id": "solago", "name": "솔라고CC", "region": "충남 태안", "courses": ["라고", "솔", "밸리"] },
@@ -11,72 +11,46 @@
   ],
   "holes": {
     "_template": {
-      "_howto": "README_DATA.md 참조. hole 번호 키(1~18)에 par, handicap, teeBox(champion/tour/front/senior/lady 미터), hazards[{type,message}], strategy{teeShot,approach,green}, pinTips{front,middle,back} 입력. sample 플래그를 false로 바꾸면 실측 데이터로 간주되므로 숫자 검증 후 변경.",
+      "_howto": "README_DATA.md 참조. hole 번호 키(1~18)에 par, handicap, teeBox(champion/tour/front/senior/lady 미터), hazards[{type,message}], strategy{teeShot,approach,green}, pinTips{front,middle,back}, diagram{dogleg,hazardSpots,confirmed}, imageUrl 입력. 미확인 수치는 0·빈값으로 두고, sample:false(실측확인)는 스코어카드·공식 야디지북 사진 근거 확보 후에만 변경.",
       "sample": true,
-      "par": 4,
-      "handicap": 1,
+      "par": 0,
+      "handicap": 0,
       "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
-      "hazards": [{ "type": "bunker", "message": "예시: 우측 페어웨이 벙커" }],
+      "hazards": [],
       "strategy": { "teeShot": "", "approach": "", "green": "" },
-      "pinTips": { "front": "", "middle": "", "back": "" }
+      "pinTips": { "front": "", "middle": "", "back": "" },
+      "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
     },
     "solago:라고": {
       "1": {
         "sample": true,
-        "par": 4,
-        "handicap": 7,
-        "teeBox": { "champion": 385, "tour": 365, "front": 340, "senior": 320, "lady": 290 },
-        "hazards": [
-          { "type": "bunker", "message": "우측 페어웨이 벙커 2개 (샘플)" },
-          { "type": "water", "message": "그린 앞 좌측 연못 (샘플)" }
-        ],
-        "strategy": {
-          "teeShot": "좌측 벙커를 보고 페이드로 공략 (샘플 전략)",
-          "approach": "그린 앞 연못을 피하고 중앙 공략 (샘플 전략)",
-          "green": "앞뒤 긴 2단 그린, 내리막 주의 (샘플 전략)"
-        },
-        "pinTips": {
-          "front": "연못이 바로 앞이라 한 클럽 길게 (샘플)",
-          "middle": "중앙 기준 핀 직접 공략 가능 (샘플)",
-          "back": "뒷벽이 있어 과감하게 공략 (샘플)"
-        }
+        "par": 0,
+        "handicap": 0,
+        "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
+        "hazards": [],
+        "strategy": { "teeShot": "", "approach": "", "green": "" },
+        "pinTips": { "front": "", "middle": "", "back": "" },
+        "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
       },
       "2": {
         "sample": true,
-        "par": 3,
-        "handicap": 15,
-        "teeBox": { "champion": 175, "tour": 160, "front": 145, "senior": 130, "lady": 110 },
-        "hazards": [{ "type": "bunker", "message": "그린 주변 벙커 3개 (샘플)" }],
-        "strategy": {
-          "teeShot": "핀 위치와 무관하게 그린 중앙 공략 (샘플 전략)",
-          "approach": "해당 없음 (파3)",
-          "green": "좌우 경사가 심해 퍼트 주의 (샘플 전략)"
-        },
-        "pinTips": {
-          "front": "짧으면 내리막 경사, 여유 있게 (샘플)",
-          "middle": "중앙 핀은 정직하게 공략 (샘플)",
-          "back": "뒤 핀은 오르막이라 강하게 (샘플)"
-        }
+        "par": 0,
+        "handicap": 0,
+        "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
+        "hazards": [],
+        "strategy": { "teeShot": "", "approach": "", "green": "" },
+        "pinTips": { "front": "", "middle": "", "back": "" },
+        "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
       },
       "3": {
         "sample": true,
-        "par": 5,
-        "handicap": 3,
-        "teeBox": { "champion": 540, "tour": 515, "front": 490, "senior": 465, "lady": 430 },
-        "hazards": [
-          { "type": "ob", "message": "우측 OB 라인 전 구간 (샘플)" },
-          { "type": "bunker", "message": "세컨드 지점 좌측 벙커 (샘플)" }
-        ],
-        "strategy": {
-          "teeShot": "좌측 벙커 왼쪽으로 안전하게 (샘플 전략)",
-          "approach": "3온 작전, 무리한 2온 금지 (샘플 전략)",
-          "green": "오르막 그린, 어프로치는 짧게 금지 (샘플 전략)"
-        },
-        "pinTips": {
-          "front": "앞 핀은 스핀 컨트롤 필수 (샘플)",
-          "middle": "중앙 핀은 무난하게 공략 (샘플)",
-          "back": "뒤 핀은 한 클럽 길게 잡기 (샘플)"
-        }
+        "par": 0,
+        "handicap": 0,
+        "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
+        "hazards": [],
+        "strategy": { "teeShot": "", "approach": "", "green": "" },
+        "pinTips": { "front": "", "middle": "", "back": "" },
+        "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
       }
     }
   }
