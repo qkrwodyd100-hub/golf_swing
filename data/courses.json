@@ -1,57 +1,5137 @@
 {
-  "_comment": "실제 클럽/코스명은 디렉토리 정보로만 수록. 홀별 거리·핸디캡·파·전략 수치는 실측 확인 전에는 입력하지 않음(0·빈값). 상세: README_DATA.md",
   "clubs": [
-    { "id": "baekje", "name": "백제CC", "region": "충남 부여", "courses": ["백제", "청자", "사비"] },
-    { "id": "solago", "name": "솔라고CC", "region": "충남 태안", "courses": ["라고", "솔", "밸리"] },
-    { "id": "cheonan-sangrok", "name": "천안상록CC", "region": "충남 천안", "courses": ["상록", "아카시아", "소나무"] },
-    { "id": "yemiji", "name": "예미지CC", "region": "충남 예산", "courses": ["예", "미", "지"] },
-    { "id": "lynx", "name": "링스CC", "region": "충남 태안", "courses": ["린스", "오션", "힐"] },
-    { "id": "goldenbay", "name": "골든베이CC", "region": "충남 서산", "courses": ["베이", "골든", "레이크"] },
-    { "id": "areumnadaun", "name": "아름다운CC", "region": "충남 공주", "courses": ["아름다운", "행복한", "즐거운"] }
+    {
+      "id": "baekje",
+      "name": "백제컨트리클럽",
+      "region": "충남 부여",
+      "courses": [
+        "사비",
+        "웅진",
+        "한성"
+      ]
+    },
+    {
+      "id": "solago",
+      "name": "솔라고 컨트리클럽",
+      "region": "충남 태안",
+      "courses": [
+        "SOL-IN",
+        "SOL-OUT",
+        "LAGO-IN",
+        "LAGO-OUT"
+      ]
+    },
+    {
+      "id": "cheonan-sangrok",
+      "name": "천안상록골프장(Public)",
+      "region": "충남 천안",
+      "courses": [
+        "남",
+        "중",
+        "동"
+      ]
+    },
+    {
+      "id": "yemiji",
+      "name": "예미지컨트리클럽",
+      "region": "충남 청양",
+      "courses": [
+        "예",
+        "미",
+        "지"
+      ]
+    },
+    {
+      "id": "lynx",
+      "name": "로얄링스 컨트리클럽",
+      "region": "충남 태안",
+      "courses": [
+        "Queens",
+        "Kings"
+      ]
+    },
+    {
+      "id": "goldenbay",
+      "name": "골든베이 골프&리조트",
+      "region": "충남 태안",
+      "courses": [
+        "마운틴",
+        "오션",
+        "밸리"
+      ]
+    },
+    {
+      "id": "areumnadaun",
+      "name": "SG아름다운 골프&리조트",
+      "region": "충남 아산",
+      "courses": [
+        "HILL",
+        "LAKE",
+        "ROCK"
+      ]
+    }
   ],
   "holes": {
-    "_template": {
-      "_howto": "README_DATA.md 참조. hole 번호 키(1~18)에 par, handicap, teeBox(champion/tour/front/senior/lady 미터), hazards[{type,message}], strategy{teeShot,approach,green}, pinTips{front,middle,back}, diagram{dogleg,hazardSpots,confirmed}, imageUrl 입력. 미확인 수치는 0·빈값으로 두고, sample:false(실측확인)는 스코어카드·공식 야디지북 사진 근거 확보 후에만 변경.",
-      "sample": true,
-      "par": 0,
-      "handicap": 0,
-      "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
-      "hazards": [],
-      "strategy": { "teeShot": "", "approach": "", "green": "" },
-      "pinTips": { "front": "", "middle": "", "back": "" },
-      "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
-    },
-    "solago:라고": {
+    "baekje:사비": {
       "1": {
-        "sample": true,
-        "par": 0,
-        "handicap": 0,
-        "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
-        "hazards": [],
-        "strategy": { "teeShot": "", "approach": "", "green": "" },
-        "pinTips": { "front": "", "middle": "", "back": "" },
-        "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 380,
+          "blue": 360,
+          "white": 335,
+          "red": 295
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "내리막",
+          "좌·우 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole01.asp",
+        "imageUrl": "/holes/baekje/사비-1.jpg",
+        "memo": "홀명: 성왕 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
       },
       "2": {
-        "sample": true,
-        "par": 0,
-        "handicap": 0,
-        "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
-        "hazards": [],
-        "strategy": { "teeShot": "", "approach": "", "green": "" },
-        "pinTips": { "front": "", "middle": "", "back": "" },
-        "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 495,
+          "blue": 475,
+          "white": 450,
+          "red": 420
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "내리막",
+          "좌 도그렉",
+          "좌·우 해저드",
+          "페어웨이 우측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole02.asp",
+        "imageUrl": "/holes/baekje/사비-2.jpg",
+        "memo": "홀명: 나무아미타불 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
       },
       "3": {
-        "sample": true,
-        "par": 0,
-        "handicap": 0,
-        "teeBox": { "champion": 0, "tour": 0, "front": 0, "senior": 0, "lady": 0 },
-        "hazards": [],
-        "strategy": { "teeShot": "", "approach": "", "green": "" },
-        "pinTips": { "front": "", "middle": "", "back": "" },
-        "diagram": { "dogleg": "straight", "hazardSpots": [], "confirmed": false }
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 380,
+          "blue": 360,
+          "white": 330,
+          "red": 300
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그렉",
+          "좌측 해저드",
+          "우측 OB",
+          "우측 샌드벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole03.asp",
+        "imageUrl": "/holes/baekje/사비-3.jpg",
+        "memo": "홀명: 기우제 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "4": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 170,
+          "blue": 145,
+          "white": 120,
+          "red": 95
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "내리막",
+          "아일랜드 그린(그린 앞·좌·우 해저드)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole04.asp",
+        "imageUrl": "/holes/baekje/사비-4.jpg",
+        "memo": "홀명: 선화공주 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 400,
+          "blue": 375,
+          "white": 350,
+          "yellow": 325,
+          "red": 300
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "내리막",
+          "좌측 OB",
+          "좌측 벙커(페어웨이·그린사이드)",
+          "좌측 해저드(호수)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole05.asp",
+        "imageUrl": "/holes/baekje/사비-5.jpg",
+        "memo": "홀명: 황산벌 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 350,
+          "blue": 310,
+          "white": 275,
+          "red": 250
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "우측 해저드",
+          "2단 그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole06.asp",
+        "imageUrl": "/holes/baekje/사비-6.jpg",
+        "memo": "홀명: 난공불낙 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "7": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 380,
+          "blue": 360,
+          "white": 330,
+          "yellow": 305,
+          "red": 295
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그렉",
+          "좌측 법면상단 OB",
+          "우측 벙커 다수",
+          "티 앞 연못(캐리 필요)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole07.asp",
+        "imageUrl": "/holes/baekje/사비-7.jpg",
+        "memo": "홀명: 일엽편주 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "8": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 210,
+          "blue": 180,
+          "white": 155,
+          "yellow": 130,
+          "red": 115
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "오르막 파3",
+          "페어웨이 중앙 우측 급경사 해저드",
+          "우측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole08.asp",
+        "imageUrl": "/holes/baekje/사비-8.jpg",
+        "memo": "홀명: 옥황상제 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "9": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 500,
+          "blue": 475,
+          "white": 435,
+          "red": 395
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그렉",
+          "좌·우 OB",
+          "그린 앞 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/one/hole09.asp",
+        "imageUrl": "/holes/baekje/사비-9.jpg",
+        "memo": "홀명: 진달래 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      }
+    },
+    "baekje:웅진": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 410,
+          "blue": 390,
+          "white": 370,
+          "yellow": 335,
+          "red": 305
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌·우 OB",
+          "그린 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole01.asp",
+        "imageUrl": "/holes/baekje/웅진-1.jpg",
+        "memo": "홀명: 충령봉 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "2": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 160,
+          "blue": 145,
+          "white": 135,
+          "yellow": 110,
+          "red": 85
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "내리막 파3",
+          "바람 영향"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole02.asp",
+        "imageUrl": "/holes/baekje/웅진-2.jpg",
+        "memo": "홀명: 궁남지 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 365,
+          "blue": 340,
+          "white": 315,
+          "yellow": 285,
+          "red": 265
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 ㄱ자 도그렉",
+          "해저드(좌측 연못)",
+          "그린 앞 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole03.asp",
+        "imageUrl": "/holes/baekje/웅진-3.jpg",
+        "memo": "홀명: 서동왕자 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "4": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 357,
+          "blue": 335,
+          "white": 310,
+          "red": 285
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "우 도그렉",
+          "좌측 해저드",
+          "우측 법면상단 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole04.asp",
+        "imageUrl": "/holes/baekje/웅진-4.jpg",
+        "memo": "홀명: 가마터 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "5": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 530,
+          "blue": 510,
+          "white": 480,
+          "yellow": 445,
+          "red": 410
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 해저드",
+          "우측 OB",
+          "그린 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole05.asp",
+        "imageUrl": "/holes/baekje/웅진-5.jpg",
+        "memo": "홀명: 개나리 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "6": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 207,
+          "blue": 190,
+          "white": 175,
+          "yellow": 160,
+          "red": 145
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "그린 앞 해저드(연못 캐리)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole06.asp",
+        "imageUrl": "/holes/baekje/웅진-6.jpg",
+        "memo": "홀명: 백마강 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "7": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 410,
+          "blue": 390,
+          "white": 370,
+          "yellow": 345,
+          "red": 310
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "핸디캡 1번 홀(공식 표기)",
+          "그린 옆·뒤 해저드",
+          "벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole07.asp",
+        "imageUrl": "/holes/baekje/웅진-7.jpg",
+        "memo": "홀명: 계백 홀"
+      },
+      "8": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 525,
+          "blue": 505,
+          "white": 470,
+          "yellow": 445,
+          "red": 420
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "우 도그렉",
+          "우측 OB",
+          "우측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole08.asp",
+        "imageUrl": "/holes/baekje/웅진-8.jpg",
+        "memo": "홀명: 칠갑마루 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 375,
+          "blue": 355,
+          "white": 335,
+          "yellow": 310,
+          "red": 290
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "벙커 없음",
+          "좌측 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/two/hole09.asp",
+        "imageUrl": "/holes/baekje/웅진-9.jpg",
+        "memo": "홀명: 마애삼존 홀 / 공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      }
+    },
+    "baekje:한성": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 350,
+          "blue": 333,
+          "white": 316,
+          "yellow": 295,
+          "red": 274
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 OB",
+          "우측 해저드",
+          "세컨 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole01.asp",
+        "imageUrl": "/holes/baekje/한성-1.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 385,
+          "blue": 360,
+          "white": 351,
+          "yellow": 331,
+          "red": 253
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 OB",
+          "우측 해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole02.asp",
+        "imageUrl": "/holes/baekje/한성-2.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "3": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 170,
+          "blue": 146,
+          "white": 134,
+          "red": 113
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "우측 해저드",
+          "내리막 10m"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole03.asp",
+        "imageUrl": "/holes/baekje/한성-3.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "4": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 520,
+          "blue": 488,
+          "white": 454,
+          "yellow": 423,
+          "red": 397
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그렉",
+          "좌측 OB",
+          "우측 해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole04.asp",
+        "imageUrl": "/holes/baekje/한성-4.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 355,
+          "blue": 335,
+          "white": 315,
+          "yellow": 297,
+          "red": 271
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "우 도그렉",
+          "좌측 해저드",
+          "우측 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole05.asp",
+        "imageUrl": "/holes/baekje/한성-5.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "6": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 162,
+          "blue": 144,
+          "white": 127,
+          "red": 109
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "좌·우 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole06.asp",
+        "imageUrl": "/holes/baekje/한성-6.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "7": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 550,
+          "blue": 518,
+          "white": 485,
+          "red": 431
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그렉",
+          "좌측 OB·해저드",
+          "우측 OB",
+          "레드·옐로 공용티(431m)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole07.asp",
+        "imageUrl": "/holes/baekje/한성-7.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      },
+      "8": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 363,
+          "blue": 338,
+          "white": 317,
+          "yellow": 298,
+          "red": 221
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "핸디캡 1번 홀(공식 표기)",
+          "좌·우 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole08.asp",
+        "imageUrl": "/holes/baekje/한성-8.jpg",
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 360,
+          "blue": 308,
+          "white": 296,
+          "yellow": 270,
+          "red": 242
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌·우 OB",
+          "그린 뒤 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.baekjecc.com/pagesite/course/three/hole09.asp",
+        "imageUrl": "/holes/baekje/한성-9.jpg",
+        "memo": "공식 핸디캡표 미공개(공식 홀 안내에 핸디캡 언급 없음)"
+      }
+    },
+    "solago:SOL-IN": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 378,
+          "blue": 354,
+          "white": 326,
+          "yellow": 289,
+          "red": 255
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole01_1.asp",
+        "imageUrl": "/holes/solago/SOL-IN-1.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "2": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 516,
+          "blue": 492,
+          "white": 465,
+          "yellow": 436,
+          "red": 408
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole02_1.asp",
+        "imageUrl": "/holes/solago/SOL-IN-2.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "3": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 199,
+          "blue": 178,
+          "white": 155,
+          "yellow": 136,
+          "red": 108
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole03.asp",
+        "imageUrl": "/holes/solago/SOL-IN-3.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "4": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 364,
+          "blue": 340,
+          "white": 317,
+          "yellow": 285,
+          "red": 251
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole04.asp",
+        "imageUrl": "/holes/solago/SOL-IN-4.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재) / 불일치: 홀별 페이지의 4.(YELLOW)=317은 WHITE값과 중복된 오기로 보임. 코스안내 총괄표(intro.asp) YELLOW=285 채택."
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 384,
+          "blue": 359,
+          "white": 335,
+          "yellow": 305,
+          "red": 283
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole05.asp",
+        "imageUrl": "/holes/solago/SOL-IN-5.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 365,
+          "blue": 355,
+          "white": 336,
+          "yellow": 312,
+          "red": 286
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole06.asp",
+        "imageUrl": "/holes/solago/SOL-IN-6.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "7": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 399,
+          "blue": 375,
+          "white": 343,
+          "yellow": 303,
+          "red": 230
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole07.asp",
+        "imageUrl": "/holes/solago/SOL-IN-7.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "8": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 169,
+          "blue": 154,
+          "white": 143,
+          "yellow": 127,
+          "red": 109
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole08.asp",
+        "imageUrl": "/holes/solago/SOL-IN-8.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "9": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 493,
+          "blue": 465,
+          "white": 433,
+          "yellow": 403,
+          "red": 383
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole09.asp",
+        "imageUrl": "/holes/solago/SOL-IN-9.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      }
+    },
+    "solago:SOL-OUT": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 364,
+          "blue": 336,
+          "white": 308,
+          "yellow": 275,
+          "red": 240
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole10.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-1.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "2": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 532,
+          "blue": 512,
+          "white": 487,
+          "yellow": 458,
+          "red": 430
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole11.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-2.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 407,
+          "blue": 375,
+          "white": 328,
+          "yellow": 289,
+          "red": 232
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole12.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-3.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "4": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 389,
+          "blue": 361,
+          "white": 343,
+          "yellow": 320,
+          "red": 291
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole13.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-4.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "5": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 179,
+          "blue": 155,
+          "white": 128,
+          "yellow": 101,
+          "red": 101
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole14.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-5.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "6": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 541,
+          "blue": 515,
+          "white": 491,
+          "yellow": 457,
+          "red": 436
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole15.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-6.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "7": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 210,
+          "blue": 184,
+          "white": 157,
+          "yellow": 131,
+          "red": 108
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole16.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-7.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "8": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 372,
+          "blue": 349,
+          "white": 327,
+          "yellow": 295,
+          "red": 277
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole17.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-8.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 381,
+          "blue": 356,
+          "white": 334,
+          "yellow": 307,
+          "red": 244
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole18.asp",
+        "imageUrl": "/holes/solago/SOL-OUT-9.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      }
+    },
+    "solago:LAGO-IN": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 385,
+          "blue": 352,
+          "white": 318,
+          "yellow": 282,
+          "red": 252
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole01_1.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-1.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 395,
+          "blue": 369,
+          "white": 332,
+          "yellow": 306,
+          "red": 279
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole02_1.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-2.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "3": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 171,
+          "blue": 150,
+          "white": 126,
+          "yellow": 103,
+          "red": 83
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole03_1.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-3.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "4": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 488,
+          "blue": 457,
+          "white": 437,
+          "yellow": 406,
+          "red": 392
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole04_1.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-4.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 401,
+          "blue": 369,
+          "white": 322,
+          "yellow": 283,
+          "red": 235
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole05.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-5.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 385,
+          "blue": 365,
+          "white": 338,
+          "yellow": 308,
+          "red": 276
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole06.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-6.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "7": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 195,
+          "blue": 170,
+          "white": 150,
+          "yellow": 127,
+          "red": 105
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole07.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-7.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "8": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 535,
+          "blue": 502,
+          "white": 473,
+          "yellow": 434,
+          "red": 363
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole08.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-8.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 388,
+          "blue": 360,
+          "white": 321,
+          "yellow": 279,
+          "red": 239
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole09.asp",
+        "imageUrl": "/holes/solago/LAGO-IN-9.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      }
+    },
+    "solago:LAGO-OUT": {
+      "1": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 521,
+          "blue": 491,
+          "white": 470,
+          "yellow": 442,
+          "red": 403
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole10.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-1.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재) / 불일치: 홀별 페이지의 3.(WHITE)=407은 YELLOW(442)보다 짧아 오기로 보임. 코스안내 총괄표(intro.asp) WHITE=470 채택."
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 381,
+          "blue": 354,
+          "white": 328,
+          "yellow": 298,
+          "red": 253
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole11.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-2.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 379,
+          "blue": 356,
+          "white": 333,
+          "yellow": 308,
+          "red": 289
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole12.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-3.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "4": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 188,
+          "blue": 166,
+          "white": 143,
+          "yellow": 123,
+          "red": 105
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole13.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-4.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 338,
+          "blue": 317,
+          "white": 298,
+          "yellow": 274,
+          "red": 253
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole14.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-5.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "6": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 509,
+          "blue": 485,
+          "white": 464,
+          "yellow": 441,
+          "red": 418
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole15.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-6.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "7": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 375,
+          "blue": 348,
+          "white": 316,
+          "yellow": 283,
+          "red": 253
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole16.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-7.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "8": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 218,
+          "blue": 186,
+          "white": 160,
+          "yellow": 129,
+          "red": 94
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole17.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-8.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 413,
+          "blue": 389,
+          "white": 361,
+          "yellow": 326,
+          "red": 285
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole18.asp",
+        "imageUrl": "/holes/solago/LAGO-OUT-9.jpg",
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+      }
+    },
+    "cheonan-sangrok:남": {
+      "1": {
+        "par": 4,
+        "handicap": 3,
+        "tee": {
+          "bt": 392,
+          "rt": 377,
+          "ft": 362,
+          "lt": 292
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-1.jpg",
+        "memo": null
+      },
+      "2": {
+        "par": 4,
+        "handicap": 2,
+        "tee": {
+          "bt": 382,
+          "rt": 364,
+          "ft": 346,
+          "lt": 304
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "좌우 해저드·우측 OB·그라스벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-2.jpg",
+        "memo": null
+      },
+      "3": {
+        "par": 5,
+        "handicap": 5,
+        "tee": {
+          "bt": 505,
+          "rt": 487,
+          "ft": 467,
+          "lt": 373
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "직선·넓은 페어웨이·우측 깊은 러프·좌측 세컨지점(190m)~그린 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-3.jpg",
+        "memo": null
+      },
+      "4": {
+        "par": 3,
+        "handicap": 6,
+        "tee": {
+          "bt": 207,
+          "rt": 190,
+          "ft": 170,
+          "lt": 110
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "내리막 파3·우측 OB·정면 해저드·좌그린 뒤 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-4.jpg",
+        "memo": null
+      },
+      "5": {
+        "par": 4,
+        "handicap": 8,
+        "tee": {
+          "bt": 352,
+          "rt": 333,
+          "ft": 313,
+          "lt": 287
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 도그렉·우측 OB·좌측 세컨지점(190m)~그린 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-5.jpg",
+        "memo": null
+      },
+      "6": {
+        "par": 4,
+        "handicap": 4,
+        "tee": {
+          "bt": 381,
+          "rt": 361,
+          "ft": 342,
+          "lt": 292
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 OB·좌측 세컨지점 급경사·해저드·세컨 우측 OB·벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-6.jpg",
+        "memo": null
+      },
+      "7": {
+        "par": 5,
+        "handicap": 7,
+        "tee": {
+          "bt": 490,
+          "rt": 474,
+          "ft": 462,
+          "lt": 388
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 OB·좌측 그라스벙커·좌측 히든 해저드·벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-7.jpg",
+        "memo": null
+      },
+      "8": {
+        "par": 3,
+        "handicap": 9,
+        "tee": {
+          "bt": 173,
+          "rt": 158,
+          "ft": 141,
+          "lt": 119
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "오르막·그린 앞 벙커·좌측 벙커·해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-8.jpg",
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "bt": 400,
+          "rt": 382,
+          "ft": 364,
+          "lt": 312
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 OB·좌측 해저드·핸디캡 1번·그린 앞 좁은 페어웨이·세컨 우측 벙커·OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/남-9.jpg",
+        "memo": null
+      }
+    },
+    "cheonan-sangrok:중": {
+      "1": {
+        "par": 4,
+        "handicap": 5,
+        "tee": {
+          "bt": 385,
+          "rt": 367,
+          "ft": 346,
+          "lt": 319
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "내리막·우측 OB·벙커·그린 앞 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-1.jpg",
+        "memo": null
+      },
+      "2": {
+        "par": 5,
+        "handicap": 8,
+        "tee": {
+          "bt": 495,
+          "rt": 470,
+          "ft": 450,
+          "lt": 362
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 도그렉·우측 OB·벙커·블라인드 그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-2.jpg",
+        "memo": null
+      },
+      "3": {
+        "par": 3,
+        "handicap": 9,
+        "tee": {
+          "bt": 168,
+          "rt": 155,
+          "ft": 139,
+          "lt": 124
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "전면 해저드·우측 OB·그린 옆 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-3.jpg",
+        "memo": null
+      },
+      "4": {
+        "par": 4,
+        "handicap": 3,
+        "tee": {
+          "bt": 386,
+          "rt": 375,
+          "ft": 359,
+          "lt": 303
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "세컨지점 내리막·좌우 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-4.jpg",
+        "memo": null
+      },
+      "5": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "bt": 381,
+          "rt": 363,
+          "ft": 347,
+          "lt": 277
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 커브 오르막·핸디캡 1번·세컨 우측 벙커·슬라이스 홀"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-5.jpg",
+        "memo": null
+      },
+      "6": {
+        "par": 3,
+        "handicap": 7,
+        "tee": {
+          "bt": 202,
+          "rt": 188,
+          "ft": 173,
+          "lt": 132
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "긴 파3·좌그린 공략시 OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-6.jpg",
+        "memo": null
+      },
+      "7": {
+        "par": 4,
+        "handicap": 2,
+        "tee": {
+          "bt": 389,
+          "rt": 372,
+          "ft": 354,
+          "lt": 299
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "좌 커브·우측 슬라이스시 OB·오르막 그린·세컨지점 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-7.jpg",
+        "memo": null
+      },
+      "8": {
+        "par": 5,
+        "handicap": 6,
+        "tee": {
+          "bt": 507,
+          "rt": 484,
+          "ft": 467,
+          "lt": 403
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "좌 도그렉·좁은 페어웨이·좌우 OB(우측 OB는 세컨지점까지)·좌그린 포대그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-8.jpg",
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": 4,
+        "tee": {
+          "bt": 409,
+          "rt": 391,
+          "ft": 371,
+          "lt": 308
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "긴 파4·좌측 샌드·그라스벙커·세컨 우측 벙커·OB"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/중-9.jpg",
+        "memo": null
+      }
+    },
+    "cheonan-sangrok:동": {
+      "1": {
+        "par": 4,
+        "handicap": 9,
+        "tee": {
+          "bt": 350,
+          "rt": 335,
+          "ft": 314,
+          "lt": 293
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 OB·벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-1.jpg",
+        "memo": null
+      },
+      "2": {
+        "par": 4,
+        "handicap": 8,
+        "tee": {
+          "bt": 340,
+          "rt": 328,
+          "ft": 310,
+          "lt": 258
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "슬라이스 홀·양측 OB·오르막 그린·그린 뒤 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-2.jpg",
+        "memo": null
+      },
+      "3": {
+        "par": 4,
+        "handicap": 6,
+        "tee": {
+          "bt": 360,
+          "rt": 345,
+          "ft": 327,
+          "lt": 268
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 도그렉·우측 OB·세컨지점 벙커·그린 뒤 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-3.jpg",
+        "memo": null
+      },
+      "4": {
+        "par": 3,
+        "handicap": 7,
+        "tee": {
+          "bt": 180,
+          "rt": 166,
+          "ft": 149,
+          "lt": 128
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "슬라이스 홀·그린 뒤 벙커·경사 그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-4.jpg",
+        "memo": null
+      },
+      "5": {
+        "par": 5,
+        "handicap": 2,
+        "tee": {
+          "bt": 560,
+          "rt": 540,
+          "ft": 513,
+          "lt": 417
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "최장 페어웨이·좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-5.jpg",
+        "memo": null
+      },
+      "6": {
+        "par": 3,
+        "handicap": 5,
+        "tee": {
+          "bt": 187,
+          "rt": 165,
+          "ft": 149,
+          "lt": 129
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "정면 해저드·그린 우측 해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-6.jpg",
+        "memo": null
+      },
+      "7": {
+        "par": 4,
+        "handicap": 3,
+        "tee": {
+          "bt": 360,
+          "rt": 344,
+          "ft": 326,
+          "lt": 306
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "오르막·2단 그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-7.jpg",
+        "memo": null
+      },
+      "8": {
+        "par": 5,
+        "handicap": 4,
+        "tee": {
+          "bt": 500,
+          "rt": 485,
+          "ft": 465,
+          "lt": 444
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "내리막·그린 직접공략시 우측 해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-8.jpg",
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "bt": 365,
+          "rt": 346,
+          "ft": 329,
+          "lt": 277
+        },
+        "teeOrder": [
+          "bt",
+          "rt",
+          "ft",
+          "lt"
+        ],
+        "hazards": [
+          "우측 오르막 도그렉"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.sangnokresort.co.kr/M040602",
+        "imageUrl": "/holes/cheonan-sangrok/동-9.jpg",
+        "memo": null
+      }
+    },
+    "yemiji:예": {
+      "1": {
+        "par": 4,
+        "handicap": 4,
+        "tee": {
+          "black": 379,
+          "blue": 352,
+          "white": 310,
+          "lady": 260
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "2": {
+        "par": 5,
+        "handicap": 3,
+        "tee": {
+          "black": 496,
+          "blue": 461,
+          "white": 446,
+          "lady": 376
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 O.B, 우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "3": {
+        "par": 4,
+        "handicap": 7,
+        "tee": {
+          "black": 396,
+          "blue": 371,
+          "white": 341,
+          "lady": 246
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "4": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 367,
+          "blue": 340,
+          "white": 310,
+          "lady": 250
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 O.B, 우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "5": {
+        "par": 3,
+        "handicap": 8,
+        "tee": {
+          "black": 149,
+          "blue": 115,
+          "white": 100,
+          "lady": 80
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "6": {
+        "par": 4,
+        "handicap": 6,
+        "tee": {
+          "black": 353,
+          "blue": 334,
+          "white": 304,
+          "lady": 239
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "7": {
+        "par": 3,
+        "handicap": 9,
+        "tee": {
+          "black": 156,
+          "blue": 125,
+          "white": 105,
+          "lady": 75
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "8": {
+        "par": 5,
+        "handicap": 5,
+        "tee": {
+          "black": 526,
+          "blue": 493,
+          "white": 455,
+          "lady": 435
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 O.B, 우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": 2,
+        "tee": {
+          "black": 422,
+          "blue": 392,
+          "white": 350,
+          "lady": 275
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course01",
+        "imageUrl": null,
+        "memo": null
+      }
+    },
+    "yemiji:미": {
+      "1": {
+        "par": 5,
+        "handicap": 2,
+        "tee": {
+          "black": 515,
+          "blue": 495,
+          "white": 443,
+          "lady": 372
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      },
+      "2": {
+        "par": 4,
+        "handicap": 7,
+        "tee": {
+          "black": 334,
+          "blue": 293,
+          "white": 242,
+          "lady": 197
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      },
+      "3": {
+        "par": 3,
+        "handicap": 9,
+        "tee": {
+          "black": 165,
+          "blue": 135,
+          "white": 103,
+          "lady": 80
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": "홀상세 페이지에 PAR 4로 표기되나 거리표(165m 파3 규격) 및 전체 코스표 PAR 3과 불일치. 전체 코스표 값을 채택."
+      },
+      "4": {
+        "par": 4,
+        "handicap": 5,
+        "tee": {
+          "black": 348,
+          "blue": 325,
+          "white": 298,
+          "lady": 260
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      },
+      "5": {
+        "par": 3,
+        "handicap": 8,
+        "tee": {
+          "black": 142,
+          "blue": 111,
+          "white": 83,
+          "lady": 80
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": "홀상세 페이지의 티별 거리(348/325/298/260m)는 4번홀 값과 동일하게 오기재된 것으로 보임. 전체 코스표 값(142/111/83/80m)을 채택."
+      },
+      "6": {
+        "par": 4,
+        "handicap": 6,
+        "tee": {
+          "black": 351,
+          "blue": 332,
+          "white": 301,
+          "lady": 227
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      },
+      "7": {
+        "par": 4,
+        "handicap": 4,
+        "tee": {
+          "black": 329,
+          "blue": 317,
+          "white": 302,
+          "lady": 203
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      },
+      "8": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 392,
+          "blue": 374,
+          "white": 350,
+          "lady": 225
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      },
+      "9": {
+        "par": 5,
+        "handicap": 3,
+        "tee": {
+          "black": 499,
+          "blue": 474,
+          "white": 449,
+          "lady": 367
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌측 H.Z, 우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course02",
+        "imageUrl": null,
+        "memo": null
+      }
+    },
+    "yemiji:지": {
+      "1": {
+        "par": 4,
+        "handicap": 7,
+        "tee": {
+          "black": 381,
+          "blue": 365,
+          "white": 362,
+          "lady": 297
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "2": {
+        "par": 5,
+        "handicap": 3,
+        "tee": {
+          "black": 538,
+          "blue": 513,
+          "white": 471,
+          "lady": 358
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "3": {
+        "par": 3,
+        "handicap": 9,
+        "tee": {
+          "black": 120,
+          "blue": 104,
+          "white": 82,
+          "lady": 70
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "4": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 386,
+          "blue": 355,
+          "white": 322,
+          "lady": 237
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 O.B"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "5": {
+        "par": 5,
+        "handicap": 2,
+        "tee": {
+          "black": 545,
+          "blue": 513,
+          "white": 487,
+          "lady": 417
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "6": {
+        "par": 3,
+        "handicap": 4,
+        "tee": {
+          "black": 198,
+          "blue": 165,
+          "white": 164,
+          "lady": 116
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "7": {
+        "par": 4,
+        "handicap": 8,
+        "tee": {
+          "black": 337,
+          "blue": 322,
+          "white": 298,
+          "lady": 243
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "8": {
+        "par": 4,
+        "handicap": 5,
+        "tee": {
+          "black": 393,
+          "blue": 361,
+          "white": 315,
+          "lady": 247
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": 4,
+        "tee": {
+          "black": 389,
+          "blue": 362,
+          "white": 316,
+          "lady": 230
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "lady"
+        ],
+        "hazards": [
+          "좌/우측 H.Z"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.yemizicc.co.kr/course/course03",
+        "imageUrl": null,
+        "memo": null
+      }
+    },
+    "lynx:Queens": {
+      "1": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 530,
+          "blue": 500,
+          "white": 470,
+          "yellow": 440,
+          "red": 390
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course01.asp",
+        "imageUrl": "/holes/lynx/Queens-1.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 405,
+          "blue": 385,
+          "white": 350,
+          "yellow": 325,
+          "red": 305
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course02.asp",
+        "imageUrl": "/holes/lynx/Queens-2.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 365,
+          "blue": 335,
+          "white": 315,
+          "yellow": 280,
+          "red": 250
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course03.asp",
+        "imageUrl": "/holes/lynx/Queens-3.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "4": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 170,
+          "blue": 145,
+          "white": 120,
+          "yellow": 105,
+          "red": 85
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course04.asp",
+        "imageUrl": "/holes/lynx/Queens-4.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 370,
+          "blue": 350,
+          "white": 320,
+          "yellow": 290,
+          "red": 270
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course05.asp",
+        "imageUrl": "/holes/lynx/Queens-5.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 400,
+          "blue": 375,
+          "white": 345,
+          "yellow": 320,
+          "red": 295
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course06.asp",
+        "imageUrl": "/holes/lynx/Queens-6.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "7": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 565,
+          "blue": 545,
+          "white": 515,
+          "yellow": 480,
+          "red": 425
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course07.asp",
+        "imageUrl": "/holes/lynx/Queens-7.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "8": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 195,
+          "blue": 175,
+          "white": 145,
+          "yellow": 130,
+          "red": 115
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course08.asp",
+        "imageUrl": "/holes/lynx/Queens-8.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 375,
+          "blue": 350,
+          "white": 325,
+          "yellow": 290,
+          "red": 270
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course09.asp",
+        "imageUrl": "/holes/lynx/Queens-9.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "10": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 390,
+          "blue": 365,
+          "white": 340,
+          "yellow": 295,
+          "red": 265
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course10.asp",
+        "imageUrl": "/holes/lynx/Queens-10.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "11": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 560,
+          "blue": 540,
+          "white": 510,
+          "yellow": 480,
+          "red": 440
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course11.asp",
+        "imageUrl": "/holes/lynx/Queens-11.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "12": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 395,
+          "blue": 375,
+          "white": 350,
+          "yellow": 320,
+          "red": 290
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course12.asp",
+        "imageUrl": "/holes/lynx/Queens-12.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "13": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 160,
+          "blue": 140,
+          "white": 125,
+          "yellow": 115,
+          "red": 90
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course13.asp",
+        "imageUrl": "/holes/lynx/Queens-13.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "14": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 380,
+          "blue": 345,
+          "white": 315,
+          "yellow": 285,
+          "red": 265
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course14.asp",
+        "imageUrl": "/holes/lynx/Queens-14.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "15": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 355,
+          "blue": 335,
+          "white": 310,
+          "yellow": 285,
+          "red": 255
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course15.asp",
+        "imageUrl": "/holes/lynx/Queens-15.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "16": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 555,
+          "blue": 530,
+          "white": 495,
+          "yellow": 460,
+          "red": 410
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course16.asp",
+        "imageUrl": "/holes/lynx/Queens-16.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "17": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 175,
+          "blue": 150,
+          "white": 120,
+          "yellow": 100,
+          "red": 85
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course17.asp",
+        "imageUrl": "/holes/lynx/Queens-17.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "18": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 360,
+          "blue": 340,
+          "white": 305,
+          "yellow": 280,
+          "red": 255
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course18.asp",
+        "imageUrl": "/holes/lynx/Queens-18.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      }
+    },
+    "lynx:Kings": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 375,
+          "blue": 350,
+          "white": 320,
+          "yellow": 285,
+          "red": 260
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course19.asp",
+        "imageUrl": "/holes/lynx/Kings-1.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "2": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 485,
+          "blue": 470,
+          "white": 440,
+          "yellow": 420,
+          "red": 395
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course20.asp",
+        "imageUrl": "/holes/lynx/Kings-2.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 320,
+          "blue": 290,
+          "white": 255,
+          "yellow": 245,
+          "red": 230
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course21.asp",
+        "imageUrl": "/holes/lynx/Kings-3.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "4": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 180,
+          "blue": 155,
+          "white": 140,
+          "yellow": 130,
+          "red": 115
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course22.asp",
+        "imageUrl": "/holes/lynx/Kings-4.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "5": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 545,
+          "blue": 510,
+          "white": 470,
+          "yellow": 440,
+          "red": 415
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course23.asp",
+        "imageUrl": "/holes/lynx/Kings-5.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 360,
+          "blue": 330,
+          "white": 295,
+          "yellow": 270,
+          "red": 250
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course24.asp",
+        "imageUrl": "/holes/lynx/Kings-6.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "7": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 200,
+          "blue": 155,
+          "white": 145,
+          "yellow": 125,
+          "red": 100
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course25.asp",
+        "imageUrl": "/holes/lynx/Kings-7.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "8": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 390,
+          "blue": 370,
+          "white": 335,
+          "yellow": 305,
+          "red": 230
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course26.asp",
+        "imageUrl": "/holes/lynx/Kings-8.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 425,
+          "blue": 365,
+          "white": 340,
+          "yellow": 305,
+          "red": 280
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course27.asp",
+        "imageUrl": "/holes/lynx/Kings-9.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "10": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 500,
+          "blue": 475,
+          "white": 435,
+          "yellow": 410,
+          "red": 380
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course28.asp",
+        "imageUrl": "/holes/lynx/Kings-10.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "11": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 395,
+          "blue": 370,
+          "white": 340,
+          "yellow": 300,
+          "red": 265
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course29.asp",
+        "imageUrl": "/holes/lynx/Kings-11.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "12": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 215,
+          "blue": 180,
+          "white": 145,
+          "yellow": 135,
+          "red": 130
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course30.asp",
+        "imageUrl": "/holes/lynx/Kings-12.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "13": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 405,
+          "blue": 365,
+          "white": 335,
+          "yellow": 300,
+          "red": 270
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course31.asp",
+        "imageUrl": "/holes/lynx/Kings-13.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "14": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 380,
+          "blue": 355,
+          "white": 330,
+          "yellow": 315,
+          "red": 275
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course32.asp",
+        "imageUrl": "/holes/lynx/Kings-14.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "15": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 165,
+          "blue": 135,
+          "white": 110,
+          "yellow": null,
+          "red": 85
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course33.asp",
+        "imageUrl": "/holes/lynx/Kings-15.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null. 공식 홀상세·코스개요표 모두 Yellow티 거리 미표기(-). 해당 티 null."
+      },
+      "16": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 495,
+          "blue": 475,
+          "white": 455,
+          "yellow": 425,
+          "red": 395
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course34.asp",
+        "imageUrl": "/holes/lynx/Kings-16.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "17": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 400,
+          "blue": 375,
+          "white": 335,
+          "yellow": 305,
+          "red": 275
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course35.asp",
+        "imageUrl": "/holes/lynx/Kings-17.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      },
+      "18": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 430,
+          "blue": 405,
+          "white": 390,
+          "yellow": 360,
+          "red": 325
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": null,
+        "verified": true,
+        "sourceUrl": "https://royallinks.co.kr/course/course36.asp",
+        "imageUrl": "/holes/lynx/Kings-18.jpg",
+        "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null."
+      }
+    },
+    "goldenbay:마운틴": {
+      "1": {
+        "par": 4,
+        "handicap": 9,
+        "tee": {
+          "black": 331,
+          "blue": 303,
+          "white": 271,
+          "gold": null,
+          "red": 245
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "티잉그라운드부터 이어지는 워터해저드",
+          "그린 우측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-1.jpg",
+        "memo": "골드티 거리 공식 미표기(-m)"
+      },
+      "2": {
+        "par": 3,
+        "handicap": 6,
+        "tee": {
+          "black": 156,
+          "blue": 124,
+          "white": 106,
+          "gold": null,
+          "red": 92
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "아일랜드홀",
+          "그린 앞 벙커",
+          "그린 뒷편 여유공간 없음(OB 유의 표기)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-2.jpg",
+        "memo": "골드티 거리 공식 미표기(-m)"
+      },
+      "3": {
+        "par": 5,
+        "handicap": 4,
+        "tee": {
+          "black": 545,
+          "blue": 504,
+          "white": 478,
+          "gold": 455,
+          "red": 432
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "약간 우측 도그레그",
+          "1st IP 이후 오르막 블라인드 구간 가능",
+          "슬라이스 라이 표기"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-3.jpg",
+        "memo": null
+      },
+      "4": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 412,
+          "blue": 392,
+          "white": 353,
+          "gold": null,
+          "red": 319
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "오르막 좌측 도그레그",
+          "1st IP 우측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-4.jpg",
+        "memo": "골드티 거리 공식 미표기(-m)"
+      },
+      "5": {
+        "par": 3,
+        "handicap": 5,
+        "tee": {
+          "black": 190,
+          "blue": 159,
+          "white": 133,
+          "gold": null,
+          "red": 102
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "오르막 파3",
+          "그린 주변 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-5.jpg",
+        "memo": "골드티 거리 공식 미표기(-m)"
+      },
+      "6": {
+        "par": 4,
+        "handicap": 8,
+        "tee": {
+          "black": 351,
+          "blue": 327,
+          "white": 305,
+          "gold": null,
+          "red": 284
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "전반적 내리막 언듈레이션",
+          "바람 변수 표기"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-6.jpg",
+        "memo": "골드티 거리 공식 미표기(-m)"
+      },
+      "7": {
+        "par": 4,
+        "handicap": 2,
+        "tee": {
+          "black": 359,
+          "blue": 339,
+          "white": 316,
+          "gold": 286,
+          "red": 245
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "오르막 우측 도그레그",
+          "그린 앞 페어웨이 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-7.jpg",
+        "memo": null
+      },
+      "8": {
+        "par": 4,
+        "handicap": 7,
+        "tee": {
+          "black": 335,
+          "blue": 311,
+          "white": 285,
+          "gold": 286,
+          "red": 263
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "짧은 파4",
+          "좌측 수림지대·벙커",
+          "그린 주변 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-8.jpg",
+        "memo": "공식 표기상 골드(286m)가 화이트(285m)보다 1m 김. 오타 가능이나 원문 그대로 기록"
+      },
+      "9": {
+        "par": 5,
+        "handicap": 3,
+        "tee": {
+          "black": 563,
+          "blue": 539,
+          "white": 514,
+          "gold": 491,
+          "red": 462
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "넓은 페어웨이",
+          "그린 좌측·뒤편 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/mountain.asp",
+        "imageUrl": "/holes/goldenbay/마운틴-9.jpg",
+        "memo": null
+      }
+    },
+    "goldenbay:오션": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 372,
+          "blue": 357,
+          "white": 331,
+          "gold": 298,
+          "red": 265
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "1st IP 우측 벙커·노출암",
+          "2nd 우측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-1.jpg",
+        "memo": "공식 가이드에 HDCP 미표기"
+      },
+      "2": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 149,
+          "blue": 117,
+          "white": 97,
+          "gold": null,
+          "red": 78
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "그린 앞 넓은 벙커",
+          "그린 주변 노출암"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-2.jpg",
+        "memo": "공식 가이드에 HDCP 미표기. 골드티 거리 미표기(-m)"
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 279,
+          "blue": 247,
+          "white": 219,
+          "gold": 195,
+          "red": 177
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "티잉그라운드 전방 수림지대",
+          "1st IP 주변 폭 좁음·다수 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-3.jpg",
+        "memo": "공식 가이드에 HDCP 미표기"
+      },
+      "4": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 532,
+          "blue": 481,
+          "white": 454,
+          "gold": 433,
+          "red": 412
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "일자형 파5",
+          "그린 전방 워터해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-4.jpg",
+        "memo": "공식 가이드에 HDCP 미표기"
+      },
+      "5": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 329,
+          "blue": 302,
+          "white": 268,
+          "gold": null,
+          "red": 203
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "티잉그라운드 전방~우측 워터해저드",
+          "우측 송림지대",
+          "그린 주변 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-5.jpg",
+        "memo": "공식 가이드에 HDCP 미표기. 골드티 433m는 거리 흐름상(화이트 268m·레드 203m) 오타로 보이나 원문 그대로 기록, 앱 노출 시 제외 권장 / 불일치: 골드티 433m는 거리 흐름상 오타로 보임(원문 기록, 앱 노출 제외)"
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 366,
+          "blue": 321,
+          "white": 295,
+          "gold": null,
+          "red": 256
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "일자형 코스",
+          "1st IP 언듈레이션",
+          "2nd 우측 벙커 2개"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-6.jpg",
+        "memo": "공식 가이드에 HDCP 미표기. 골드티 거리 미표기(-m)"
+      },
+      "7": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 524,
+          "blue": 486,
+          "white": 450,
+          "gold": null,
+          "red": 416
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "내리막 파5",
+          "1st IP 좌우 벙커",
+          "그린 좌측 벙커 3개"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-7.jpg",
+        "memo": "공식 가이드에 HDCP 미표기. 골드티 거리 미표기(-m)"
+      },
+      "8": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 212,
+          "blue": 175,
+          "white": 158,
+          "gold": null,
+          "red": 123
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "그린 주변 벙커",
+          "바람 변수 표기"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-8.jpg",
+        "memo": "공식 가이드에 HDCP 미표기. 골드티 거리 미표기(-m)"
+      },
+      "9": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 319,
+          "blue": 279,
+          "white": 233,
+          "gold": null,
+          "red": 197
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "1st IP 주변 벙커",
+          "좁은 그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/ocean.asp",
+        "imageUrl": "/holes/goldenbay/오션-9.jpg",
+        "memo": "공식 가이드에 HDCP 미표기. 골드티 거리 미표기(-m). 홀 표기는 PAR 5이나 본문 첫 문장이 'PAR 4홀'로 서술하는 불일치 존재. 파 표기는 홀见出し 기준"
+      }
+    },
+    "goldenbay:밸리": {
+      "1": {
+        "par": 4,
+        "handicap": 8,
+        "tee": {
+          "black": 354,
+          "blue": 335,
+          "white": 312,
+          "gold": 287,
+          "red": 243
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "티잉그라운드~1st IP 내리막",
+          "1st IP 우측 벙커",
+          "페어웨이 좌측 돌출 암석",
+          "그린 좌우 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-1.jpg",
+        "memo": "가이드 페이지 탭 구조상 개별 이미지 존재하나 텍스트 추출에서 미포착"
+      },
+      "2": {
+        "par": 4,
+        "handicap": 9,
+        "tee": {
+          "black": 390,
+          "blue": 342,
+          "white": 294,
+          "gold": null,
+          "red": 266
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "좌측 도그레그 내리막",
+          "티잉그라운드 전방 워터해저드",
+          "좌측 벙커",
+          "2nd 오르막 라이"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-2.jpg",
+        "memo": "골드티 거리 미표기(-m)"
+      },
+      "3": {
+        "par": 3,
+        "handicap": 4,
+        "tee": {
+          "black": 219,
+          "blue": 192,
+          "white": 166,
+          "gold": null,
+          "red": 117
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "좌측 워터해저드 레이크사이드 파3",
+          "바람 변수 표기"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-3.jpg",
+        "memo": "골드티 거리 미표기(-m)"
+      },
+      "4": {
+        "par": 4,
+        "handicap": 6,
+        "tee": {
+          "black": 364,
+          "blue": 332,
+          "white": 309,
+          "gold": null,
+          "red": 269
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "페어웨이 언듈레이션 복잡",
+          "좌측~그린 워터해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-4.jpg",
+        "memo": "골드티 거리 미표기(-m)"
+      },
+      "5": {
+        "par": 5,
+        "handicap": 2,
+        "tee": {
+          "black": 521,
+          "blue": 483,
+          "white": 455,
+          "gold": 427,
+          "red": 392
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "2nd 전방 페어웨이 가로지르는 워터해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-5.jpg",
+        "memo": null
+      },
+      "6": {
+        "par": 4,
+        "handicap": 7,
+        "tee": {
+          "black": 322,
+          "blue": 283,
+          "white": 245,
+          "gold": null,
+          "red": 214
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "넓은 페어웨이 짧은 파4",
+          "좌우 벙커",
+          "그린 좌우 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-6.jpg",
+        "memo": "골드티 거리 미표기(-m)"
+      },
+      "7": {
+        "par": 4,
+        "handicap": 1,
+        "tee": {
+          "black": 348,
+          "blue": 320,
+          "white": 308,
+          "gold": null,
+          "red": 221
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "페어웨이 앞 워터해저드",
+          "1st IP 좌우 벙커",
+          "그린 앞 크리크",
+          "그린 좌우 벙커",
+          "2단 그린"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-7.jpg",
+        "memo": "골드티 거리 미표기(-m)"
+      },
+      "8": {
+        "par": 3,
+        "handicap": 5,
+        "tee": {
+          "black": 191,
+          "blue": 178,
+          "white": 154,
+          "gold": 131,
+          "red": 91
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "긴 오르막 파3"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-8.jpg",
+        "memo": null
+      },
+      "9": {
+        "par": 5,
+        "handicap": 3,
+        "tee": {
+          "black": 590,
+          "blue": 570,
+          "white": 547,
+          "gold": null,
+          "red": 479
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "gold",
+          "red"
+        ],
+        "hazards": [
+          "GBGR 최장 파5 표기",
+          "1st IP 좌측 암사면 지역",
+          "그린 주변 벙커",
+          "난도 높은 그린 표기"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.goldenbay.kr/course/valley.asp",
+        "imageUrl": "/holes/goldenbay/밸리-9.jpg",
+        "memo": "골드티 거리 미표기(-m)"
+      }
+    },
+    "areumnadaun:HILL": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 414,
+          "blue": 391,
+          "white": 366,
+          "yellow": 344,
+          "red": 307
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "내리막",
+          "우측 암벽",
+          "페어웨이 벙커(좌)",
+          "그린 우측 bail-out area"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 404,
+          "blue": 384,
+          "white": 356,
+          "yellow": 326,
+          "red": 296
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그레그",
+          "그린사이드 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "3": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 180,
+          "blue": 159,
+          "white": 141,
+          "yellow": 122,
+          "red": 103
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "그린 좌·우 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "4": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 400,
+          "blue": 378,
+          "white": 356,
+          "yellow": 336,
+          "red": 302
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "연못(내리막)",
+          "그린 좌측 벙커·해저드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "5": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 490,
+          "blue": 459,
+          "white": 435,
+          "yellow": 412,
+          "red": 389
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "연못 건너 티샷",
+          "오르막",
+          "Bracket Bunker",
+          "그린 우측 벙커·뒤 연못"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "6": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 195,
+          "blue": 181,
+          "white": 169,
+          "yellow": 141,
+          "red": 119
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "연못 건너 티샷"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "7": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 376,
+          "blue": 361,
+          "white": 335,
+          "yellow": 300,
+          "red": 260
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "페어웨이 우측 OB",
+          "연못(그린 우측)",
+          "Sky Green"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "8": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 484,
+          "blue": 460,
+          "white": 431,
+          "yellow": 405,
+          "red": 373
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌 도그레그",
+          "Split Fairway",
+          "벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 410,
+          "blue": 387,
+          "white": 359,
+          "yellow": 333,
+          "red": 305
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌·우 벙커",
+          "그린 전방 bail-out area"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course02.asp",
+        "imageUrl": null,
+        "memo": null
+      }
+    },
+    "areumnadaun:LAKE": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 385,
+          "blue": 371,
+          "white": 350,
+          "yellow": 326,
+          "red": 304
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "내리막",
+          "그린 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 382,
+          "blue": 356,
+          "white": 329,
+          "yellow": 302,
+          "red": 278
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "우측 Waste Area"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "3": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 375,
+          "blue": 347,
+          "white": 326,
+          "yellow": 302,
+          "red": 278
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 연못·Creek(그린까지 연결)",
+          "우측 벙커",
+          "그린 우측 벙커·좌측 연못"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "4": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 468,
+          "blue": 442,
+          "white": 411,
+          "yellow": 372,
+          "red": 329
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "우 도그레그·오르막",
+          "Creek(좌)",
+          "벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "5": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 206,
+          "blue": 188,
+          "white": 169,
+          "yellow": 139,
+          "red": 119
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "주변 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 430,
+          "blue": 411,
+          "white": 389,
+          "yellow": 364,
+          "red": 316
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "그린 좌측 bail-out area"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "7": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 225,
+          "blue": 198,
+          "white": 170,
+          "yellow": 140,
+          "red": 116
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "그린 좌측 벙커(세이빙)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "8": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 359,
+          "blue": 331,
+          "white": 299,
+          "yellow": 282,
+          "red": 256
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "그린 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "9": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 528,
+          "blue": 495,
+          "white": 467,
+          "yellow": 440,
+          "red": 413
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "Cross Bunker",
+          "그린 주변 벙커·연못"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course03.asp",
+        "imageUrl": null,
+        "memo": null
+      }
+    },
+    "areumnadaun:ROCK": {
+      "1": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 371,
+          "blue": 354,
+          "white": 335,
+          "yellow": 322,
+          "red": 270
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 페어웨이 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "2": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 354,
+          "blue": 342,
+          "white": 329,
+          "yellow": 318,
+          "red": 274
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "연못(좌 도그레그 내리막)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "3": {
+        "par": 4,
+        "handicap": 2,
+        "tee": {
+          "black": 392,
+          "blue": 363,
+          "white": 353,
+          "yellow": 330,
+          "red": 320
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "오르막",
+          "페어웨이 좌측 벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": "핸디캡은 공식 본문 언급(핸디캡 2번) 근거"
+      },
+      "4": {
+        "par": 5,
+        "handicap": null,
+        "tee": {
+          "black": 515,
+          "blue": 500,
+          "white": 484,
+          "yellow": 459,
+          "red": 432
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "페어웨이 중앙 벙커",
+          "그린 우측 크리크",
+          "채석장·암벽"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "5": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 165,
+          "blue": 149,
+          "white": 137,
+          "yellow": 127,
+          "red": 121
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "바위 계곡·크리크",
+          "벙커"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "6": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 370,
+          "blue": 355,
+          "white": 335,
+          "yellow": 310,
+          "red": 256
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "우측 연못",
+          "비치 벙커(우)"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "7": {
+        "par": 5,
+        "handicap": 1,
+        "tee": {
+          "black": 516,
+          "blue": 503,
+          "white": 455,
+          "yellow": 445,
+          "red": 408
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "오르막 우 도그레그"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": "핸디캡은 공식 본문 언급(핸디캡 1번) 근거"
+      },
+      "8": {
+        "par": 3,
+        "handicap": null,
+        "tee": {
+          "black": 178,
+          "blue": 168,
+          "white": 156,
+          "yellow": 145,
+          "red": 121
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "우측 벙커",
+          "그린 좌측 마운드"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
+      },
+      "9": {
+        "par": 4,
+        "handicap": null,
+        "tee": {
+          "black": 367,
+          "blue": 354,
+          "white": 338,
+          "yellow": 328,
+          "red": 275
+        },
+        "teeOrder": [
+          "black",
+          "blue",
+          "white",
+          "yellow",
+          "red"
+        ],
+        "hazards": [
+          "좌측 절벽"
+        ],
+        "verified": true,
+        "sourceUrl": "https://www.arumdaunresort.com/html/course04.asp",
+        "imageUrl": null,
+        "memo": null
       }
     }
+  },
+  "meta": {
+    "totalHoles": 207,
+    "verified": 207,
+    "unverified": 0
   }
 }

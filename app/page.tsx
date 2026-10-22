@@ -5,37 +5,27 @@ import {
   AlertTriangle,
   BookOpen,
   ChevronRight,
-  Droplets,
   Flag,
   MapPin,
   Navigation,
   NotebookPen,
   Ruler,
   Search,
-  Waves,
-  Mountain,
-  CircleDot,
 } from "lucide-react";
 import raw from "@/data/courses.json";
 import HoleDiagram, { type HoleDiagramData } from "@/components/HoleDiagram";
 
-type TeeKey = "champion" | "tour" | "front" | "senior" | "lady";
-type PinKey = "front" | "middle" | "back";
-
-interface Hazard {
-  type: string;
-  message: string;
-}
 interface Hole {
-  sample: boolean;
   par: number;
-  handicap: number;
-  teeBox: Record<TeeKey, number>;
-  hazards: Hazard[];
-  strategy: { teeShot: string; approach: string; green: string };
-  pinTips: Record<PinKey, string>;
-  imageUrl?: string;
-  diagram?: HoleDiagramData;
+  handicap: number | null;
+  tee: Record<string, number | null>;
+  teeOrder: string[];
+  hazards: string[] | null;
+  verified: boolean;
+  sourceUrl: string;
+  imageUrl: string | null;
+  memo: string | null;
+  holeName?: string;
 }
 interface Club {
   id: string;
@@ -46,40 +36,34 @@ interface Club {
 interface Data {
   clubs: Club[];
   holes: Record<string, Record<string, Hole>>;
+  meta: { totalHoles: number; verified: number; unverified: number };
 }
 
 const DATA = raw as unknown as Data;
-const TEE_LABELS: { key: TeeKey; label: string }[] = [
-  { key: "champion", label: "챔피언" },
-  { key: "tour", label: "투어" },
-  { key: "front", label: "프론트" },
-  { key: "senior", label: "시니어" },
-  { key: "lady", label: "레이디" },
-];
-const PIN_LABELS: { key: PinKey; label: string }[] = [
-  { key: "front", label: "앞핀" },
-  { key: "middle", label: "중간핀" },
-  { key: "back", label: "뒷핀" },
-];
 
-/** 홀 정보 상태: 미입력(회색) / 예시(노랑) / 실측확인(초록). 부정확한 정보는 없는 것만 못하므로, 미확인 수치는 표시하지 않는다. */
-type HoleStatus = "missing" | "example" | "verified";
-function holeStatus(h: Hole | undefined): HoleStatus {
-  if (!h) return "missing";
-  return h.sample === true ? "example" : "verified";
+const TEE_LABELS: Record<string, string> = {
+  black: "블랙",
+  blue: "블루",
+  white: "화이트",
+  yellow: "옐로우",
+  red: "레드",
+  gold: "골드",
+  lady: "레이디",
+  bt: "B/T",
+  rt: "R/T",
+  ft: "F/T",
+  lt: "L/T",
+};
+
+function teeLabel(key: string): string {
+  return TEE_LABELS[key] ?? key;
 }
 
-function StatusBadge({ status }: { status: HoleStatus }) {
-  if (status === "verified")
+function StatusBadge({ verified }: { verified: boolean }) {
+  if (verified)
     return (
       <span className="rounded-full border-2 border-emerald-300 px-3 py-0.5 text-base font-extrabold text-emerald-300">
-        실측확인
-      </span>
-    );
-  if (status === "example")
-    return (
-      <span className="rounded-full border-2 border-amber-300 px-3 py-0.5 text-base font-extrabold text-amber-300">
-        예시
+        공식확인
       </span>
     );
   return (
@@ -89,33 +73,16 @@ function StatusBadge({ status }: { status: HoleStatus }) {
   );
 }
 
-function hazardIcon(type: string) {
-  switch (type) {
-    case "water":
-      return <Waves className="h-5 w-5 shrink-0 text-sky-300" aria-label="워터 해저드" />;
-    case "bunker":
-      return <CircleDot className="h-5 w-5 shrink-0 text-amber-300" aria-label="벙커" />;
-    case "ob":
-      return <AlertTriangle className="h-5 w-5 shrink-0 text-red-300" aria-label="OB" />;
-    case "rough":
-      return <Mountain className="h-5 w-5 shrink-0 text-lime-300" aria-label="러프" />;
-    default:
-      return <AlertTriangle className="h-5 w-5 shrink-0 text-red-300" aria-label="해저드" />;
-  }
-}
-
 export default function YardageBookPage() {
   const [query, setQuery] = useState("");
-  const [clubId, setClubId] = useState(DATA.clubs[1]?.id ?? DATA.clubs[0].id);
-  const [course, setCourse] = useState(DATA.clubs[1]?.courses[0] ?? DATA.clubs[0].courses[0]);
+  const [clubId, setClubId] = useState(DATA.clubs[0]?.id ?? "");
+  const [course, setCourse] = useState(DATA.clubs[0]?.courses[0] ?? "");
   const [holeNo, setHoleNo] = useState(1);
-  const [tee, setTee] = useState<TeeKey>("tour");
-  const [pin, setPin] = useState<PinKey>("middle");
+  const [tee, setTee] = useState("white");
+  const [pin, setPin] = useState<"front" | "middle" | "back">("middle");
   const [note, setNote] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
-  const [imgSaved, setImgSaved] = useState(false);
-  const [view, setView] = useState<"diagram" | "photo">("diagram");
+  const [view, setView] = useState<"photo" | "diagram">("diagram");
 
   const club = useMemo(() => DATA.clubs.find((c) => c.id === clubId)!, [clubId]);
 
@@ -131,35 +98,32 @@ export default function YardageBookPage() {
   }, [query]);
 
   const holeKey = `${clubId}:${course}`;
-  const hole: Hole | undefined = DATA.holes[holeKey]?.[String(holeNo)];
-  const status = holeStatus(hole);
+  const courseHoles = DATA.holes[holeKey] ?? {};
+  const holeNos = useMemo(
+    () =>
+      Object.keys(courseHoles)
+        .map(Number)
+        .sort((a, b) => a - b),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [holeKey]
+  );
+  const hole: Hole | undefined = courseHoles[String(holeNo)];
 
   const noteKey = useMemo(
     () => `yardage-note:${clubId}:${course}:${holeNo}`,
     [clubId, course, holeNo]
   );
-  const imgKey = useMemo(
-    () => `yardage-img:${clubId}:${course}:${holeNo}`,
-    [clubId, course, holeNo]
-  );
-  const photoSrc = (imgUrl || hole?.imageUrl || "").trim();
-  const hasPhoto = photoSrc.length > 0;
 
+  // 사진 있으면 실사진 기본, 없으면 개략도
   useEffect(() => {
+    setView(hole?.imageUrl ? "photo" : "diagram");
     setNoteSaved(false);
     try {
       setNote(localStorage.getItem(noteKey) ?? "");
     } catch {
       setNote("");
     }
-    setImgSaved(false);
-    setView("diagram");
-    try {
-      setImgUrl(localStorage.getItem(imgKey) ?? "");
-    } catch {
-      setImgUrl("");
-    }
-  }, [noteKey, imgKey]);
+  }, [noteKey, hole?.imageUrl]);
 
   function selectClub(id: string) {
     const c = DATA.clubs.find((x) => x.id === id)!;
@@ -178,16 +142,9 @@ export default function YardageBookPage() {
     }
   }
 
-  function saveImgUrl() {
-    try {
-      if (imgUrl.trim()) localStorage.setItem(imgKey, imgUrl.trim());
-      else localStorage.removeItem(imgKey);
-      setImgSaved(true);
-      setTimeout(() => setImgSaved(false), 2000);
-    } catch {
-      setImgSaved(false);
-    }
-  }
+  const teeDist = hole && hole.tee[tee] != null ? hole.tee[tee] : null;
+  const factLine =
+    hole?.hazards && hole.hazards.length > 0 ? hole.hazards.join(" · ") : null;
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-xl bg-fairway-950 px-4 pb-16 pt-6 text-white">
@@ -198,7 +155,9 @@ export default function YardageBookPage() {
         </div>
         <div>
           <h1 className="text-2xl font-extrabold tracking-tight">야디지북</h1>
-          <p className="text-base text-emerald-100/90">충남 7개 클럽 · 홀 공략 가이드</p>
+          <p className="text-base text-emerald-100/90">
+            7개 클럽 · {DATA.meta.totalHoles}홀 공식확인
+          </p>
         </div>
       </header>
 
@@ -218,7 +177,7 @@ export default function YardageBookPage() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="골프장·지역·코스 검색 (예: 태안, 라고)"
+            placeholder="골프장·지역·코스 검색 (예: 태안, SOL-IN)"
             className="w-full rounded-xl border-2 border-fairway-700 bg-fairway-950 py-3 pl-11 pr-3 text-lg text-white placeholder:text-emerald-100/50 focus:border-emerald-400 focus:outline-none"
           />
         </div>
@@ -251,7 +210,7 @@ export default function YardageBookPage() {
             </li>
           )}
         </ul>
-        {/* 코스(9홀 구성) 선택 */}
+        {/* 코스 선택 */}
         <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="코스 선택">
           {club.courses.map((co) => (
             <button
@@ -274,12 +233,11 @@ export default function YardageBookPage() {
         </div>
       </section>
 
-      {/* 홀 선택: 1~18 가로 스크롤 탭 */}
+      {/* 홀 선택: 실제 홀 수만큼 탭 (9홀 코스는 9개) */}
       <nav aria-label="홀 선택" className="mb-4">
         <div className="flex gap-2 overflow-x-auto pb-2" role="tablist">
-          {Array.from({ length: 18 }, (_, i) => i + 1).map((n) => {
-            const h = DATA.holes[holeKey]?.[String(n)];
-            const st = holeStatus(h);
+          {holeNos.map((n) => {
+            const h = courseHoles[String(n)];
             const active = n === holeNo;
             return (
               <button
@@ -300,18 +258,12 @@ export default function YardageBookPage() {
                     active ? "bg-fairway-950 text-emerald-200" : "bg-fairway-700 text-emerald-100"
                   }`}
                 >
-                  {h && h.par > 0 ? `Par ${h.par}` : "―"}
+                  Par {h.par}
                 </span>
                 <span
-                  className={`mt-1 h-2 w-2 rounded-full ${
-                    st === "verified"
-                      ? "bg-emerald-400"
-                      : st === "example"
-                        ? "bg-amber-300"
-                        : "bg-neutral-500"
-                  }`}
-                  title={st === "verified" ? "실측확인" : st === "example" ? "예시" : "미입력"}
-                  aria-label={st === "verified" ? "실측확인" : st === "example" ? "예시" : "미입력"}
+                  className={`mt-1 h-2 w-2 rounded-full ${h.verified ? "bg-emerald-400" : "bg-neutral-500"}`}
+                  title={h.verified ? "공식확인" : "미입력"}
+                  aria-label={h.verified ? "공식확인" : "미입력"}
                 />
               </button>
             );
@@ -319,36 +271,8 @@ export default function YardageBookPage() {
         </div>
       </nav>
 
-      {/* 홀 상세 */}
+      {/* 홀 상세: 이미지 한 장 요약형 */}
       <section aria-label="홀 상세 정보" className="rounded-2xl bg-fairway-900 p-5 shadow">
-        <div className="mb-1 flex flex-wrap items-center gap-2">
-          <h2 className="text-2xl font-extrabold">
-            {club.name} {course} {holeNo}번 홀
-          </h2>
-          <StatusBadge status={status} />
-          {hole && (
-            <>
-              <span className="rounded-full bg-emerald-300 px-3 py-1 text-base font-extrabold text-fairway-950">
-                {hole.par > 0 ? `Par ${hole.par}` : "Par 미입력"}
-              </span>
-              <span className="rounded-full bg-fairway-700 px-3 py-1 text-base font-bold text-emerald-100">
-                {hole.handicap > 0 ? `핸디캡 ${hole.handicap}` : "핸디캡 미입력"}
-              </span>
-            </>
-          )}
-        </div>
-        {status === "example" && (
-          <p className="mb-3 text-base text-amber-200">
-            예시 상태의 홀입니다. 거리·전략 수치는 실측이 아니며, 미입력 항목은 표시하지
-            않습니다.
-          </p>
-        )}
-        {status === "verified" && (
-          <p className="mb-3 text-base text-emerald-200">
-            실측확인된 홀입니다(스코어카드·공식 야디지북 근거).
-          </p>
-        )}
-
         {!hole ? (
           <div className="rounded-xl bg-fairway-950/60 p-5 text-center">
             <Flag className="mx-auto mb-2 h-8 w-8 text-emerald-200" aria-hidden />
@@ -359,69 +283,92 @@ export default function YardageBookPage() {
           </div>
         ) : (
           <>
-            {/* 티박스 거리 선택 */}
-            <div className="mb-4">
-              <h3 className="mb-2 flex items-center gap-2 text-lg font-bold">
-                <Ruler className="h-5 w-5 text-emerald-300" aria-hidden />
-                티박스 거리
-              </h3>
-              <div className="flex flex-wrap gap-2" role="group" aria-label="티박스 선택">
-                {TEE_LABELS.map((t) => (
-                  <button
-                    key={t.key}
-                    type="button"
-                    onClick={() => setTee(t.key)}
-                    aria-pressed={tee === t.key}
-                    className={`rounded-full px-4 py-2 text-lg font-bold ${
-                      tee === t.key
-                        ? "bg-emerald-300 text-fairway-950"
-                        : "bg-fairway-700 text-white hover:bg-fairway-600"
-                    }`}
-                  >
-                    {t.label}
-                  </button>
-                ))}
-              </div>
-              <p className="mt-2 text-2xl font-extrabold text-emerald-200" aria-live="polite">
-                <Navigation className="mr-1 inline h-6 w-6" aria-hidden />
-                {hole.teeBox[tee] > 0 ? (
-                  <>
-                    {hole.teeBox[tee].toLocaleString()} m
-                    <span className="ml-2 text-base font-normal text-emerald-100/80">
-                      {TEE_LABELS.find((t) => t.key === tee)?.label} 티 기준
-                    </span>
-                  </>
-                ) : (
-                  <span className="text-xl text-neutral-300">
-                    거리 미입력
-                    <span className="ml-2 text-base font-normal text-emerald-100/80">
-                      {TEE_LABELS.find((t) => t.key === tee)?.label} 티 기준
-                    </span>
-                  </span>
-                )}
-              </p>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <h2 className="text-2xl font-extrabold">
+                {club.name} {course} {holeNo}번 홀
+              </h2>
+              <StatusBadge verified={hole.verified} />
             </div>
 
-            {/* 홀 시각 자료: 개략도 / 실사진 */}
-            <div className="mb-4">
-              <div className="mb-2 flex gap-2" role="group" aria-label="시각 자료 선택">
+            {/* 티 선택 (콤팩트) */}
+            <div className="mb-3 flex flex-wrap gap-1.5" role="group" aria-label="티박스 선택">
+              {hole.teeOrder.map((t) => (
                 <button
+                  key={t}
                   type="button"
-                  onClick={() => setView("diagram")}
-                  aria-pressed={view === "diagram"}
-                  className={`flex-1 rounded-xl px-3 py-2.5 text-lg font-bold ${
-                    view === "diagram"
+                  onClick={() => setTee(t)}
+                  aria-pressed={tee === t}
+                  className={`rounded-full px-3 py-1.5 text-base font-bold ${
+                    tee === t
                       ? "bg-emerald-300 text-fairway-950"
                       : "bg-fairway-700 text-white hover:bg-fairway-600"
                   }`}
                 >
-                  개략도
+                  {teeLabel(t)}
                 </button>
+              ))}
+            </div>
+
+            {/* 히어로: 사진(기본) / 개략도 + 오버레이 뱃지 */}
+            {hole.imageUrl && view === "photo" ? (
+              <figure className="relative overflow-hidden rounded-xl border-2 border-black">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={hole.imageUrl}
+                  alt={`${club.name} ${course} ${holeNo}번 홀 공식 가이드 이미지`}
+                  className="block h-auto w-full"
+                  loading="lazy"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-3 pb-2.5 pt-10">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="rounded-full bg-emerald-300 px-3 py-1 text-lg font-extrabold text-fairway-950">
+                      {holeNo}H · Par {hole.par}
+                    </span>
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-base font-extrabold text-black">
+                      HD {hole.handicap ?? "미공개"}
+                    </span>
+                    <span className="rounded-full bg-white/90 px-3 py-1 text-base font-extrabold text-black">
+                      <Navigation className="mr-1 inline h-4 w-4" aria-hidden />
+                      {teeLabel(tee)} {teeDist != null ? `${teeDist.toLocaleString()}m` : "미표기"}
+                    </span>
+                  </div>
+                </div>
+                <figcaption className="bg-white px-3 py-1.5 text-xs font-bold text-black">
+                  공식 가이드 이미지 © {club.name} ·{" "}
+                  <a href={hole.sourceUrl} target="_blank" rel="noreferrer" className="underline">
+                    출처 보기
+                  </a>
+                </figcaption>
+              </figure>
+            ) : (
+              <div>
+                <HoleDiagram diagram={null} pin={pin} holeNo={holeNo} />
+                <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                  <span className="rounded-full bg-emerald-300 px-3 py-1 text-lg font-extrabold text-fairway-950">
+                    {holeNo}H · Par {hole.par}
+                  </span>
+                  <span className="rounded-full bg-fairway-700 px-3 py-1 text-base font-bold text-emerald-100">
+                    HD {hole.handicap ?? "미공개"}
+                  </span>
+                  <span className="rounded-full bg-fairway-700 px-3 py-1 text-base font-bold text-emerald-100">
+                    <Navigation className="mr-1 inline h-4 w-4" aria-hidden />
+                    {teeLabel(tee)} {teeDist != null ? `${teeDist.toLocaleString()}m` : "미표기"}
+                  </span>
+                </div>
+                <p className="mt-1.5 text-sm text-emerald-100/70">
+                  공식 홀 이미지가 없어 개략도로 표시합니다.
+                </p>
+              </div>
+            )}
+
+            {/* 시각 자료 전환 (사진 있을 때만) */}
+            {hole.imageUrl && (
+              <div className="mb-1 mt-3 flex gap-2" role="group" aria-label="시각 자료 선택">
                 <button
                   type="button"
                   onClick={() => setView("photo")}
                   aria-pressed={view === "photo"}
-                  className={`flex-1 rounded-xl px-3 py-2.5 text-lg font-bold ${
+                  className={`flex-1 rounded-xl px-3 py-2 text-base font-bold ${
                     view === "photo"
                       ? "bg-emerald-300 text-fairway-950"
                       : "bg-fairway-700 text-white hover:bg-fairway-600"
@@ -429,107 +376,93 @@ export default function YardageBookPage() {
                 >
                   실사진
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setView("diagram")}
+                  aria-pressed={view === "diagram"}
+                  className={`flex-1 rounded-xl px-3 py-2 text-base font-bold ${
+                    view === "diagram"
+                      ? "bg-emerald-300 text-fairway-950"
+                      : "bg-fairway-700 text-white hover:bg-fairway-600"
+                  }`}
+                >
+                  개략도
+                </button>
               </div>
-              {view === "diagram" ? (
-                <HoleDiagram diagram={hole.diagram} pin={pin} holeNo={holeNo} />
-              ) : hasPhoto ? (
-                <figure className="overflow-hidden rounded-xl border-2 border-black bg-white">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={photoSrc}
-                    alt={`${club.name} ${course} ${holeNo}번 홀 실사진`}
-                    className="block h-auto w-full"
-                    loading="lazy"
-                  />
-                  <figcaption className="bg-white px-3 py-2 text-sm font-bold text-black">
-                    홀 실사진 · 위치 예시가 아닌 실제 촬영 이미지입니다
-                    {imgUrl.trim() ? "(내가 등록한 사진)" : "(공식 이미지)"}
-                  </figcaption>
-                </figure>
-              ) : (
-                <div className="rounded-xl border-2 border-dashed border-neutral-500 bg-fairway-950/60 p-5 text-center">
-                  <p className="text-xl font-bold text-neutral-200">실측 사진 없음</p>
-                  <p className="mt-1 text-base text-emerald-100/80">
-                    아래 &lsquo;내 메모&rsquo;에서 이 홀 실사진 URL을 등록하면 표시됩니다.
-                  </p>
-                </div>
-              )}
-            </div>
+            )}
 
-            {/* 해저드 알림 */}
-            <div className="mb-4">
-              <h3 className="mb-2 flex items-center gap-2 text-lg font-bold">
-                <AlertTriangle className="h-5 w-5 text-amber-300" aria-hidden />
-                해저드 주의
-              </h3>
-              {hole.hazards.length === 0 ? (
-                <p className="rounded-xl border-2 border-neutral-500 bg-fairway-950/60 px-3 py-2.5 text-lg text-neutral-300">
-                  해저드 정보 미확인 — 실측 확인 후 표시됩니다.
-                </p>
-              ) : (
-                <ul className="space-y-2">
+            {/* 해저드 칩 */}
+            <div className="mt-3">
+              {hole.hazards && hole.hazards.length > 0 ? (
+                <ul className="flex flex-wrap gap-1.5" aria-label="해저드 요약">
                   {hole.hazards.map((hz, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2 rounded-xl border-2 border-amber-300/50 bg-fairway-950/60 px-3 py-2.5 text-lg"
+                      className="flex items-center gap-1 rounded-full border border-amber-300/60 bg-fairway-950/60 px-3 py-1 text-base font-bold text-amber-200"
                     >
-                      {hazardIcon(hz.type)}
-                      <span>{hz.message}</span>
+                      <AlertTriangle className="h-4 w-4 shrink-0" aria-hidden />
+                      {hz}
                     </li>
                   ))}
                 </ul>
+              ) : (
+                <p className="text-base text-neutral-300">
+                  해저드 공식 기록 없음 — 공식 사이트에 해저드 설명이 없습니다.
+                </p>
               )}
             </div>
 
-            {/* 공략 카드 */}
-            <div className="mb-4 grid gap-2">
-              <h3 className="flex items-center gap-2 text-lg font-bold">
-                <Flag className="h-5 w-5 text-emerald-300" aria-hidden />
-                홀 공략
-              </h3>
-              {[
-                { title: "티샷", body: hole.strategy.teeShot },
-                { title: "어프로치", body: hole.strategy.approach },
-                { title: "그린", body: hole.strategy.green },
-              ].map((s) => (
-                <article key={s.title} className="rounded-xl bg-fairway-950/60 px-4 py-3">
-                  <h4 className="text-lg font-extrabold text-emerald-200">{s.title}</h4>
-                  <p className={`text-lg ${s.body.trim() ? "" : "text-neutral-400"}`}>
-                    {s.body.trim() ? s.body : "미입력 — 실측 확인 후 표시됩니다."}
-                  </p>
-                </article>
-              ))}
-            </div>
-
-            {/* 핀 위치 선택 */}
-            <div className="mb-2">
-              <h3 className="mb-2 flex items-center gap-2 text-lg font-bold">
-                <Droplets className="h-5 w-5 text-sky-300" aria-hidden />
-                핀 위치별 그린 팁
-              </h3>
-              <div className="flex gap-2" role="group" aria-label="핀 위치 선택">
-                {PIN_LABELS.map((p) => (
-                  <button
-                    key={p.key}
-                    type="button"
-                    onClick={() => setPin(p.key)}
-                    aria-pressed={pin === p.key}
-                    className={`flex-1 rounded-xl px-3 py-2.5 text-lg font-bold ${
-                      pin === p.key
-                        ? "bg-sky-300 text-fairway-950"
-                        : "bg-fairway-700 text-white hover:bg-fairway-600"
-                    }`}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
-              <p className="mt-2 rounded-xl bg-sky-950/60 px-4 py-3 text-lg" aria-live="polite">
-                {hole.pinTips[pin].trim()
-                  ? hole.pinTips[pin]
-                  : "미입력 — 실측 확인 후 표시됩니다."}
+            {/* 공식 팩트 한 줄 (창작 공략문구 없음 — 공식 키워드만) */}
+            {factLine && (
+              <p className="mt-2.5 border-l-4 border-emerald-300 bg-fairway-950/60 px-3 py-2 text-lg font-bold leading-snug">
+                {factLine}
               </p>
-            </div>
+            )}
+
+            {/* 상세 접기식 */}
+            <details className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
+              <summary className="cursor-pointer text-lg font-extrabold text-emerald-200">
+                상세 보기 (티별 거리 · 출처 · 메모)
+              </summary>
+              <div className="mt-2">
+                <h3 className="mb-1.5 flex items-center gap-2 text-base font-bold">
+                  <Ruler className="h-4 w-4 text-emerald-300" aria-hidden />
+                  티별 거리
+                </h3>
+                <dl className="grid grid-cols-2 gap-1.5">
+                  {hole.teeOrder.map((t) => (
+                    <div
+                      key={t}
+                      className="flex items-center justify-between rounded-lg bg-fairway-900 px-3 py-1.5 text-base"
+                    >
+                      <dt className="font-bold text-emerald-100/80">{teeLabel(t)}</dt>
+                      <dd className="font-extrabold">
+                        {hole.tee[t] != null ? `${hole.tee[t]!.toLocaleString()}m` : "미표기"}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                {hole.holeName && (
+                  <p className="mt-2 text-base text-emerald-100/80">홀명: {hole.holeName}</p>
+                )}
+                {hole.memo && (
+                  <p className="mt-2 rounded-lg border border-neutral-500 px-3 py-2 text-base text-neutral-200">
+                    메모: {hole.memo}
+                  </p>
+                )}
+                <p className="mt-2 text-base">
+                  <a
+                    href={hole.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-bold text-sky-300 underline"
+                  >
+                    공식 가이드 페이지 열기
+                  </a>{" "}
+                  <span className="text-emerald-100/60">© {club.name}</span>
+                </p>
+              </div>
+            </details>
           </>
         )}
 
@@ -557,40 +490,12 @@ export default function YardageBookPage() {
           <p className="mt-1 text-base text-emerald-100/70">
             이 기기의 브라우저에만 저장됩니다.
           </p>
-          {/* 이 홀 실사진 URL (개인 저장) */}
-          <label
-            htmlFor="hole-photo-url"
-            className="mt-4 mb-2 block text-lg font-bold"
-          >
-            이 홀 실사진 URL
-          </label>
-          <input
-            id="hole-photo-url"
-            type="url"
-            value={imgUrl}
-            onChange={(e) => setImgUrl(e.target.value)}
-            placeholder="https://… (직접 촬영 후 업로드한 이미지 주소)"
-            inputMode="url"
-            className="w-full rounded-xl border-2 border-fairway-700 bg-fairway-950 px-3 py-3 text-lg text-white placeholder:text-emerald-100/50 focus:border-emerald-400 focus:outline-none"
-          />
-          <button
-            type="button"
-            onClick={saveImgUrl}
-            className="mt-2 w-full rounded-xl border-2 border-emerald-300 py-2.5 text-lg font-extrabold text-emerald-200 hover:bg-fairway-700"
-          >
-            {imgSaved ? "사진 저장됨 ✓" : "실사진 저장"}
-          </button>
-          <p className="mt-1 text-base text-emerald-100/70">
-            이 기기의 브라우저에만 저장되며, 위 &lsquo;실사진&rsquo; 탭에 표시됩니다.
-            비우면 등록된 사진이 삭제됩니다.
-          </p>
         </div>
       </section>
 
       <footer className="mt-6 text-center text-base text-emerald-100/60">
-        클럽·코스명은 안내용이며, 거리/전략 수치는 &apos;실측확인&apos; 표시가 있는
-        홀만 실측 데이터입니다. &apos;예시&apos;·&apos;미입력&apos; 홀의 빈 항목은
-        측정이 아닌 미확인 표시입니다.
+        거리·핸디캡·해저드는 각 골프장 공식 사이트 확인 수치만 수록합니다.
+        이미지 © 각 골프장 (출처: 홀별 &lsquo;출처 보기&rsquo;).
       </footer>
     </main>
   );
