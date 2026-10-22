@@ -14,7 +14,7 @@
 | 예미지컨트리클럽 (충남 청양 · 예/미/지) | https://www.yemizicc.co.kr | 예 https://www.yemizicc.co.kr/course/course01 · 미 …/course02 · 지 …/course03 · 스코어카드 …/course/intro (홀별 이미지 미공개 — 개략도 표시) |
 | 로얄링스 컨트리클럽 (충남 태안 · Queens/Kings 각 18홀) | https://royallinks.co.kr/ | 소개·스코어카드 https://royallinks.co.kr/course/courseIntro.asp · Queens …/course01.asp ~ course18.asp · Kings …/course19.asp ~ course36.asp |
 | 골든베이 골프&리조트 (충남 태안 · 마운틴/오션/밸리) | https://www.goldenbay.kr/ | 마운틴 https://www.goldenbay.kr/course/mountain.asp · 오션 …/ocean.asp · 밸리 …/valley.asp |
-| SG아름다운 골프&리조트 (충남 아산 · HILL/LAKE/ROCK) | https://www.arumdaunresort.com | 개요표 …/html/course01.asp · HILL …/course02.asp · LAKE …/course03.asp · ROCK …/course04.asp (홀별 이미지 미공개 — 개략도 표시) |
+| SG아름다운 골프&리조트 (충남 아산 · HILL/LAKE/ROCK) | https://www.arumdaunresort.com | 개요표 …/html/course01.asp · HILL …/course02.asp · LAKE …/course03.asp · ROCK …/course04.asp (홀별 사진 photo_hill/lake/rock{1-9}.jpg 27종 로컬 저장, 코스맵 map_* 미수집) |
 
 ## 수집 메모 (불일치 유지)
 
@@ -35,3 +35,8 @@
   (예미지는 핸디캡·해저드 방향 공식 확인됨, SG아름다운은 락 3번=HDCP 2번·락 7번=HDCP 1번만 본문 언급).
 - 창작 공략문구(티샷/어프로치/그린 팁)는 수집·수록하지 않음. 해저드 항목은 공식 설명에
   명시된 팩트 키워드만 기록, 없으면 null.
+- 공식 홀 공략문구(tip)는 5개 클럽 144홀(백제 27·천안상록 27·로얄링스 36·골든베이 27·
+  SG아름다운 27, 예미지 27 기적용)에 원문 그대로 verbatim 수록, tipSource는 클럽별
+  공식 코스 가이드 표기. 솔라고 36홀은 공식 홀별 페이지에 공략문구 미공개(전 홀 null)로 미기록.
+- SG아름다운 홀별 사진 27종(photo_hill/lake/rock{1-9}.jpg, 200·image/jpeg·개당 2MB 이하 확인)을
+  `public/holes/areumnadaun/<코스>-<홀>.jpg`로 저장하고 imageUrl에 반영. 코스맵(map_*)은 미수집.
