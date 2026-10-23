@@ -9,7 +9,6 @@ import {
   MapPin,
   Navigation,
   NotebookPen,
-  Ruler,
   Search,
 } from "lucide-react";
 import raw from "@/data/courses.json";
@@ -123,6 +122,27 @@ function buildBullets(hole: Hole): string[] {
   return picked;
 }
 
+/** 상세 불릿: 해저드 / 티샷 / 그린 공략 — 원문 부분 발췌만 사용, 창작 없음. */
+function buildDetail(hole: Hole): { label: string; text: string }[] {
+  const out: { label: string; text: string }[] = [];
+  const cut = (s: string, n = 48) => (s.length > n ? s.slice(0, n).trimEnd() + "…" : s);
+  const norm = (x: string) => x.replace(/\s+/g, "");
+  if (hole.hazards && hole.hazards.length > 0)
+    out.push({ label: "해저드", text: cut(hole.hazards.join(" · ")) });
+  const hazardNorm = norm(hole.hazards?.join(" · ") ?? "");
+  const parts = (hole.singleNote?.text ?? "")
+    .split("·")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+  const tee =
+    hole.consensus?.fairway ?? parts.find((p) => !/그린/.test(p)) ?? hole.tip ?? null;
+  const green =
+    hole.consensus?.green ?? parts.find((p) => /그린/.test(p)) ?? null;
+  if (tee && norm(tee) !== hazardNorm) out.push({ label: "티샷", text: cut(tee) });
+  if (green && green !== tee) out.push({ label: "그린 공략", text: cut(green) });
+  return out;
+}
+
 function StatusBadge({ verified }: { verified: boolean }) {
   if (verified)
     return (
@@ -214,6 +234,7 @@ export default function YardageBookPage() {
 
   const teeDist = hole && hole.tee[tee] != null ? hole.tee[tee] : null;
   const bullets = useMemo(() => (hole ? buildBullets(hole) : []), [hole]);
+  const detail = useMemo(() => (hole ? buildDetail(hole) : []), [hole]);
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-xl bg-fairway-950 px-4 pb-16 pt-6 text-white">
@@ -520,84 +541,45 @@ export default function YardageBookPage() {
               <summary className="cursor-pointer text-lg font-extrabold text-emerald-200">
                 상세 보기 (공략 원문 · 티별 거리 · 출처 · 메모)
               </summary>
-              {/* 공략 원문 (공식 문구 그대로, 출처 표기 유지) */}
-              {hole.tip && (
-                <blockquote className="mt-2 rounded-xl border-l-4 border-amber-300 bg-fairway-900 px-3 py-2">
-                  <p className="text-base leading-snug">{hole.tip}</p>
-                  <cite className="mt-1 block text-sm font-bold not-italic text-emerald-100/70">
-                    공식 공략 TIP © {hole.tipSource ?? club.name}
-                  </cite>
-                </blockquote>
-              )}
-              {hole.consensus && (
-                <div className="mt-2 rounded-xl border border-emerald-300/50 bg-fairway-900 px-3 py-2.5">
-                  <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                    <h3 className="text-base font-extrabold text-emerald-200">
-                      공개자료 공통 의견 원문
-                    </h3>
-                    {hole.consensus.strength === "strong" ? (
-                      <span className="rounded-full bg-emerald-300 px-2.5 py-0.5 text-sm font-extrabold text-fairway-950">
-                        복수 일치
-                      </span>
-                    ) : (
-                      <span className="rounded-full border border-amber-300 px-2.5 py-0.5 text-sm font-extrabold text-amber-200">
-                        약한 일치
-                      </span>
-                    )}
-                    <span className="text-sm font-bold text-emerald-100/60">
-                      출처 {hole.consensus.sources.length}곳
-                    </span>
-                  </div>
-                  {hole.consensus.fairway && (
-                    <p className="text-base leading-snug">
-                      <span className="font-bold text-emerald-300">노릴 곳 · </span>
-                      {hole.consensus.fairway}
-                    </p>
-                  )}
-                  {hole.consensus.green && (
-                    <p className="mt-1 text-base leading-snug">
-                      <span className="font-bold text-emerald-300">그린 · </span>
-                      {hole.consensus.green}
-                    </p>
-                  )}
-                  {hole.consensus.note && (
-                    <p className="mt-1 text-base text-emerald-100/70">
-                      {hole.consensus.note}
-                    </p>
-                  )}
-                </div>
-              )}
-              {hole.singleNote && (
-                <div className="mt-2 rounded-xl border border-neutral-500 bg-fairway-900 px-3 py-2.5">
-                  <h3 className="mb-1 text-base font-extrabold text-neutral-200">
-                    참고 원문
-                    <span className="ml-1.5 rounded-full border border-neutral-400 px-2.5 py-0.5 align-middle text-sm font-extrabold text-neutral-300">
-                      단일 출처
-                    </span>
-                  </h3>
-                  <p className="text-base leading-snug text-neutral-100">
+              {/* 상세 공략 불릿: 해저드 / 티샷 / 그린 공략 */}
+              <ul className="mt-1 space-y-1.5">
+                {detail.map((d, i) => (
+                  <li key={i} className="text-lg leading-snug">
+                    <span className="font-extrabold text-emerald-200">• {d.label} : </span>
+                    <span className="font-bold">{d.text}</span>
+                  </li>
+                ))}
+              </ul>
+              {/* 원문 보기 (공식 문구 그대로 보존) */}
+              <details className="mt-2 rounded-lg bg-fairway-900 px-3 py-2">
+                <summary className="cursor-pointer text-base font-bold text-emerald-100/80">
+                  원문 보기
+                </summary>
+                {hole.tip && <p className="mt-1.5 text-base leading-snug">{hole.tip}</p>}
+                {hole.consensus?.fairway && (
+                  <p className="mt-1.5 text-base leading-snug">{hole.consensus.fairway}</p>
+                )}
+                {hole.consensus?.green && (
+                  <p className="mt-1.5 text-base leading-snug">{hole.consensus.green}</p>
+                )}
+                {hole.singleNote && (
+                  <p className="mt-1.5 text-base leading-snug text-neutral-100">
                     {hole.singleNote.text}
                   </p>
-                </div>
-              )}
+                )}
+              </details>
               <div className="mt-2">
-                <h3 className="mb-1.5 flex items-center gap-2 text-base font-bold">
-                  <Ruler className="h-4 w-4 text-emerald-300" aria-hidden />
-                  티별 거리
-                </h3>
-                <dl className="grid grid-cols-2 gap-1.5">
-                  {hole.teeOrder.map((t) => (
-                    <div
-                      key={t}
-                      className="flex items-center justify-between rounded-lg bg-fairway-900 px-3 py-1.5 text-base"
-                    >
-                      <dt className="font-bold text-emerald-100/80">{teeLabel(t)}</dt>
-                      <dd className="font-extrabold">
-                        {hole.tee[t] != null ? `${hole.tee[t]!.toLocaleString()}m` : "미표기"}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+                <p className="text-lg leading-snug">
+                  <span className="font-extrabold text-emerald-200">• 티별 거리 : </span>
+                  <span className="font-bold">
+                    {hole.teeOrder
+                      .map(
+                        (t) =>
+                          `${teeLabel(t)} ${hole.tee[t] != null ? `${hole.tee[t]!.toLocaleString()}m` : "미표기"}`
+                      )
+                      .join(" · ")}
+                  </span>
+                </p>
                 {hole.holeName && (
                   <p className="mt-2 text-base text-emerald-100/80">홀명: {hole.holeName}</p>
                 )}
