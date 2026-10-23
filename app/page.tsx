@@ -86,6 +86,43 @@ function teeLabel(key: string): string {
   return TEE_LABELS[key] ?? key;
 }
 
+/** 기본 티: white 우선, 없으면 일반티(R/T → blue 순), 그 외 첫 티 */
+const FALLBACK_TEES = ["white", "rt", "blue"];
+
+function defaultTee(teeOrder: string[]): string {
+  for (const t of FALLBACK_TEES) if (teeOrder.includes(t)) return t;
+  return teeOrder[0] ?? "white";
+}
+
+/**
+ * 공략 불릿: tip·consensus 원문의 부분문자열만으로 구성 (창작 추가 없음).
+ * 각 불릿 20자 내외·최대 4개, 해저드 칩·서로 간의 중복 문구 제거.
+ */
+function buildBullets(hole: Hole): string[] {
+  const srcs = [hole.tip, hole.consensus?.fairway, hole.consensus?.green].filter(
+    (s): s is string => !!s
+  );
+  const norm = (x: string) => x.replace(/\s+/g, "");
+  const hazardNorms = (hole.hazards ?? []).map(norm);
+  const picked: string[] = [];
+  const clauses: string[] = [];
+  for (const s of srcs) {
+    for (const part of s.split(/[.\n·;；。]+/)) {
+      const t = part.replace(/\s+/g, " ").trim();
+      if (t.length < 4) continue;
+      clauses.push(t.length > 24 ? t.slice(0, 24).trimEnd() + "…" : t);
+    }
+  }
+  for (const c of clauses) {
+    if (picked.length >= 4) break;
+    const n = norm(c);
+    if (picked.some((p) => norm(p).includes(n) || n.includes(norm(p)))) continue;
+    if (hazardNorms.some((h) => h === n)) continue;
+    picked.push(c);
+  }
+  return picked;
+}
+
 function StatusBadge({ verified }: { verified: boolean }) {
   if (verified)
     return (
@@ -141,6 +178,12 @@ export default function YardageBookPage() {
     [clubId, course, holeNo]
   );
 
+  // 티 기본값: white 우선, 없으면 일반티(R/T·blue 순)로 보정. 선택 기능은 유지.
+  useEffect(() => {
+    if (hole && !hole.teeOrder.includes(tee)) setTee(defaultTee(hole.teeOrder));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [holeKey, holeNo]);
+
   // 사진 있으면 실사진 기본, 없으면 개략도
   useEffect(() => {
     setView(hole?.imageUrl ? "photo" : "diagram");
@@ -170,8 +213,7 @@ export default function YardageBookPage() {
   }
 
   const teeDist = hole && hole.tee[tee] != null ? hole.tee[tee] : null;
-  const factLine =
-    hole?.hazards && hole.hazards.length > 0 ? hole.hazards.join(" · ") : null;
+  const bullets = useMemo(() => (hole ? buildBullets(hole) : []), [hole]);
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-xl bg-fairway-950 px-4 pb-16 pt-6 text-white">
@@ -379,10 +421,7 @@ export default function YardageBookPage() {
                   </div>
                 </div>
                 <figcaption className="bg-white px-3 py-1.5 text-xs font-bold text-black">
-                  공식 가이드 이미지 © {club.name} ·{" "}
-                  <a href={hole.sourceUrl} target="_blank" rel="noreferrer" className="underline">
-                    출처 보기
-                  </a>
+                  공식 가이드 이미지 © {club.name} (원문 링크는 &lsquo;상세 보기&rsquo;)
                 </figcaption>
               </figure>
             ) : (
@@ -464,55 +503,80 @@ export default function YardageBookPage() {
               )}
             </div>
 
-            {/* 공식 공략 TIP (공식 문구 그대로, 출처 표기) */}
-            {hole.tip && (
-              <blockquote className="mt-2.5 rounded-xl border-l-4 border-amber-300 bg-fairway-950/60 px-3 py-2">
-                <p className="text-lg font-bold leading-snug">{hole.tip}</p>
-                <cite className="mt-1 block text-sm font-bold not-italic text-emerald-100/70">
-                  공식 공략 TIP © {hole.tipSource ?? club.name}
-                </cite>
-              </blockquote>
+            {/* 공략 포인트: 원문 부분문자열 불릿 (원문·출처는 상세 보기에 보존) */}
+            {bullets.length > 0 && (
+              <div className="mt-2.5 rounded-xl border border-emerald-300/50 bg-fairway-950/60 px-3 py-2.5">
+                <h3 className="mb-1 text-lg font-extrabold text-emerald-200">
+                  공략 포인트
+                </h3>
+                <ul className="space-y-1">
+                  {bullets.map((b, i) => (
+                    <li key={i} className="text-lg font-bold leading-snug">
+                      · {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
 
-            {/* 공개자료 공통 의견 (2곳 이상 일치 consensus) */}
-            {hole.consensus && (
-              <div className="mt-2.5 rounded-xl border border-emerald-300/50 bg-fairway-950/60 px-3 py-2.5">
-                <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                  <h3 className="text-lg font-extrabold text-emerald-200">
-                    공개자료 공통 의견
-                  </h3>
-                  {hole.consensus.strength === "strong" ? (
-                    <span className="rounded-full bg-emerald-300 px-2.5 py-0.5 text-sm font-extrabold text-fairway-950">
-                      복수 일치
+            {/* 참고 한 줄 (단일 출처 — 원문·출처는 상세 보기) */}
+            {hole.singleNote && (
+              <p className="mt-2.5 truncate text-base text-neutral-200">
+                <span className="font-extrabold text-neutral-100">참고 · </span>
+                {hole.singleNote.text}
+              </p>
+            )}
+
+            {/* 상세 접기식: 공략 원문 · 티별 거리 · 출처 · 메모 보존 */}
+            <details className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
+              <summary className="cursor-pointer text-lg font-extrabold text-emerald-200">
+                상세 보기 (공략 원문 · 티별 거리 · 출처 · 메모)
+              </summary>
+              {/* 공략 원문 (공식 문구 그대로, 출처 표기 유지) */}
+              {hole.tip && (
+                <blockquote className="mt-2 rounded-xl border-l-4 border-amber-300 bg-fairway-900 px-3 py-2">
+                  <p className="text-base leading-snug">{hole.tip}</p>
+                  <cite className="mt-1 block text-sm font-bold not-italic text-emerald-100/70">
+                    공식 공략 TIP © {hole.tipSource ?? club.name}
+                  </cite>
+                </blockquote>
+              )}
+              {hole.consensus && (
+                <div className="mt-2 rounded-xl border border-emerald-300/50 bg-fairway-900 px-3 py-2.5">
+                  <div className="mb-1.5 flex flex-wrap items-center gap-2">
+                    <h3 className="text-base font-extrabold text-emerald-200">
+                      공개자료 공통 의견 원문
+                    </h3>
+                    {hole.consensus.strength === "strong" ? (
+                      <span className="rounded-full bg-emerald-300 px-2.5 py-0.5 text-sm font-extrabold text-fairway-950">
+                        복수 일치
+                      </span>
+                    ) : (
+                      <span className="rounded-full border border-amber-300 px-2.5 py-0.5 text-sm font-extrabold text-amber-200">
+                        약한 일치
+                      </span>
+                    )}
+                    <span className="text-sm font-bold text-emerald-100/60">
+                      출처 {hole.consensus.sources.length}곳
                     </span>
-                  ) : (
-                    <span className="rounded-full border border-amber-300 px-2.5 py-0.5 text-sm font-extrabold text-amber-200">
-                      약한 일치
-                    </span>
+                  </div>
+                  {hole.consensus.fairway && (
+                    <p className="text-base leading-snug">
+                      <span className="font-bold text-emerald-300">노릴 곳 · </span>
+                      {hole.consensus.fairway}
+                    </p>
                   )}
-                  <span className="text-sm font-bold text-emerald-100/60">
-                    출처 {hole.consensus.sources.length}곳
-                  </span>
-                </div>
-                {hole.consensus.fairway && (
-                  <p className="text-lg font-bold leading-snug">
-                    <span className="text-emerald-300">노릴 곳 · </span>
-                    {hole.consensus.fairway}
-                  </p>
-                )}
-                {hole.consensus.green && (
-                  <p className="mt-1 text-lg font-bold leading-snug">
-                    <span className="text-emerald-300">그린 · </span>
-                    {hole.consensus.green}
-                  </p>
-                )}
-                {hole.consensus.note && (
-                  <p className="mt-1 text-base text-emerald-100/70">{hole.consensus.note}</p>
-                )}
-                <details className="mt-1.5">
-                  <summary className="cursor-pointer text-base font-bold text-sky-300">
-                    출처 {hole.consensus.sources.length}곳 보기
-                  </summary>
+                  {hole.consensus.green && (
+                    <p className="mt-1 text-base leading-snug">
+                      <span className="font-bold text-emerald-300">그린 · </span>
+                      {hole.consensus.green}
+                    </p>
+                  )}
+                  {hole.consensus.note && (
+                    <p className="mt-1 text-base text-emerald-100/70">
+                      {hole.consensus.note}
+                    </p>
+                  )}
                   <ul className="mt-1.5 space-y-1.5">
                     {hole.consensus.sources.map((s, i) => (
                       <li key={i} className="text-base leading-snug text-emerald-100/90">
@@ -534,29 +598,19 @@ export default function YardageBookPage() {
                       </li>
                     ))}
                   </ul>
-                </details>
-              </div>
-            )}
-
-            {/* 단일 출처 참고 (consensus 미달) */}
-            {hole.singleNote && (
-              <div className="mt-2.5 rounded-xl border border-neutral-500 bg-fairway-950/60 px-3 py-2.5">
-                <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <h3 className="text-lg font-extrabold text-neutral-200">
-                    참고
+                </div>
+              )}
+              {hole.singleNote && (
+                <div className="mt-2 rounded-xl border border-neutral-500 bg-fairway-900 px-3 py-2.5">
+                  <h3 className="mb-1 text-base font-extrabold text-neutral-200">
+                    참고 원문
                     <span className="ml-1.5 rounded-full border border-neutral-400 px-2.5 py-0.5 align-middle text-sm font-extrabold text-neutral-300">
                       단일 출처
                     </span>
                   </h3>
-                  <span className="text-sm font-bold text-emerald-100/60">
-                    출처 {hole.singleNote.sources.length}곳
-                  </span>
-                </div>
-                <p className="text-base leading-snug text-neutral-100">{hole.singleNote.text}</p>
-                <details className="mt-1.5">
-                  <summary className="cursor-pointer text-base font-bold text-sky-300">
-                    출처 보기
-                  </summary>
+                  <p className="text-base leading-snug text-neutral-100">
+                    {hole.singleNote.text}
+                  </p>
                   <ul className="mt-1.5 space-y-1.5">
                     {hole.singleNote.sources.map((s, i) => (
                       <li key={i} className="text-base leading-snug text-emerald-100/90">
@@ -578,22 +632,8 @@ export default function YardageBookPage() {
                       </li>
                     ))}
                   </ul>
-                </details>
-              </div>
-            )}
-
-            {/* 공식 팩트 한 줄 (창작 공략문구 없음 — 공식 키워드만) */}
-            {factLine && (
-              <p className="mt-2.5 border-l-4 border-emerald-300 bg-fairway-950/60 px-3 py-2 text-lg font-bold leading-snug">
-                {factLine}
-              </p>
-            )}
-
-            {/* 상세 접기식 */}
-            <details className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
-              <summary className="cursor-pointer text-lg font-extrabold text-emerald-200">
-                상세 보기 (티별 거리 · 출처 · 메모)
-              </summary>
+                </div>
+              )}
               <div className="mt-2">
                 <h3 className="mb-1.5 flex items-center gap-2 text-base font-bold">
                   <Ruler className="h-4 w-4 text-emerald-300" aria-hidden />
@@ -632,40 +672,41 @@ export default function YardageBookPage() {
                   <span className="text-emerald-100/60">© {club.name}</span>
                 </p>
               </div>
+
+              {/* 개인 메모 (상세로 이동) */}
+              <div className="mt-4 border-t-2 border-fairway-700 pt-4">
+                <h3 className="mb-2 flex items-center gap-2 text-lg font-bold">
+                  <NotebookPen className="h-5 w-5 text-emerald-300" aria-hidden />
+                  내 메모 ({holeNo}번 홀)
+                </h3>
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  rows={3}
+                  placeholder="이 홀 나만의 공략 메모를 적어보세요"
+                  aria-label={`${holeNo}번 홀 개인 메모`}
+                  className="w-full rounded-xl border-2 border-fairway-700 bg-fairway-950 px-3 py-3 text-lg text-white placeholder:text-emerald-100/50 focus:border-emerald-400 focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={saveNote}
+                  className="mt-2 w-full rounded-xl bg-emerald-300 py-3 text-xl font-extrabold text-fairway-950 hover:bg-emerald-200"
+                >
+                  {noteSaved ? "저장됨 ✓" : "메모 저장"}
+                </button>
+                <p className="mt-1 text-base text-emerald-100/70">
+                  이 기기의 브라우저에만 저장됩니다.
+                </p>
+              </div>
             </details>
           </>
         )}
 
-        {/* 개인 메모 */}
-        <div className="mt-5 border-t-2 border-fairway-700 pt-4">
-          <h3 className="mb-2 flex items-center gap-2 text-lg font-bold">
-            <NotebookPen className="h-5 w-5 text-emerald-300" aria-hidden />
-            내 메모 ({holeNo}번 홀)
-          </h3>
-          <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            rows={3}
-            placeholder="이 홀 나만의 공략 메모를 적어보세요"
-            aria-label={`${holeNo}번 홀 개인 메모`}
-            className="w-full rounded-xl border-2 border-fairway-700 bg-fairway-950 px-3 py-3 text-lg text-white placeholder:text-emerald-100/50 focus:border-emerald-400 focus:outline-none"
-          />
-          <button
-            type="button"
-            onClick={saveNote}
-            className="mt-2 w-full rounded-xl bg-emerald-300 py-3 text-xl font-extrabold text-fairway-950 hover:bg-emerald-200"
-          >
-            {noteSaved ? "저장됨 ✓" : "메모 저장"}
-          </button>
-          <p className="mt-1 text-base text-emerald-100/70">
-            이 기기의 브라우저에만 저장됩니다.
-          </p>
-        </div>
       </section>
 
       <footer className="mt-6 text-center text-base text-emerald-100/60">
         거리·핸디캡·해저드는 각 골프장 공식 사이트 확인 수치만 수록합니다.
-        이미지 © 각 골프장 (출처: 홀별 &lsquo;출처 보기&rsquo;).
+        이미지 © 각 골프장 (출처: 홀별 &lsquo;상세 보기&rsquo;).
       </footer>
     </main>
   );
