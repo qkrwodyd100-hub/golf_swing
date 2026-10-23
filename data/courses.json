@@ -1,17 +1,6 @@
 {
   "clubs": [
     {
-      "id": "baekje",
-      "name": "백제컨트리클럽",
-      "region": "충남 부여",
-      "courses": [
-        "사비",
-        "웅진",
-        "한성"
-      ],
-      "courseLevelConsensus": []
-    },
-    {
       "id": "solago",
       "name": "솔라고 컨트리클럽",
       "region": "충남 태안",
@@ -20,6 +9,17 @@
         "SOL-OUT",
         "LAGO-IN",
         "LAGO-OUT"
+      ],
+      "courseLevelConsensus": []
+    },
+    {
+      "id": "baekje",
+      "name": "백제컨트리클럽",
+      "region": "충남 부여",
+      "courses": [
+        "사비",
+        "웅진",
+        "한성"
       ],
       "courseLevelConsensus": []
     },

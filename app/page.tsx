@@ -421,7 +421,7 @@ export default function YardageBookPage() {
                   </div>
                 </div>
                 <figcaption className="bg-white px-3 py-1.5 text-xs font-bold text-black">
-                  공식 가이드 이미지 © {club.name} (원문 링크는 &lsquo;상세 보기&rsquo;)
+                  공식 가이드 이미지 © {club.name}
                 </figcaption>
               </figure>
             ) : (
@@ -496,11 +496,7 @@ export default function YardageBookPage() {
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <p className="text-base text-neutral-300">
-                  해저드 공식 기록 없음 — 공식 사이트에 해저드 설명이 없습니다.
-                </p>
-              )}
+              ) : null}
             </div>
 
             {/* 공략 포인트: 원문 부분문자열 불릿 (원문·출처는 상세 보기에 보존) */}
@@ -519,16 +515,8 @@ export default function YardageBookPage() {
               </div>
             )}
 
-            {/* 참고 한 줄 (단일 출처 — 원문·출처는 상세 보기) */}
-            {hole.singleNote && (
-              <p className="mt-2.5 truncate text-base text-neutral-200">
-                <span className="font-extrabold text-neutral-100">참고 · </span>
-                {hole.singleNote.text}
-              </p>
-            )}
-
-            {/* 상세 접기식: 공략 원문 · 티별 거리 · 출처 · 메모 보존 */}
-            <details className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
+            {/* 상세 펼침식 (기본 펼침): 공략 원문 · 티별 거리 · 출처 · 메모 보존 */}
+            <details open className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
               <summary className="cursor-pointer text-lg font-extrabold text-emerald-200">
                 상세 보기 (공략 원문 · 티별 거리 · 출처 · 메모)
               </summary>
@@ -577,27 +565,6 @@ export default function YardageBookPage() {
                       {hole.consensus.note}
                     </p>
                   )}
-                  <ul className="mt-1.5 space-y-1.5">
-                    {hole.consensus.sources.map((s, i) => (
-                      <li key={i} className="text-base leading-snug text-emerald-100/90">
-                        · {[s.author, s.title].filter(Boolean).join(" — ")}
-                        {s.date ? ` (${s.date})` : ""}
-                        {s.url && (
-                          <>
-                            {" "}
-                            <a
-                              href={s.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="font-bold text-sky-300 underline"
-                            >
-                              원문
-                            </a>
-                          </>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               )}
               {hole.singleNote && (
@@ -611,27 +578,6 @@ export default function YardageBookPage() {
                   <p className="text-base leading-snug text-neutral-100">
                     {hole.singleNote.text}
                   </p>
-                  <ul className="mt-1.5 space-y-1.5">
-                    {hole.singleNote.sources.map((s, i) => (
-                      <li key={i} className="text-base leading-snug text-emerald-100/90">
-                        · {[s.author, s.title].filter(Boolean).join(" — ")}
-                        {s.date ? ` (${s.date})` : ""}
-                        {s.url && (
-                          <>
-                            {" "}
-                            <a
-                              href={s.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="font-bold text-sky-300 underline"
-                            >
-                              원문
-                            </a>
-                          </>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               )}
               <div className="mt-2">
@@ -655,7 +601,7 @@ export default function YardageBookPage() {
                 {hole.holeName && (
                   <p className="mt-2 text-base text-emerald-100/80">홀명: {hole.holeName}</p>
                 )}
-                {hole.memo && (
+                {hole.memo && !/^[a-z0-9_]+:/.test(hole.memo) && (
                   <p className="mt-2 rounded-lg border border-neutral-500 px-3 py-2 text-base text-neutral-200">
                     메모: {hole.memo}
                   </p>
