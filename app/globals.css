@@ -2,9 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 한글 가독성 기본값: 자간은 좁게, 줄바꿈은 어절 단위, 행간은 넉넉하게 */
 body {
   background-color: #04120a;
   color: #f4fff7;
   font-size: 17px;
   line-height: 1.6;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 제목은 균형 줄바꿈 + 자간 좁게 */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+/* 본문·불릿: 어절 단위 줄바꿈 + 행간 */
+p,
+li,
+summary,
+blockquote,
+dd,
+dt {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* PC에서는 기본 글자 크기를 키워 시인성 확보 */
+@media (min-width: 640px) {
+  body {
+    font-size: 18px;
+    line-height: 1.7;
+  }
 }

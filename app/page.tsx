@@ -329,7 +329,7 @@ export default function YardageBookPage() {
             </h3>
             <ul className="mt-1.5 space-y-1.5">
               {club.courseLevelConsensus.map((cc, i) => (
-                <li key={i} className="text-base leading-snug text-white">
+                <li key={i} className="text-base leading-relaxed text-white">
                   · {cc.text}{" "}
                   <span className="text-sm text-emerald-100/60">
                     (출처 {cc.sources.length}곳)
@@ -406,7 +406,7 @@ export default function YardageBookPage() {
                   type="button"
                   onClick={() => setTee(t)}
                   aria-pressed={tee === t}
-                  className={`rounded-full px-3 py-1.5 text-base font-bold ${
+                  className={`rounded-full whitespace-nowrap px-3 py-1.5 text-base font-bold ${
                     tee === t
                       ? "bg-emerald-300 text-fairway-950"
                       : "bg-fairway-700 text-white hover:bg-fairway-600"
@@ -528,7 +528,7 @@ export default function YardageBookPage() {
                 </h3>
                 <ul className="space-y-1">
                   {bullets.map((b, i) => (
-                    <li key={i} className="text-lg font-bold leading-snug">
+                    <li key={i} className="text-lg font-bold leading-relaxed">
                       · {b}
                     </li>
                   ))}
@@ -544,7 +544,7 @@ export default function YardageBookPage() {
               {/* 상세 공략 불릿: 해저드 / 티샷 / 그린 공략 */}
               <ul className="mt-1 space-y-1.5">
                 {detail.map((d, i) => (
-                  <li key={i} className="text-lg leading-snug">
+                  <li key={i} className="text-lg leading-relaxed">
                     <span className="font-extrabold text-emerald-200">• {d.label} : </span>
                     <span className="font-bold">{d.text}</span>
                   </li>
@@ -555,21 +555,21 @@ export default function YardageBookPage() {
                 <summary className="cursor-pointer text-base font-bold text-emerald-100/80">
                   원문 보기
                 </summary>
-                {hole.tip && <p className="mt-1.5 text-base leading-snug">{hole.tip}</p>}
+                {hole.tip && <p className="mt-1.5 text-base leading-relaxed">{hole.tip}</p>}
                 {hole.consensus?.fairway && (
-                  <p className="mt-1.5 text-base leading-snug">{hole.consensus.fairway}</p>
+                  <p className="mt-1.5 text-base leading-relaxed">{hole.consensus.fairway}</p>
                 )}
                 {hole.consensus?.green && (
-                  <p className="mt-1.5 text-base leading-snug">{hole.consensus.green}</p>
+                  <p className="mt-1.5 text-base leading-relaxed">{hole.consensus.green}</p>
                 )}
                 {hole.singleNote && (
-                  <p className="mt-1.5 text-base leading-snug text-neutral-100">
+                  <p className="mt-1.5 text-base leading-relaxed text-neutral-100">
                     {hole.singleNote.text}
                   </p>
                 )}
               </details>
               <div className="mt-2">
-                <p className="text-lg leading-snug">
+                <p className="text-lg leading-relaxed">
                   <span className="font-extrabold text-emerald-200">• 티별 거리 : </span>
                   <span className="font-bold">
                     {hole.teeOrder
