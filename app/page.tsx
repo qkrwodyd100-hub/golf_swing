@@ -12,7 +12,6 @@ import {
   Search,
 } from "lucide-react";
 import raw from "@/data/courses.json";
-import HoleDiagram, { type HoleDiagramData } from "@/components/HoleDiagram";
 
 interface ConsensusSource {
   type: string | null;
@@ -174,10 +173,8 @@ export default function YardageBookPage() {
   const [course, setCourse] = useState(DATA.clubs[0]?.courses[0] ?? "");
   const [holeNo, setHoleNo] = useState(1);
   const [tee, setTee] = useState("white");
-  const [pin, setPin] = useState<"front" | "middle" | "back">("middle");
   const [note, setNote] = useState("");
   const [noteSaved, setNoteSaved] = useState(false);
-  const [view, setView] = useState<"photo" | "diagram">("diagram");
 
   const club = useMemo(() => DATA.clubs.find((c) => c.id === clubId)!, [clubId]);
 
@@ -215,9 +212,8 @@ export default function YardageBookPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [holeKey, holeNo]);
 
-  // 사진 있으면 실사진 기본, 없으면 개략도
+  // 홀 변경 시 메모 리로드
   useEffect(() => {
-    setView(hole?.imageUrl ? "photo" : "diagram");
     setNoteSaved(false);
     try {
       setNote(localStorage.getItem(noteKey) ?? "");
@@ -427,13 +423,13 @@ export default function YardageBookPage() {
               ))}
             </div>
 
-            {/* 히어로: 사진(기본) / 개략도 + 오버레이 뱃지 */}
-            {hole.imageUrl && view === "photo" ? (
+            {/* 히어로: 공식 가이드 이미지만 (표기 없음) */}
+            {hole.imageUrl && (
               <figure className="relative overflow-hidden rounded-xl border-2 border-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={hole.imageUrl}
-                  alt={`${club.name} ${course} ${holeNo}번 홀 공식 가이드 이미지`}
+                  alt={`${club.name} ${course} ${holeNo}번 홀`}
                   className="block h-auto w-full"
                   loading="lazy"
                 />
@@ -451,66 +447,7 @@ export default function YardageBookPage() {
                     </span>
                   </div>
                 </div>
-                <figcaption className="bg-white px-3 py-1.5 text-xs font-bold text-black">
-                  공식 가이드 이미지 © {club.name}
-                </figcaption>
               </figure>
-            ) : (
-              <div>
-                <HoleDiagram
-                  diagram={null}
-                  pin={pin}
-                  holeNo={holeNo}
-                  par={hole.par}
-                  teeDist={teeDist}
-                  teeName={`${teeLabel(tee)} ${teeDist != null ? `${teeDist.toLocaleString()}m` : "미표기"}`}
-                />
-                <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                  <span className="rounded-full bg-emerald-300 px-3 py-1 text-lg font-extrabold text-fairway-950">
-                    {holeNo}H · Par {hole.par}
-                  </span>
-                  <span className="rounded-full bg-fairway-700 px-3 py-1 text-base font-bold text-emerald-100">
-                    HD {hole.handicap ?? "미공개"}
-                  </span>
-                  <span className="rounded-full bg-fairway-700 px-3 py-1 text-base font-bold text-emerald-100">
-                    <Navigation className="mr-1 inline h-4 w-4" aria-hidden />
-                    {teeLabel(tee)} {teeDist != null ? `${teeDist.toLocaleString()}m` : "미표기"}
-                  </span>
-                </div>
-                <p className="mt-1.5 text-sm text-emerald-100/70">
-                  공식 홀 이미지가 없어 개략도로 표시합니다.
-                </p>
-              </div>
-            )}
-
-            {/* 시각 자료 전환 (사진 있을 때만) */}
-            {hole.imageUrl && (
-              <div className="mb-1 mt-3 flex gap-2" role="group" aria-label="시각 자료 선택">
-                <button
-                  type="button"
-                  onClick={() => setView("photo")}
-                  aria-pressed={view === "photo"}
-                  className={`flex-1 rounded-xl px-3 py-2 text-base font-bold ${
-                    view === "photo"
-                      ? "bg-emerald-300 text-fairway-950"
-                      : "bg-fairway-700 text-white hover:bg-fairway-600"
-                  }`}
-                >
-                  실사진
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setView("diagram")}
-                  aria-pressed={view === "diagram"}
-                  className={`flex-1 rounded-xl px-3 py-2 text-base font-bold ${
-                    view === "diagram"
-                      ? "bg-emerald-300 text-fairway-950"
-                      : "bg-fairway-700 text-white hover:bg-fairway-600"
-                  }`}
-                >
-                  개략도
-                </button>
-              </div>
             )}
 
             {/* 해저드 칩 */}
