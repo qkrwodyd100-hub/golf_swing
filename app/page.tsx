@@ -122,7 +122,18 @@ function buildBullets(hole: Hole): string[] {
   return picked;
 }
 
-/** 상세 불릿: 해저드 / 티샷 / 그린 공략 — 원문 부분 발췌만 사용, 창작 없음. */
+/** 공략 포인트 통합: 라벨 불릿(해저드/티샷/그린) + 중복 제거된 추가 불릿. */
+function buildPoints(hole: Hole): { label: string; text: string }[] {
+  const labeled = buildDetail(hole);
+  const norms = labeled.map((d) => d.text.replace(/\s+/g, ""));
+  const extra = buildBullets(hole).filter((b) => {
+    const n = b.replace(/\s+/g, "");
+    return !norms.some((m) => m.includes(n) || n.includes(m));
+  });
+  const out = [...labeled];
+  extra.slice(0, Math.max(0, 6 - out.length)).forEach((t) => out.push({ label: "공략", text: t }));
+  return out;
+}
 function buildDetail(hole: Hole): { label: string; text: string }[] {
   const out: { label: string; text: string }[] = [];
   const cut = (s: string, n = 48) => (s.length > n ? s.slice(0, n).trimEnd() + "…" : s);
@@ -233,8 +244,7 @@ export default function YardageBookPage() {
   }
 
   const teeDist = hole && hole.tee[tee] != null ? hole.tee[tee] : null;
-  const bullets = useMemo(() => (hole ? buildBullets(hole) : []), [hole]);
-  const detail = useMemo(() => (hole ? buildDetail(hole) : []), [hole]);
+  const points = useMemo(() => (hole ? buildPoints(hole) : []), [hole]);
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-xl bg-fairway-950 px-4 pb-16 pt-6 text-white">
@@ -520,37 +530,25 @@ export default function YardageBookPage() {
               ) : null}
             </div>
 
-            {/* 공략 포인트: 원문 부분문자열 불릿 (원문·출처는 상세 보기에 보존) */}
-            {bullets.length > 0 && (
+            {/* 공략 포인트 (홀별 동일 형식): 해저드 / 티샷 / 그린 공략 */}
+            {points.length > 0 && (
               <div className="mt-2.5 rounded-xl border border-emerald-300/50 bg-fairway-950/60 px-3 py-2.5">
                 <h3 className="mb-1 text-lg font-extrabold text-emerald-200">
                   공략 포인트
                 </h3>
-                <ul className="space-y-1">
-                  {bullets.map((b, i) => (
-                    <li key={i} className="text-lg font-bold leading-relaxed">
-                      · {b}
+                <ul className="space-y-1.5">
+                  {points.map((d, i) => (
+                    <li key={i} className="text-lg leading-relaxed">
+                      <span className="font-extrabold text-emerald-200">• {d.label} : </span>
+                      <span className="font-bold">{d.text}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {/* 상세 펼침식 (기본 펼침): 공략 원문 · 티별 거리 · 출처 · 메모 보존 */}
-            <details open className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
-              <summary className="cursor-pointer text-lg font-extrabold text-emerald-200">
-                상세 보기 (공략 원문 · 티별 거리 · 출처 · 메모)
-              </summary>
-              {/* 상세 공략 불릿: 해저드 / 티샷 / 그린 공략 */}
-              <ul className="mt-1 space-y-1.5">
-                {detail.map((d, i) => (
-                  <li key={i} className="text-lg leading-relaxed">
-                    <span className="font-extrabold text-emerald-200">• {d.label} : </span>
-                    <span className="font-bold">{d.text}</span>
-                  </li>
-                ))}
-              </ul>
-              {/* 원문 보기 (공식 문구 그대로 보존) */}
+            {/* 홀 정보 (펼침 고정): 티별 거리 · 원문 · 출처 · 메모 */}
+            <div className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
               <details className="mt-2 rounded-lg bg-fairway-900 px-3 py-2">
                 <summary className="cursor-pointer text-base font-bold text-emerald-100/80">
                   원문 보기
@@ -626,7 +624,7 @@ export default function YardageBookPage() {
                   이 기기의 브라우저에만 저장됩니다.
                 </p>
               </div>
-            </details>
+            </div>
           </>
         )}
 
@@ -634,7 +632,7 @@ export default function YardageBookPage() {
 
       <footer className="mt-6 text-center text-base text-emerald-100/60">
         거리·핸디캡·해저드는 각 골프장 공식 사이트 확인 수치만 수록합니다.
-        이미지 © 각 골프장 (출처: 홀별 &lsquo;상세 보기&rsquo;).
+        이미지 © 각 골프장 (출처: 홀별 &lsquo;원문 보기&rsquo;).
       </footer>
     </main>
   );
