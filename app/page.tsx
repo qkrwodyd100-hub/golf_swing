@@ -779,7 +779,7 @@ export default function YardageBookPage() {
 
       <footer className="mt-6 text-center text-base text-emerald-100/60">
         거리·핸디캡·해저드는 각 골프장 공식 사이트 확인 수치만 수록합니다.
-        이미지 © 각 골프장 (출처: 홀별 &lsquo;원문 보기&rsquo;).
+        이미지 © 각 골프장 (출처: 홀별 출처 링크).
       </footer>
     </main>
   );
