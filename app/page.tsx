@@ -110,6 +110,24 @@ function splitSingle(text: string): { tee: string | null; green: string | null }
   };
 }
 
+/** 불릿 분리: 문장(.) 우선, 40자 초과 장문만 ·로 추가 분리 (짧은 조각 분리 방지). */
+function toBullets(text: string): string[] {
+  const out: string[] = [];
+  for (const sent of text.split(".")) {
+    const s = sent.trim();
+    if (!s) continue;
+    if (s.length > 40 && s.includes("·")) {
+      for (const p of s.split("·")) {
+        const t = p.trim();
+        if (t) out.push(t);
+      }
+    } else {
+      out.push(s);
+    }
+  }
+  return out;
+}
+
 /** 홀 정보 섹션: 동일 출처 문구 중복 없이 페어웨이/그린 2섹션으로 정리. */
 interface HoleSections {
   F: string | null;
@@ -667,21 +685,18 @@ export default function YardageBookPage() {
                   </span>
                 </h3>
                 <ul className="mt-2 space-y-1.5">
-                  <li className="flex gap-2 text-lg font-bold leading-relaxed">
-                    <span aria-hidden className="font-black">·</span>
-                    <span>
-                      <span className="font-black">좌우 해저드·OB: </span>
-                      {hole.hazards && hole.hazards.length > 0
-                        ? hole.hazards.join(" · ")
-                        : "공식 미공개"}
-                    </span>
-                  </li>
+                  {/* 공식 해저드 키워드가 있을 때만 표시 (없으면 아래 공개자료 불릿과 모순되므로 생략) */}
+                  {hole.hazards && hole.hazards.length > 0 && (
+                    <li className="flex gap-2 text-lg font-bold leading-relaxed">
+                      <span aria-hidden className="font-black">·</span>
+                      <span>
+                        <span className="font-black">좌우 해저드·OB: </span>
+                        {hole.hazards.join(" · ")}
+                      </span>
+                    </li>
+                  )}
                   {sections.F &&
-                    sections.F
-                      .split("·")
-                      .map((s) => s.trim())
-                      .filter((s) => s.length > 0)
-                      .map((b, i) => (
+                    toBullets(sections.F).map((b, i) => (
                         <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
                           <span aria-hidden className="font-black">·</span>
                           <span>{b}</span>
@@ -695,11 +710,7 @@ export default function YardageBookPage() {
                 </h3>
                 {sections.G ? (
                   <ul className="mt-2 space-y-1.5">
-                    {sections.G
-                      .split("·")
-                      .map((s) => s.trim())
-                      .filter((s) => s.length > 0)
-                      .map((b, i) => (
+                    {toBullets(sections.G).map((b, i) => (
                         <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
                           <span aria-hidden className="font-black">·</span>
                           <span>{b}</span>
