@@ -1563,8 +1563,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole01_1.asp",
         "imageUrl": "/holes/solago/SOL-IN-1.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "좌우 해저드 파4. 좌측 공간 있어 보여도 벙커 있어 위험 → 중앙~살짝 우측. 티샷 잘 맞으면 투온 가능 · 그린 우 대형벙커(넓고 턱 낮음) 주의, 중앙~살짝 왼쪽. 중간 마운드 있는 어려운 그린",
+        "consensus": {
+          "fairway": "좌우 해저드 파4. 중앙~살짝 우측 티샷 — 좌측 공간 있어 보여도 벙커 있어 위험",
+          "green": "그린 우 대형벙커 주의, 중앙~살짝 왼쪽. 드라이버 200m 나가면 미들 세컨 가능",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1572,6 +1574,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1686,8 +1695,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole04.asp",
         "imageUrl": "/holes/solago/SOL-IN-4.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재) / 불일치: 홀별 페이지의 4.(YELLOW)=317은 WHITE값과 중복된 오기로 보임. 코스안내 총괄표(intro.asp) YELLOW=285 채택.",
-        "singleNote": {
-          "text": "우도그렉 파4(우OB·좌해저드). 우측 질러가는 게 좋으나 슬라이스 주의 → 멀리 보이는 벙커 왼쪽 끝. 페어웨이는 넓다가 좁아짐, 좌측 대형벙커 이어짐 · 중앙~살짝 우측. 좌측 벙커(넓고 턱 낮음). 중간 마운드 2개 있는 3단 오르막, 뒤로 갈수록 심해짐",
+        "consensus": {
+          "fairway": "우도그렉 파4. 우측 질러가되 슬라이스 주의 — 멀리 보이는 벙커 왼쪽 끝",
+          "green": "세컨은 핀 직접보다 중앙~살짝 우측이 안전",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1695,6 +1706,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1721,8 +1739,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole05.asp",
         "imageUrl": "/holes/solago/SOL-IN-5.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "좌도그렉 파4(우OB·좌해저드). 짧아 보여도 좌로 잘 질러가야 함 → 좌측 벙커 우측 끝. 세컨 거리부담 있음 · 그린 우 벙커 주의하고 중앙(좌 당김 주의). 우측 항아리벙커 턱 있음. 오르막·뒤좌측이 높은 지형",
+        "consensus": {
+          "fairway": "좌우 해저드 아일랜드형 파4. 짧아 보여도 좌로 잘 질러가기 — 좌측 벙커 우측 끝",
+          "green": "세컨 거리부담 — 그린 우 벙커 주의하고 중앙 (좌 당김 주의)",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1730,6 +1750,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1756,8 +1783,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole06.asp",
         "imageUrl": "/holes/solago/SOL-IN-6.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "우도그렉 파5(좌OB·우해저드). 해저드 넘겨야 함, 우측 끝 벙커 방향이 베스트이나 비거리 안 되면 좌측이 안전 · 티샷 잘 맞으면 투온 가능. 좌측 벙커만 주의하고 중앙~우측. 좌 벙커턱 낮음, 중간 마운드 2단 그린",
+        "consensus": {
+          "fairway": "우측 해저드 주의 — 우측 끝 벙커 방향이 베스트, 비거리 안 되면 좌측이 안전",
+          "green": "좌측 벙커만 주의하고 중앙~우측",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1765,6 +1794,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1791,8 +1827,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole07.asp",
         "imageUrl": "/holes/solago/SOL-IN-7.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "파4(좌OB·우해저드). 중간 해저드를 두 번 넘김. 좌측 숲 넘기려면 캐리 190m+ → 본인 비거리 감안하면 우측 공략이 안전 · 해저드가 좌측 깊이 들어옴, 우측 밀림 주의, 그린 중앙. 중간 마운드 있고 내리막 섞인 2단 복합 그린",
+        "consensus": {
+          "fairway": "중간 해저드 두 번 넘김. 좌측 숲 넘기려면 캐리 190m+ — 자신 없으면 우측 공략이 안전",
+          "green": "그린 중앙. 중간 마운드 2단 복합 — 끊어가면 보기 각오",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1800,6 +1838,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1826,8 +1871,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole08.asp",
         "imageUrl": "/holes/solago/SOL-IN-8.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "파3 — 해당 없음(해저드 넘김) · 우측 밀리면 벙커·깊은 해저드 → 한 클럽 길게 보고 중앙. 앞 벙커턱 낮음. 세로 마운드 2개로 굴곡 심함·우측 높음",
+        "consensus": {
+          "fairway": "파3 — 양쪽 해저드 넘김",
+          "green": "우측 밀리면 벙커·깊은 해저드 — 한 클럽 길게 보고 중앙",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1835,6 +1882,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1861,8 +1915,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole09.asp",
         "imageUrl": "/holes/solago/SOL-IN-9.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "우로 심하게 꺾인 파5(좌OB·우해저드). 무조건 질러가는 게 좋으나 우측 과하면 물 → 라이트 방향이 안전, 장타자는 우측. 페어웨이 중앙, 그린 앞 벙커 방향이 베스트 · 좌우 벙커(특히 우 대형) 주의하고 중앙. 우 벙커턱 높음·좌 항아리턱 있음. 좌우 마운드 있는 어려운 그린",
+        "consensus": {
+          "fairway": "우로 심하게 꺾인 파5. 무조건 질러가되 우측 과하면 물 — 페어웨이 중앙",
+          "green": "티샷 좋으면 2온·이글 도전 가능. 그린 앞 벙커 방향이 베스트, 좌우 벙커 주의",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1870,6 +1926,13 @@
               "title": "태안 솔라고CC 솔 In코스 5분 공략",
               "date": "2024-06-05",
               "url": "https://www.youtube.com/watch?v=d6v3_sPD7Bk"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1942,8 +2005,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole11.asp",
         "imageUrl": "/holes/solago/SOL-OUT-2.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "살짝 왼쪽으로 꺾이는 파5(우OB·좌해저드). 좌측 벙커(200m) 주의, 본인 거리 감안해 벙커 우측 끝 에이밍. 페어웨이 넓음 · 그린 좌 대형벙커 주의, 우측 마운드 활용 중앙~우측. 세로로 길쭉한 오르막·우측이 높은 지형",
+        "consensus": {
+          "fairway": "긴 파5. 좌측 벙커·우측 해저드 사이 티샷 자리 — 벙커 우측 끝 에이밍",
+          "green": "티샷만 좋은 자리로 보내면 세컨부터 편안. 그린 좌 대형벙커 주의, 우측 마운드 활용 중앙~우측",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1951,6 +2016,13 @@
               "title": "태안 솔라고CC 솔 Out 코스 5분 공략",
               "date": "2024-06-03",
               "url": "https://www.youtube.com/watch?v=k_9trmXqg_o"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "안가보고 쓰는 라운드 후기 1탄 - 현대솔라고",
+              "date": "2017-07-31",
+              "url": "https://www.golfyardages.com/roundepi/1"
             }
           ]
         }
@@ -1977,8 +2049,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole12.asp",
         "imageUrl": "/holes/solago/SOL-OUT-3.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "좌도그렉 파4(우OB·좌해저드). 나무 사이 뚫린 공간 에임해 우측으로, 세컨에서 해저드 한 번 더 건넘 · 그린 좌측 벙커 주의하고 중앙. 중간 마운드 큰 2단 그린",
+        "consensus": {
+          "fairway": "좌도그렉 파4. 나무 사이 뚫린 공간 에임해 우측으로",
+          "green": "세컨에서 해저드 한 번 더 건넘 — 티가 뒤로 빠지거나 비거리 짧으면 끊어가기. 그린 중앙",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -1986,6 +2060,13 @@
               "title": "태안 솔라고CC 솔 Out 코스 5분 공략",
               "date": "2024-06-03",
               "url": "https://www.youtube.com/watch?v=k_9trmXqg_o"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "안가보고 쓰는 라운드 후기 1탄 - 현대솔라고",
+              "date": "2017-07-31",
+              "url": "https://www.golfyardages.com/roundepi/1"
             }
           ]
         }
@@ -2012,8 +2093,10 @@
         "sourceUrl": "https://sollago.co.kr/pagesite/course/one/hole13.asp",
         "imageUrl": "/holes/solago/SOL-OUT-4.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
-        "singleNote": {
-          "text": "살짝 좌측으로 꺾인 파4(좌우 해저드). 우측 대형벙커 있어 벙커 왼쪽 끝 보고 티샷, 벙커 지나면 좌측 해저드라인 · 무조건 우측 공략(뒷단에서 짧으면 해저드). 해저드 턱이 있어 맞으면 뒤로 굴러 떨어짐. 완만한 오르막·우측 언덕",
+        "consensus": {
+          "fairway": "티박스 위치 따라 난이도 변화. 우측 대형벙커 왼쪽 끝 보고 티샷 — 앞 티일수록 어려움",
+          "green": "뒷단에서 짧으면 해저드라 무조건 우측 공략",
+          "strength": "strong",
           "sources": [
             {
               "type": "youtube",
@@ -2021,6 +2104,13 @@
               "title": "태안 솔라고CC 솔 Out 코스 5분 공략",
               "date": "2024-06-03",
               "url": "https://www.youtube.com/watch?v=k_9trmXqg_o"
+            },
+            {
+              "type": "blog",
+              "author": "골프야디지",
+              "title": "안가보고 쓰는 라운드 후기 1탄 - 현대솔라고",
+              "date": "2017-07-31",
+              "url": "https://www.golfyardages.com/roundepi/1"
             }
           ]
         }
@@ -2797,7 +2887,19 @@
         "verified": true,
         "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole13.asp",
         "imageUrl": "/holes/solago/LAGO-OUT-4.jpg",
-        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
+        "singleNote": {
+          "text": "파3. 대형 벙커 넘김 — 바람 보고 클럽 선택, 무풍이면 한 클럽 길게 중앙·살짝 왼쪽이 안전",
+          "sources": [
+            {
+              "type": "youtube",
+              "author": "리보플TV [리얼보기플레이어]",
+              "title": "태안 솔라고CC 라고 Out코스 5분 공략",
+              "date": "2024-06-10",
+              "url": "https://www.youtube.com/watch?v=Akq9JZIM1qM"
+            }
+          ]
+        }
       },
       "5": {
         "par": 4,
@@ -2820,7 +2922,19 @@
         "verified": true,
         "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole14.asp",
         "imageUrl": "/holes/solago/LAGO-OUT-5.jpg",
-        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
+        "singleNote": {
+          "text": "해저드 건너는 도그렉 파4. 좌 OB·우 해저드 — 페어웨이 중앙 티샷, 세컨은 우측 벙커 경계·그린 중앙 공략",
+          "sources": [
+            {
+              "type": "youtube",
+              "author": "리보플TV [리얼보기플레이어]",
+              "title": "태안 솔라고CC 라고 Out코스 5분 공략",
+              "date": "2024-06-10",
+              "url": "https://www.youtube.com/watch?v=Akq9JZIM1qM"
+            }
+          ]
+        }
       },
       "6": {
         "par": 5,
@@ -5397,8 +5511,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "왼쪽 도그레그 (Dog-leg) 홀로 첫 번째 페어웨이 벙커 오른쪽을 목표로 티샷하는 것이 좋다. 세컨 샷은 페어웨이 왼쪽을 공략한다면 그린이 열려 쉽게 온 그린 할 수 있지만, 거리에 자신이 있는 골퍼는 투 온을 노려볼 만한 홀이다. 비교적 안전한 스타트 홀로 코스의 분위기를 익힐 수 있다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "좌 도그렉 파5. 티샷 정면 우측 워터해저드 — 첫홀이라 가볍게 쳐도 넘길 거리 (official: 페어웨이벙커 오른쪽 공략 — 일치)",
+        "consensus": {
+          "fairway": "좌 도그렉 파5. 첫 페어웨이 벙커 오른쪽 티샷 — 정면 우측 워터 주의",
+          "green": "세컨은 페어웨이 왼쪽 공략 시 그린 열림, 투온 가능",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5406,6 +5522,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5434,8 +5557,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "두 개의 페어웨이 벙커 사이로 티샷을 보내면 그린 공략이 어렵지 않다. 퍼팅면이 잘 보이기 때문에 어프로치에 대한 전략을 수립하여 공략할 수 있다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "우측 살짝 꺾임. 그린 우측 워터해저드 압박, 왼쪽은 OB라 당김 주의 (official: 벙커 사이 티샷 — 방향 일치)",
+        "consensus": {
+          "fairway": "두 페어웨이 벙커 사이 티샷 — 왼쪽 OB라 당김 주의",
+          "green": "그린 우측 워터는 압박감만, 퍼팅면 잘 보여 어프로치 전략 수립",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5443,6 +5568,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5471,8 +5603,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "페어웨이 벙커 오른쪽을 공략하면 세컨 샷의 부담감이 줄어들어 온 그린 할 수 있는 기회가 생긴다. 그린이 11시 방향으로 위치하며 정확한 거리를 맞추지 못하면 그린 주변 벙커나 해저드에 빠지는 어려움을 겪게 된다. 퍼팅면 폭이 좁고 엘리베이티드(Elevated) 그린으로 조성되어 벙커가 더 깊게 느껴진다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "짧은 파4. 왼쪽 도로 인접 OB — 티샷 당김 엄금. IP 깃발=해저드티, 고탄도 시 공 후진 가능 (official: 페어웨이벙커 오른쪽·11시 그린 — 일치)",
+        "consensus": {
+          "fairway": "페어웨이 벙커 오른쪽 공략 — 왼쪽 도로 OB라 당김 엄금",
+          "green": "11시 방향 엘리베이티드 그린, 거리 정확해야 벙커·해저드 회피",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5480,6 +5614,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5508,8 +5649,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "코스 내 모든 티잉 그라운드에서 워터해저드를 넘기는 티샷을 시도해야 하는 Do-or-Die 개념의 아일랜드 홀로 온 그린에 실패할 경우 무조건 워터해저드에 빠지게 되는 벌칙형 홀이다. 링스코스 특성의 바람을 잘 감안하여 공략하는 것이 비법이다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "Do-or-Die 아일랜드 파3. 맞바람에 최대 4클럽업, 짧으면 앞 높은 벙커 — 길게 공략 유리 (official: 전 티 워터해저드 넘김·바람 감안 — 일치)",
+        "consensus": {
+          "fairway": "파3 해당 없음 — 전 티에서 워터 넘기는 Do-or-Die 아일랜드",
+          "green": "맞바람에 최대 4클럽업, 짧으면 앞 높은 벙커 — 길게 공략 유리",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5517,6 +5660,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5545,8 +5695,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "페어웨이 벙커 오른쪽을 공략하는 것이 좋지만 조금이라도 샷이 짧을 경우 페어웨이 중심의 능선을 타고 공이 좌우로 흘러 세컨 샷이 어려워진다. 티샷된 공이 페어웨이를 벗어날 경우 깊은 러프에 빠진다. 그린 오른쪽의 깊은 벙커와 왼쪽 능선부 사이의 좁은 퍼팅면이 온 그린을 어렵게 한다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "우측 넓어 티샷 실수 허용. 200m 안쪽 넓은 페어웨이 겨냥이 안전 (official: 페어웨이벙커 오른쪽 공략 — 일치)",
+        "consensus": {
+          "fairway": "페어웨이 벙커 오른쪽, 200m 안쪽 넓은 곳 겨냥 — 짧으면 중앙 능선 타고 공이 좌우로 흘러 세컨 난해",
+          "green": "그린 우측 깊은 벙커·좌측 능선 사이 좁은 퍼팅면",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5554,6 +5706,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5582,8 +5741,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "오른쪽 도그레그(Dog-leg) 홀로 페어웨이 벙커 오른쪽을 공략하는 것이 좋다. 그린 좌우를 방어하고 있는 벙커로 인해 그린 공략이 까다로운 홀이다. 단타자는 그린 앞쪽의 베일 아웃(Bail-out) 지역을 이용한 레이 업을 고려해볼 만하다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "우 도그렉. 핀 잘 보여 공략 수월, 단 그린 주변 높은 벙커라 세컨 정확도가 관건 (official: 페어웨이벙커 오른쪽 — 일치)",
+        "consensus": {
+          "fairway": "우 도그렉. 페어웨이 벙커 오른쪽 공략 — 핀 잘 보임",
+          "green": "그린 좌우 벙커 방어, 세컨 정확도가 관건 — 단타자는 앞 베일아웃 레이업",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5591,6 +5752,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5619,8 +5787,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "가장 긴 파-5 홀이다. 해저드(습지)와 워터해저드 사이에서 티샷을 해야 하므로 심리적 부담이 큰 홀이다. 페어웨이 벙커 오른쪽으로 공략하는 것이 좋으며 세컨 샷 역시 두 번째 페어웨이 벙커 오른쪽을 공략하면 쉬운 어프로치가 남게 된다. 코스 특성상 맞바람 영향을 받아 쓰리 온 역시 쉽지 않다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "최장 파5 + 맞바람 최악 조합. 정면 그래스해저드 넘겨도 280m+ 남음, 3온도 쉽지 않음 (official: 해저드 사이 티샷·맞바람 쓰리온 어려움 — 일치)",
+        "consensus": {
+          "fairway": "최장 파5. 습지·워터 사이 티샷, 페어웨이 벙커 오른쪽",
+          "green": "맞바람에 탄도 높으면 3온도 어려움 — 세컨도 두 번째 벙커 오른쪽",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5628,6 +5798,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
@@ -5804,8 +5981,10 @@
         "memo": "공식 코스공략도 홀상세 수치. 핸디캡 미공개·해저드 텍스트 미제공으로 null.",
         "tip": "홀 좌우에 위치한 커다란 워터해저드로 인해 티샷이 쉽지 않은 홀이지만 페어웨이 양쪽의 벙커 사이를 공략하면 그린이 열리게 되어 온 그린을 무난하게 할 수 있다. 장타자의 도전적인 공략은 페어웨이 벙커와 좌우의 워터해저드를 조심해야 한다.",
         "tipSource": "로얄링스CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "양쪽 호수로 IP 좁게 체감. 티샷 안착하면 그린 방향 넓어 오히려 쉬움 (official: 양쪽 벙커 사이 공략 시 그린 열림 — 일치)",
+        "consensus": {
+          "fairway": "좌우 대형 워터 사이 티샷 — 양쪽 벙커 사이로 보내면",
+          "green": "그린 열려 온그린 무난 — 티샷 안착이 전부",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5813,6 +5992,13 @@
               "title": "로얄링스CC A QUEEN 퀸스코스 공략법",
               "date": "2023-05-01",
               "url": "https://smoothmen.tistory.com/580"
+            },
+            {
+              "type": "blog",
+              "author": "리키마루",
+              "title": "로얄링스cc 퀸코스 공략법",
+              "date": "2023-06-11",
+              "url": "https://jalgu.tistory.com/483"
             }
           ]
         }
