@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
-  AlertTriangle,
   BookOpen,
   ChevronLeft,
   ChevronRight,
@@ -95,79 +94,42 @@ function defaultTee(teeOrder: string[]): string {
   return teeOrder[0] ?? "white";
 }
 
-/**
- * 공략 불릿: tip·consensus 원문의 부분문자열만으로 구성 (창작 추가 없음).
- * 각 불릿 20자 내외·최대 4개, 해저드 칩·서로 간의 중복 문구 제거.
- */
-function buildBullets(hole: Hole): string[] {
-  const srcs = [hole.tip, hole.consensus?.fairway, hole.consensus?.green].filter(
-    (s): s is string => !!s
-  );
-  const norm = (x: string) => x.replace(/\s+/g, "");
-  const hazardNorms = (hole.hazards ?? []).map(norm);
-  const picked: string[] = [];
-  const clauses: string[] = [];
-  for (const s of srcs) {
-    for (const part of s.split(/[.\n·;；。]+/)) {
-      const t = part.replace(/\s+/g, " ").trim();
-      if (t.length < 4) continue;
-      clauses.push(t.length > 24 ? t.slice(0, 24).trimEnd() + "…" : t);
-    }
-  }
-  for (const c of clauses) {
-    if (picked.length >= 4) break;
-    const n = norm(c);
-    if (picked.some((p) => norm(p).includes(n) || n.includes(norm(p)))) continue;
-    if (hazardNorms.some((h) => h === n)) continue;
-    picked.push(c);
-  }
-  return picked;
-}
-
-/** 공략 포인트 통합: 라벨 불릿(해저드/티샷/그린) + 중복 제거된 추가 불릿. */
-function buildPoints(hole: Hole): { label: string; text: string }[] {
-  const labeled = buildDetail(hole);
-  const norms = labeled.map((d) => d.text.replace(/\s+/g, ""));
-  const extra = buildBullets(hole).filter((b) => {
-    const n = b.replace(/\s+/g, "");
-    return !norms.some((m) => m.includes(n) || n.includes(m));
-  });
-  const out = [...labeled];
-  extra.slice(0, Math.max(0, 6 - out.length)).forEach((t) => out.push({ label: "공략", text: t }));
-  return out;
-}
-function buildDetail(hole: Hole): { label: string; text: string }[] {
-  const out: { label: string; text: string }[] = [];
-  const cut = (s: string, n = 48) => (s.length > n ? s.slice(0, n).trimEnd() + "…" : s);
-  const norm = (x: string) => x.replace(/\s+/g, "");
-  // 해저드 칩이 있으면 [해저드] 불릿 생략 (칩과 문구 중복 방지). 칩이 없는 홀만 불릿으로 표시.
-  if (hole.hazards && hole.hazards.length > 0) {
-    const hazardNorm = norm(hole.hazards.join(" · "));
-    const parts = (hole.singleNote?.text ?? "")
-      .split("·")
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
-    const tee =
-      hole.consensus?.fairway ?? parts.find((p) => !/그린/.test(p)) ?? hole.tip ?? null;
-    const green =
-      hole.consensus?.green ?? parts.find((p) => /그린/.test(p)) ?? null;
-    if (tee && norm(tee) !== hazardNorm) out.push({ label: "티샷", text: cut(tee) });
-    if (green && green !== tee) out.push({ label: "그린 공략", text: cut(green) });
-    return out;
-  }
-  // 해저드 칩이 없는 홀은 위에서 조기 반환되지 않으므로 그대로 진행 (불릿 없음).
-  const hazardNorm = norm(hole.hazards?.join(" · ") ?? "");
-  const parts = (hole.singleNote?.text ?? "")
+/** singleNote 원문을 티샷 파트와 그린 파트로 분리 (전체 표시용, 잘라내지 않음). */
+function splitSingle(text: string): { tee: string | null; green: string | null } {
+  const parts = text
     .split("·")
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
-  const tee =
-    hole.consensus?.fairway ?? parts.find((p) => !/그린/.test(p)) ?? hole.tip ?? null;
-  const green =
-    hole.consensus?.green ?? parts.find((p) => /그린/.test(p)) ?? null;
-  if (tee && norm(tee) !== hazardNorm) out.push({ label: "티샷", text: cut(tee) });
-  if (green && green !== tee) out.push({ label: "그린 공략", text: cut(green) });
-  return out;
+  if (parts.length === 0) return { tee: null, green: null };
+  const greenIdx = parts.findIndex((p) => /그린/.test(p));
+  if (greenIdx === -1) return { tee: parts.join(" · "), green: null };
+  const teeParts = parts.filter((_, i) => i !== greenIdx);
+  return {
+    tee: teeParts.length > 0 ? teeParts.join(" · ") : null,
+    green: parts[greenIdx],
+  };
+}
+
+/** 홀 정보 섹션: 동일 출처 문구 중복 없이 페어웨이/그린 2섹션으로 정리. */
+interface HoleSections {
+  F: string | null;
+  G: string | null;
+  showTipFull: boolean;
+  hasBox: boolean;
+}
+
+function buildSections(hole: Hole): HoleSections {
+  const split = hole.singleNote
+    ? splitSingle(hole.singleNote.text)
+    : { tee: null as string | null, green: null as string | null };
+  const consF = hole.consensus?.fairway || null;
+  const F = consF || split.tee || hole.tip || null;
+  const G = hole.consensus?.green || split.green || null;
+  const Fsrc = consF ? "consensus" : split.tee ? "single" : hole.tip ? "tip" : null;
+  // 공식 TIP이 F에 이미 그대로 실렸으면 원문란에 반복하지 않음.
+  const showTipFull = !!hole.tip && Fsrc !== "tip";
+  const hasBox = (hole.hazards?.length ?? 0) > 0 || !!F || !!G;
+  return { F, G, showTipFull, hasBox };
 }
 
 function StatusBadge({ verified }: { verified: boolean }) {
@@ -257,7 +219,7 @@ export default function YardageBookPage() {
   }
 
   const teeDist = hole && hole.tee[tee] != null ? hole.tee[tee] : null;
-  const points = useMemo(() => (hole ? buildPoints(hole) : []), [hole]);
+  const sections = useMemo(() => (hole ? buildSections(hole) : null), [hole]);
 
   /* ── 코스 브리핑 (공식 수치에서만 도출, 창작 없음) ── */
   const briefing = useMemo(() => {
@@ -397,8 +359,7 @@ export default function YardageBookPage() {
             코스 브리핑 · {club.name} {course}
           </h2>
           <p className="mt-1 text-base text-emerald-100/80">
-            Par {briefing.parTotal} · Par3 {briefing.par3} · Par4 {briefing.par4} · Par5 {briefing.par5}
-            {" · "}총 {briefing.holes.length}홀
+            총 {briefing.holes.length}홀 (Par3: {briefing.par3}홀 / Par4: {briefing.par4}홀 / Par5: {briefing.par5}홀)
           </p>
           {/* 티별 총전장 (티 선택용 — 공식 합산, 미표기 홀 있으면 병기) */}
           <div className="mt-3 space-y-2">
@@ -494,6 +455,7 @@ export default function YardageBookPage() {
               <thead>
                 <tr className="bg-fairway-950/80">
                   <th className="sticky left-0 bg-fairway-950 px-2 py-2 font-extrabold">홀</th>
+                  <th className="px-2 py-2 font-extrabold text-emerald-100">Par</th>
                   {briefing.teeUnion.map((t) => (
                     <th
                       key={t}
@@ -502,7 +464,7 @@ export default function YardageBookPage() {
                       {teeLabel(t)}
                     </th>
                   ))}
-                  <th className="px-2 py-2 font-extrabold text-emerald-100">Par/HD</th>
+                  <th className="px-2 py-2 font-extrabold text-emerald-100">HD</th>
                 </tr>
               </thead>
               <tbody>
@@ -523,6 +485,11 @@ export default function YardageBookPage() {
                           {n}
                         </button>
                       </td>
+                      <td
+                        className={`px-2 py-2.5 text-xl font-black ${active ? "text-emerald-300" : "text-white"}`}
+                      >
+                        {h.par}
+                      </td>
                       {briefing.teeUnion.map((t) => {
                         const v = h.tee[t];
                         return (
@@ -534,8 +501,8 @@ export default function YardageBookPage() {
                           </td>
                         );
                       })}
-                      <td className="whitespace-nowrap px-2 py-2.5 font-extrabold text-white/90">
-                        {h.par}/{h.handicap ?? "–"}
+                      <td className="whitespace-nowrap px-2 py-2.5 text-lg font-extrabold text-white/90">
+                        {h.handicap ?? "–"}
                       </td>
                     </tr>
                   );
@@ -684,94 +651,100 @@ export default function YardageBookPage() {
               </figure>
             )}
 
-            {/* 해저드 칩 */}
-            <div className="mt-3">
-              {hole.hazards && hole.hazards.length > 0 ? (
-                <ul className="flex flex-wrap gap-1.5" aria-label="해저드 요약">
-                  {hole.hazards.map((hz, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-1 rounded-full border border-amber-300/60 bg-fairway-950/60 px-3 py-1 text-base font-bold text-amber-200"
-                    >
-                      <AlertTriangle className="h-4 w-4 shrink-0" aria-hidden />
-                      {hz}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-
-            {/* 캐디 브리핑 (홀별 동일 형식): 해저드 / 티샷 / 그린 공략 — 햇빛용 종이 카드 */}
-            {points.length > 0 && (
+            {/* 홀 공략 (흰 박스): 페어웨이 공략 / 그린 공략 + 공식 TIP 원문 */}
+            {sections && ((hole.hazards?.length ?? 0) > 0 || sections.F || sections.G) && (
               <div className="mt-3 rounded-2xl border-4 border-emerald-300 bg-white px-4 py-3 text-black shadow-lg">
-                <h3 className="mb-2 flex items-center gap-2 text-xl font-black tracking-tight">
-                  <span className="rounded-md bg-black px-2 py-0.5 text-lg font-black text-emerald-300">캐디</span>
-                  브리핑
+                <h3 className="text-xl font-black tracking-tight">페어웨이 공략</h3>
+                <p className="mt-1 text-lg font-bold leading-snug">
+                  <span className="font-black">[좌우 해저드·OB] </span>
+                  {hole.hazards && hole.hazards.length > 0
+                    ? hole.hazards.join(" · ")
+                    : "공식 미공개"}
+                </p>
+                {sections.F && (
+                  <p className="mt-1.5 text-lg font-bold leading-snug">{sections.F}</p>
+                )}
+                <h3 className="mt-3 border-t-2 border-neutral-200 pt-2 text-xl font-black tracking-tight">
+                  그린 공략
                 </h3>
-                <ul className="space-y-2">
-                  {points.map((d, i) => (
-                    <li key={i} className="flex gap-2 text-xl font-bold leading-snug">
-                      <span className="mt-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-black px-2 text-base font-black text-emerald-300">
-                        {i + 1}
-                      </span>
-                      <span>
-                        <span className="font-black">[{d.label}] </span>
-                        {d.text}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                {(hole.consensus || hole.singleNote) && (
-                  <p className="mt-2 border-t-2 border-neutral-200 pt-2 text-base font-bold text-neutral-600">
-                    {hole.consensus
-                      ? `공개자료 ${hole.consensus.strength === "strong" ? "복수일치" : "단일합의"} · 출처 ${hole.consensus.sources.length}곳`
-                      : `참고(단일 출처) · 출처 ${hole.singleNote?.sources.length ?? 0}곳`}
-                    {" · "}원문은 아래 &lsquo;원문 보기&rsquo;에서 확인
-                  </p>
+                <p className="mt-1 text-lg font-bold leading-snug">
+                  {sections.G ?? "언급 없음"}
+                </p>
+                {sections.showTipFull && hole.tip && (
+                  <>
+                    <h3 className="mt-3 border-t-2 border-neutral-200 pt-2 text-xl font-black tracking-tight">
+                      공식 TIP 원문
+                    </h3>
+                    <p className="mt-1 text-base font-bold leading-relaxed text-neutral-800">
+                      {hole.tip}
+                    </p>
+                  </>
                 )}
               </div>
             )}
+            {/* 출처 등급·링크 (박스 아래 — 박스 안에는 공략 정보만) */}
+            {(() => {
+              const srcs = hole.consensus?.sources ?? hole.singleNote?.sources ?? [];
+              const grade = hole.consensus
+                ? `공개자료 ${hole.consensus.strength === "strong" ? "복수일치" : "단일합의"}`
+                : hole.singleNote
+                  ? "참고(단일 출처)"
+                  : hole.tip
+                    ? "공식 TIP"
+                    : null;
+              return (
+                <div className="mt-1.5 px-1">
+                  {grade && (
+                    <p className="text-sm font-bold text-emerald-100/70">
+                      {grade}
+                      {srcs.length > 0 ? ` · 출처 ${srcs.length}곳` : ""}
+                    </p>
+                  )}
+                  <ul className="mt-1 space-y-0.5 text-sm">
+                    <li>
+                      <a
+                        href={hole.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-bold text-sky-300 underline"
+                      >
+                        공식 가이드: {club.name} 홀 안내
+                      </a>
+                    </li>
+                    {srcs.map((s, i) => (
+                      <li key={i} className="text-emerald-100/70">
+                        {s.url ? (
+                          <a href={s.url} target="_blank" rel="noreferrer" className="underline">
+                            {s.author ?? "출처"} · {s.title ?? ""}
+                            {s.date ? ` (${s.date})` : ""}
+                          </a>
+                        ) : (
+                          <span>
+                            {s.author ?? "출처"} · {s.title ?? ""}
+                            {s.date ? ` (${s.date})` : ""}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })()}
 
-            {/* 홀 정보 (펼침 고정): 티별 거리 · 원문 · 출처 · 메모 */}
+            {/* 홀 부가 정보 + 개인 메모 */}
             <div className="mt-3 rounded-xl bg-fairway-950/60 px-4 py-3">
-              <details className="mt-2 rounded-lg bg-fairway-900 px-3 py-2">
-                <summary className="cursor-pointer text-base font-bold text-emerald-100/80">
-                  원문 보기
-                </summary>
-                {hole.tip && <p className="mt-1.5 text-base leading-relaxed">{hole.tip}</p>}
-                {hole.consensus?.fairway && (
-                  <p className="mt-1.5 text-base leading-relaxed">{hole.consensus.fairway}</p>
-                )}
-                {hole.consensus?.green && (
-                  <p className="mt-1.5 text-base leading-relaxed">{hole.consensus.green}</p>
-                )}
-                {hole.singleNote && (
-                  <p className="mt-1.5 text-base leading-relaxed text-neutral-100">
-                    {hole.singleNote.text}
-                  </p>
-                )}
-              </details>
-              <div className="mt-2">
-                {hole.holeName && (
-                  <p className="mt-2 text-base text-emerald-100/80">홀명: {hole.holeName}</p>
-                )}
-                {hole.memo && !/^[a-z0-9_]+:/.test(hole.memo) && (
-                  <p className="mt-2 rounded-lg border border-neutral-500 px-3 py-2 text-base text-neutral-200">
-                    메모: {hole.memo}
-                  </p>
-                )}
-                <p className="mt-2 text-base">
-                  <a
-                    href={hole.sourceUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-bold text-sky-300 underline"
-                  >
-                    공식 가이드 페이지 열기
-                  </a>{" "}
-                  <span className="text-emerald-100/60">© {club.name}</span>
-                </p>
-              </div>
+              {(hole.holeName || (hole.memo && !/^[a-z0-9_]+:/.test(hole.memo))) && (
+                <div className="mb-2">
+                  {hole.holeName && (
+                    <p className="text-base text-emerald-100/80">홀명: {hole.holeName}</p>
+                  )}
+                  {hole.memo && !/^[a-z0-9_]+:/.test(hole.memo) && (
+                    <p className="mt-2 rounded-lg border border-neutral-500 px-3 py-2 text-base text-neutral-200">
+                      메모: {hole.memo}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* 개인 메모 (상세로 이동) */}
               <div className="mt-4 border-t-2 border-fairway-700 pt-4">
