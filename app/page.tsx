@@ -4,12 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
   BookOpen,
+  ChevronLeft,
   ChevronRight,
+  ClipboardList,
   Flag,
   MapPin,
   Navigation,
   NotebookPen,
   Search,
+  TableProperties,
 } from "lucide-react";
 import raw from "@/data/courses.json";
 
@@ -242,6 +245,48 @@ export default function YardageBookPage() {
   const teeDist = hole && hole.tee[tee] != null ? hole.tee[tee] : null;
   const points = useMemo(() => (hole ? buildPoints(hole) : []), [hole]);
 
+  /* ── 코스 브리핑 (공식 수치에서만 도출, 창작 없음) ── */
+  const briefing = useMemo(() => {
+    const holes = holeNos
+      .map((n) => courseHoles[String(n)])
+      .filter((h): h is Hole => !!h);
+    if (holes.length === 0) return null;
+    const parTotal = holes.reduce((s, h) => s + h.par, 0);
+    const par3 = holes.filter((h) => h.par === 3).length;
+    const par4 = holes.filter((h) => h.par === 4).length;
+    const par5 = holes.filter((h) => h.par === 5).length;
+    // 코스 내 티 순서 합집합 (첫 등장 순서 유지)
+    const teeUnion: string[] = [];
+    for (const h of holes)
+      for (const t of h.teeOrder) if (!teeUnion.includes(t)) teeUnion.push(t);
+    const teeTotals = teeUnion.map((t) => {
+      let sum = 0;
+      let missing = 0;
+      for (const h of holes) {
+        const v = h.tee[t];
+        if (typeof v === "number") sum += v;
+        else missing += 1;
+      }
+      return { tee: t, total: sum, missing };
+    });
+    const withHd = holeNos
+      .map((n) => ({ n, hd: courseHoles[String(n)]?.handicap ?? null }))
+      .filter((x) => typeof x.hd === "number")
+      .sort((a, b) => (a.hd as number) - (b.hd as number));
+    const hardest = withHd.slice(0, 3);
+    // 선택 티 기준 최장/최단 홀
+    const withDist = holeNos
+      .map((n) => ({ n, d: courseHoles[String(n)]?.tee[tee] ?? null }))
+      .filter((x): x is { n: number; d: number } => typeof x.d === "number");
+    const sorted = [...withDist].sort((a, b) => b.d - a.d);
+    const maxD = sorted.length > 0 ? sorted[0].d : null;
+    return { holes, parTotal, par3, par4, par5, teeUnion, teeTotals, hardest, withDist, maxD, longest: sorted[0] ?? null, shortest: sorted.length > 0 ? sorted[sorted.length - 1] : null };
+  }, [courseHoles, holeNos, tee]);
+
+  const holeIdx = holeNos.indexOf(holeNo);
+  const prevHole = holeIdx > 0 ? holeNos[holeIdx - 1] : null;
+  const nextHole = holeIdx >= 0 && holeIdx < holeNos.length - 1 ? holeNos[holeIdx + 1] : null;
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-xl bg-fairway-950 px-4 pb-16 pt-6 text-white">
       {/* 헤더 */}
@@ -250,9 +295,9 @@ export default function YardageBookPage() {
           <BookOpen className="h-6 w-6" aria-hidden />
         </div>
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight">야디지북</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight">캐디 야디지북</h1>
           <p className="text-base text-emerald-100/90">
-            7개 클럽 · {DATA.meta.totalHoles}홀 공식확인
+            7개 클럽 · {DATA.meta.totalHoles}홀 공식확인 · 전략 한눈에
           </p>
         </div>
       </header>
@@ -327,25 +372,163 @@ export default function YardageBookPage() {
             </button>
           ))}
         </div>
-        {/* 클럽 단위 공통 의견 (로얄링스·예미지) */}
-        {club.courseLevelConsensus && club.courseLevelConsensus.length > 0 && (
-          <div className="mt-3 rounded-xl border border-sky-300/50 bg-fairway-950/60 px-4 py-3">
-            <h3 className="text-lg font-extrabold text-sky-200">
-              클럽 공통 의견 <span className="text-sm font-bold text-sky-200/70">({club.name})</span>
-            </h3>
-            <ul className="mt-1.5 space-y-1.5">
-              {club.courseLevelConsensus.map((cc, i) => (
-                <li key={i} className="text-base leading-relaxed text-white">
-                  · {cc.text}{" "}
-                  <span className="text-sm text-emerald-100/60">
-                    (출처 {cc.sources.length}곳)
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </section>
+
+      {/* 코스 브리핑: 라운드 전 전략 판단용 */}
+      {briefing && (
+        <section aria-label="코스 브리핑" className="mb-4 rounded-2xl bg-fairway-900 p-4 shadow">
+          <h2 className="flex items-center gap-2 text-xl font-extrabold">
+            <ClipboardList className="h-5 w-5 text-emerald-300" aria-hidden />
+            코스 브리핑 · {club.name} {course}
+          </h2>
+          <p className="mt-1 text-base text-emerald-100/80">
+            Par {briefing.parTotal} · Par3 {briefing.par3} · Par4 {briefing.par4} · Par5 {briefing.par5}
+            {" · "}총 {briefing.holes.length}홀
+          </p>
+          {/* 티별 총전장 (티 선택용 — 공식 합산, 미표기 홀 있으면 병기) */}
+          <div className="mt-3 space-y-2">
+            {briefing.teeTotals.map((t) => {
+              const max = Math.max(...briefing.teeTotals.map((x) => x.total), 1);
+              const pct = Math.round((t.total / max) * 100);
+              const active = t.tee === tee;
+              return (
+                <button
+                  key={t.tee}
+                  type="button"
+                  onClick={() => setTee(t.tee)}
+                  aria-pressed={active}
+                  className={`block w-full rounded-xl border-2 px-3 py-2 text-left ${
+                    active ? "border-emerald-300 bg-fairway-700" : "border-transparent bg-fairway-950/60 hover:border-fairway-600"
+                  }`}
+                >
+                  <span className="flex items-baseline justify-between gap-2">
+                    <span className="text-lg font-extrabold">
+                      {teeLabel(t.tee)}
+                      {t.missing > 0 && (
+                        <span className="ml-2 text-sm font-bold text-amber-200">({t.missing}홀 미표기 제외)</span>
+                      )}
+                    </span>
+                    <span className="text-lg font-extrabold text-emerald-200">
+                      {t.total.toLocaleString()}m
+                    </span>
+                  </span>
+                  <span className="mt-1 block h-2 overflow-hidden rounded-full bg-fairway-950">
+                    <span className="block h-full rounded-full bg-emerald-300" style={{ width: `${pct}%` }} />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <ul className="mt-3 space-y-1 text-base leading-relaxed">
+            {briefing.longest && briefing.shortest && briefing.longest.n !== briefing.shortest.n && (
+              <li>
+                <span className="font-extrabold text-emerald-200">• 전장 포인트 : </span>
+                <span className="font-bold">
+                  최장 {briefing.longest.n}번홀({briefing.longest.d.toLocaleString()}m) · 최단 {briefing.shortest.n}번홀({briefing.shortest.d.toLocaleString()}m) — {teeLabel(tee)} 기준
+                </span>
+              </li>
+            )}
+            {briefing.hardest.length > 0 ? (
+              <li>
+                <span className="font-extrabold text-emerald-200">• 어려운 홀 : </span>
+                <span className="font-bold">
+                  {briefing.hardest.map((h) => `${h.n}번홀(HD ${h.hd})`).join(" · ")} — 공식 핸디캡 순
+                </span>
+              </li>
+            ) : (
+              <li>
+                <span className="font-extrabold text-emerald-200">• 어려운 홀 : </span>
+                <span className="font-bold">공식 핸디캡 미공개 코스 — 전장·해저드로 판단</span>
+              </li>
+            )}
+          </ul>
+          {/* 클럽 단위 공통 의견 (로얄링스·예미지 등) */}
+          {club.courseLevelConsensus && club.courseLevelConsensus.length > 0 && (
+            <div className="mt-3 rounded-xl border border-sky-300/50 bg-fairway-950/60 px-4 py-3">
+              <h3 className="text-lg font-extrabold text-sky-200">
+                클럽 공통 의견 <span className="text-sm font-bold text-sky-200/70">({club.name})</span>
+              </h3>
+              <ul className="mt-1.5 space-y-1.5">
+                {club.courseLevelConsensus.map((cc, i) => (
+                  <li key={i} className="text-base leading-relaxed text-white">
+                    · {cc.text}{" "}
+                    <span className="text-sm text-emerald-100/60">
+                      (출처 {cc.sources.length}곳)
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* 홀 전장표: 한눈에 보는 전략표 */}
+      {briefing && (
+        <section aria-label="홀 전장표" className="mb-4 rounded-2xl bg-fairway-900 p-4 shadow">
+          <h2 className="flex items-center gap-2 text-xl font-extrabold">
+            <TableProperties className="h-5 w-5 text-emerald-300" aria-hidden />
+            홀 전장표
+          </h2>
+          <p className="mt-1 text-sm text-emerald-100/70">
+            홀 번호를 누르면 아래 상세로 이동 · {teeLabel(tee)} 기준 강조
+          </p>
+          <div className="mt-2 overflow-x-auto rounded-xl border border-fairway-700">
+            <table className="w-full min-w-[520px] border-collapse text-center text-base">
+              <thead>
+                <tr className="bg-fairway-950/80">
+                  <th className="sticky left-0 bg-fairway-950 px-2 py-2 font-extrabold">홀</th>
+                  {briefing.teeUnion.map((t) => (
+                    <th
+                      key={t}
+                      className={`px-2 py-2 font-extrabold ${t === tee ? "bg-emerald-300 text-fairway-950" : "text-emerald-100"}`}
+                    >
+                      {teeLabel(t)}
+                    </th>
+                  ))}
+                  <th className="px-2 py-2 font-extrabold text-emerald-100">Par/HD</th>
+                </tr>
+              </thead>
+              <tbody>
+                {holeNos.map((n) => {
+                  const h = courseHoles[String(n)];
+                  const active = n === holeNo;
+                  return (
+                    <tr key={n} className={`border-t border-fairway-700 ${active ? "bg-fairway-700/70" : ""}`}>
+                      <td className="sticky left-0 bg-fairway-900 px-1 py-1">
+                        <button
+                          type="button"
+                          onClick={() => setHoleNo(n)}
+                          aria-pressed={active}
+                          className={`w-full rounded-lg px-2 py-1.5 text-lg font-extrabold ${
+                            active ? "bg-emerald-300 text-fairway-950" : "bg-fairway-950 text-white hover:bg-fairway-700"
+                          }`}
+                        >
+                          {n}
+                        </button>
+                      </td>
+                      {briefing.teeUnion.map((t) => {
+                        const v = h.tee[t];
+                        return (
+                          <td
+                            key={t}
+                            className={`px-2 py-2 font-bold ${t === tee ? "text-emerald-200" : "text-white/90"}`}
+                          >
+                            {typeof v === "number" ? v.toLocaleString() : "–"}
+                          </td>
+                        );
+                      })}
+                      <td className="whitespace-nowrap px-2 py-2 font-bold text-white/90">
+                        {h.par}/{h.handicap ?? "–"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {/* 홀 선택: 실제 홀 수만큼 탭 (9홀 코스는 9개) */}
       <nav aria-label="홀 선택" className="mb-4">
@@ -404,6 +587,26 @@ export default function YardageBookPage() {
               <StatusBadge verified={hole.verified} />
             </div>
 
+            {/* 이전/다음 홀 */}
+            <div className="mb-3 flex gap-2">
+              <button
+                type="button"
+                disabled={prevHole == null}
+                onClick={() => prevHole != null && setHoleNo(prevHole)}
+                className="flex flex-1 items-center justify-center gap-1 rounded-xl bg-fairway-700 py-2.5 text-lg font-bold disabled:opacity-40 hover:bg-fairway-600"
+              >
+                <ChevronLeft className="h-5 w-5" aria-hidden /> {prevHole != null ? `${prevHole}번홀` : "이전"}
+              </button>
+              <button
+                type="button"
+                disabled={nextHole == null}
+                onClick={() => nextHole != null && setHoleNo(nextHole)}
+                className="flex flex-1 items-center justify-center gap-1 rounded-xl bg-fairway-700 py-2.5 text-lg font-bold disabled:opacity-40 hover:bg-fairway-600"
+              >
+                {nextHole != null ? `${nextHole}번홀` : "다음"} <ChevronRight className="h-5 w-5" aria-hidden />
+              </button>
+            </div>
+
             {/* 티 선택 (콤팩트) */}
             <div className="mb-3 flex flex-wrap gap-1.5" role="group" aria-label="티박스 선택">
               {hole.teeOrder.map((t) => (
@@ -422,6 +625,26 @@ export default function YardageBookPage() {
                 </button>
               ))}
             </div>
+
+            {/* 코스 내 상대 전장 바 (선택 티 기준, 공식 수치 비교용) */}
+            {typeof teeDist === "number" && briefing?.maxD ? (
+              <div className="mb-3 rounded-xl bg-fairway-950/60 px-3 py-2">
+                <p className="text-base font-bold text-emerald-100/90">
+                  코스 내 상대 전장 · {teeLabel(tee)} {teeDist.toLocaleString()}m
+                  {briefing.longest && briefing.shortest && (
+                    <span className="text-emerald-100/60">
+                      {" "}(최장 {briefing.longest.d.toLocaleString()}m · 최단 {briefing.shortest.d.toLocaleString()}m)
+                    </span>
+                  )}
+                </p>
+                <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-fairway-700">
+                  <div
+                    className="h-full rounded-full bg-emerald-300"
+                    style={{ width: `${Math.max(8, Math.round((teeDist / briefing.maxD) * 100))}%` }}
+                  />
+                </div>
+              </div>
+            ) : null}
 
             {/* 히어로: 공식 가이드 이미지만 (표기 없음) */}
             {hole.imageUrl && (
@@ -467,11 +690,11 @@ export default function YardageBookPage() {
               ) : null}
             </div>
 
-            {/* 공략 포인트 (홀별 동일 형식): 해저드 / 티샷 / 그린 공략 */}
+            {/* 캐디 브리핑 (홀별 동일 형식): 해저드 / 티샷 / 그린 공략 */}
             {points.length > 0 && (
               <div className="mt-2.5 rounded-xl border border-emerald-300/50 bg-fairway-950/60 px-3 py-2.5">
                 <h3 className="mb-1 text-lg font-extrabold text-emerald-200">
-                  공략 포인트
+                  캐디 브리핑
                 </h3>
                 <ul className="space-y-1.5">
                   {points.map((d, i) => (
@@ -481,6 +704,14 @@ export default function YardageBookPage() {
                     </li>
                   ))}
                 </ul>
+                {(hole.consensus || hole.singleNote) && (
+                  <p className="mt-2 text-sm text-emerald-100/60">
+                    {hole.consensus
+                      ? `공개자료 ${hole.consensus.strength === "strong" ? "복수일치" : "단일합의"} · 출처 ${hole.consensus.sources.length}곳`
+                      : `참고(단일 출처) · 출처 ${hole.singleNote?.sources.length ?? 0}곳`}
+                    {" · "}원문은 아래 &lsquo;원문 보기&rsquo;에서 확인
+                  </p>
+                )}
               </div>
             )}
 
