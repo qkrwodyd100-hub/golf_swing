@@ -235,6 +235,10 @@ export default function YardageBookPage() {
     const teeUnion: string[] = [];
     for (const h of holes)
       for (const t of h.teeOrder) if (!teeUnion.includes(t)) teeUnion.push(t);
+    // 티 순서: 화이트 우선, 나머지는 기존 순서 유지 (B/T식 코스 등 화이트 없는 곳은 그대로)
+    const teeOrder = [...teeUnion].sort((a, b) =>
+      a === "white" ? -1 : b === "white" ? 1 : 0
+    );
     const teeTotals = teeUnion.map((t) => {
       let sum = 0;
       let missing = 0;
@@ -256,7 +260,7 @@ export default function YardageBookPage() {
       .filter((x): x is { n: number; d: number } => typeof x.d === "number");
     const sorted = [...withDist].sort((a, b) => b.d - a.d);
     const maxD = sorted.length > 0 ? sorted[0].d : null;
-    return { holes, parTotal, par3, par4, par5, teeUnion, teeTotals, hardest, withDist, maxD, longest: sorted[0] ?? null, shortest: sorted.length > 0 ? sorted[sorted.length - 1] : null };
+    return { holes, parTotal, par3, par4, par5, teeUnion, teeOrder, teeTotals, hardest, withDist, maxD, longest: sorted[0] ?? null, shortest: sorted.length > 0 ? sorted[sorted.length - 1] : null };
   }, [courseHoles, holeNos, tee]);
 
   const holeIdx = holeNos.indexOf(holeNo);
@@ -356,45 +360,66 @@ export default function YardageBookPage() {
           <h2 className="flex items-center gap-2 text-xl font-extrabold">
             <ClipboardList className="h-5 w-5 text-emerald-300" aria-hidden />
             <span className="rounded-md bg-emerald-300 px-2 py-0.5 text-lg font-black text-fairway-950">01</span>
-            코스 브리핑 · {club.name} {course}
+            {club.name} {course} 코스 총 전장
           </h2>
           <p className="mt-1 text-base text-emerald-100/80">
             총 {briefing.holes.length}홀 (Par3: {briefing.par3}홀 / Par4: {briefing.par4}홀 / Par5: {briefing.par5}홀)
           </p>
-          {/* 티별 총전장 (티 선택용 — 공식 합산, 미표기 홀 있으면 병기) */}
-          <div className="mt-3 space-y-2">
-            {briefing.teeTotals.map((t) => {
-              const max = Math.max(...briefing.teeTotals.map((x) => x.total), 1);
-              const pct = Math.round((t.total / max) * 100);
-              const active = t.tee === tee;
-              return (
-                <button
-                  key={t.tee}
-                  type="button"
-                  onClick={() => setTee(t.tee)}
-                  aria-pressed={active}
-                  className={`block w-full rounded-xl border-2 px-3 py-2 text-left ${
-                    active ? "border-emerald-300 bg-fairway-700" : "border-transparent bg-fairway-950/60 hover:border-fairway-600"
-                  }`}
-                >
-                  <span className="flex items-baseline justify-between gap-2">
-                    <span className="text-lg font-extrabold">
-                      {teeLabel(t.tee)}
-                      {t.missing > 0 && (
-                        <span className="ml-2 text-sm font-bold text-amber-200">({t.missing}홀 미표기 제외)</span>
-                      )}
-                    </span>
-                    <span className="text-lg font-extrabold text-emerald-200">
-                      {t.total.toLocaleString()}m
-                    </span>
+          {/* 티별 총전장 (선택 티만 표시, 나머지는 펼침 — 공식 합산) */}
+          {(() => {
+            const ordered = [...briefing.teeTotals].sort((a, b) =>
+              a.tee === "white" ? -1 : b.tee === "white" ? 1 : 0
+            );
+            const max = Math.max(...ordered.map((x) => x.total), 1);
+            const sel = ordered.find((t) => t.tee === tee) ?? ordered[0];
+            const rest = ordered.filter((t) => t !== sel);
+            const row = (t: (typeof ordered)[number]) => (
+              <>
+                <span className="flex items-baseline justify-between gap-2">
+                  <span className="text-lg font-extrabold">
+                    {teeLabel(t.tee)}
+                    {t.missing > 0 && (
+                      <span className="ml-2 text-sm font-bold text-amber-200">({t.missing}홀 미표기 제외)</span>
+                    )}
                   </span>
-                  <span className="mt-1 block h-2 overflow-hidden rounded-full bg-fairway-950">
-                    <span className="block h-full rounded-full bg-emerald-300" style={{ width: `${pct}%` }} />
+                  <span className="text-lg font-extrabold text-emerald-200">
+                    {t.total.toLocaleString()}m
                   </span>
-                </button>
-              );
-            })}
-          </div>
+                </span>
+                <span className="mt-1 block h-2 overflow-hidden rounded-full bg-fairway-950">
+                  <span className="block h-full rounded-full bg-emerald-300" style={{ width: `${Math.round((t.total / max) * 100)}%` }} />
+                </span>
+              </>
+            );
+            return (
+              <div className="mt-3">
+                {sel && (
+                  <div className="rounded-xl border-2 border-emerald-300 bg-fairway-700 px-3 py-2">
+                    {row(sel)}
+                  </div>
+                )}
+                {rest.length > 0 && (
+                  <details className="mt-2 rounded-xl bg-fairway-950/60 px-3 py-2">
+                    <summary className="cursor-pointer text-base font-bold text-emerald-100/80">
+                      다른 티 총전장 보기
+                    </summary>
+                    <div className="mt-2 space-y-2">
+                      {rest.map((t) => (
+                        <button
+                          key={t.tee}
+                          type="button"
+                          onClick={() => setTee(t.tee)}
+                          className="block w-full rounded-xl border-2 border-transparent bg-fairway-900 px-3 py-2 text-left hover:border-fairway-600"
+                        >
+                          {row(t)}
+                        </button>
+                      ))}
+                    </div>
+                  </details>
+                )}
+              </div>
+            );
+          })()}
           <ul className="mt-3 space-y-1 text-base leading-relaxed">
             {briefing.longest && briefing.shortest && briefing.longest.n !== briefing.shortest.n && (
               <li>
@@ -448,7 +473,7 @@ export default function YardageBookPage() {
             홀 전장표
           </h2>
           <p className="mt-1 text-sm text-emerald-100/70">
-            홀 번호를 누르면 아래 상세로 이동 · {teeLabel(tee)} 기준 강조
+            홀 번호를 누르면 아래 상세로 이동
           </p>
           <div className="mt-2 overflow-x-auto rounded-xl border-2 border-fairway-600">
             <table className="w-full min-w-[560px] border-collapse text-center text-lg">
@@ -456,7 +481,7 @@ export default function YardageBookPage() {
                 <tr className="bg-fairway-950/80">
                   <th className="sticky left-0 bg-fairway-950 px-2 py-2 font-extrabold">홀</th>
                   <th className="px-2 py-2 font-extrabold text-emerald-100">Par</th>
-                  {briefing.teeUnion.map((t) => (
+                  {briefing.teeOrder.map((t) => (
                     <th
                       key={t}
                       className={`px-2 py-2 font-extrabold ${t === tee ? "bg-emerald-300 text-fairway-950" : "text-emerald-100"}`}
@@ -490,7 +515,7 @@ export default function YardageBookPage() {
                       >
                         {h.par}
                       </td>
-                      {briefing.teeUnion.map((t) => {
+                      {briefing.teeOrder.map((t) => {
                         const v = h.tee[t];
                         return (
                           <td
@@ -609,21 +634,6 @@ export default function YardageBookPage() {
               ))}
             </div>
 
-            {/* 코스 내 상대 전장 바 (선택 티 기준, 공식 수치 비교용) */}
-            {typeof teeDist === "number" && briefing?.maxD ? (
-              <div className="mb-3 rounded-xl bg-fairway-950/60 px-3 py-2">
-                <p className="text-base font-bold text-emerald-100/90">
-                  코스 내 상대 전장 · {teeLabel(tee)} {teeDist.toLocaleString()}m
-                </p>
-                <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-fairway-700">
-                  <div
-                    className="h-full rounded-full bg-emerald-300"
-                    style={{ width: `${Math.max(8, Math.round((teeDist / briefing.maxD) * 100))}%` }}
-                  />
-                </div>
-              </div>
-            ) : null}
-
             {/* 히어로: 공식 가이드 이미지만 (표기 없음) */}
             {hole.imageUrl && (
               <figure className="relative overflow-hidden rounded-xl border-2 border-black">
@@ -640,9 +650,6 @@ export default function YardageBookPage() {
                       {holeNo}H · Par {hole.par}
                     </span>
                     <span className="rounded-full bg-white/90 px-3 py-1 text-base font-extrabold text-black">
-                      HD {hole.handicap ?? "미공개"}
-                    </span>
-                    <span className="rounded-full bg-white/90 px-3 py-1 text-base font-extrabold text-black">
                       <Navigation className="mr-1 inline h-4 w-4" aria-hidden />
                       {teeLabel(tee)} {teeDist != null ? `${teeDist.toLocaleString()}m` : "미표기"}
                     </span>
@@ -651,31 +658,65 @@ export default function YardageBookPage() {
               </figure>
             )}
 
-            {/* 홀 공략 (흰 박스): 페어웨이 공략 / 그린 공략 + 공식 TIP 원문 */}
+            {/* 홀 공략 (흰 박스): 페어웨이 공략 / 그린 공략 + 공식 TIP 원문 — 개조식 불릿 */}
             {sections && ((hole.hazards?.length ?? 0) > 0 || sections.F || sections.G) && (
               <div className="mt-3 rounded-2xl border-4 border-emerald-300 bg-white px-4 py-3 text-black shadow-lg">
-                <h3 className="text-xl font-black tracking-tight">페어웨이 공략</h3>
-                <p className="mt-1 text-lg font-bold leading-snug">
-                  <span className="font-black">[좌우 해저드·OB] </span>
-                  {hole.hazards && hole.hazards.length > 0
-                    ? hole.hazards.join(" · ")
-                    : "공식 미공개"}
-                </p>
-                {sections.F && (
-                  <p className="mt-1.5 text-lg font-bold leading-snug">{sections.F}</p>
-                )}
-                <h3 className="mt-3 border-t-2 border-neutral-200 pt-2 text-xl font-black tracking-tight">
-                  그린 공략
+                <h3>
+                  <span className="rounded-lg bg-black px-2.5 py-1 text-xl font-black tracking-tight text-white">
+                    페어웨이 공략
+                  </span>
                 </h3>
-                <p className="mt-1 text-lg font-bold leading-snug">
-                  {sections.G ?? "언급 없음"}
-                </p>
+                <ul className="mt-2 space-y-1.5">
+                  <li className="flex gap-2 text-lg font-bold leading-relaxed">
+                    <span aria-hidden className="font-black">·</span>
+                    <span>
+                      <span className="font-black">좌우 해저드·OB: </span>
+                      {hole.hazards && hole.hazards.length > 0
+                        ? hole.hazards.join(" · ")
+                        : "공식 미공개"}
+                    </span>
+                  </li>
+                  {sections.F &&
+                    sections.F
+                      .split("·")
+                      .map((s) => s.trim())
+                      .filter((s) => s.length > 0)
+                      .map((b, i) => (
+                        <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
+                          <span aria-hidden className="font-black">·</span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                </ul>
+                <h3 className="mt-4 border-t-2 border-neutral-200 pt-3">
+                  <span className="rounded-lg bg-black px-2.5 py-1 text-xl font-black tracking-tight text-white">
+                    그린 공략
+                  </span>
+                </h3>
+                {sections.G ? (
+                  <ul className="mt-2 space-y-1.5">
+                    {sections.G
+                      .split("·")
+                      .map((s) => s.trim())
+                      .filter((s) => s.length > 0)
+                      .map((b, i) => (
+                        <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
+                          <span aria-hidden className="font-black">·</span>
+                          <span>{b}</span>
+                        </li>
+                      ))}
+                  </ul>
+                ) : (
+                  <p className="mt-2 text-lg font-bold leading-relaxed">언급 없음</p>
+                )}
                 {sections.showTipFull && hole.tip && (
                   <>
-                    <h3 className="mt-3 border-t-2 border-neutral-200 pt-2 text-xl font-black tracking-tight">
-                      공식 TIP 원문
+                    <h3 className="mt-4 border-t-2 border-neutral-200 pt-3">
+                      <span className="rounded-lg bg-black px-2.5 py-1 text-xl font-black tracking-tight text-white">
+                        공식 TIP 원문
+                      </span>
                     </h3>
-                    <p className="mt-1 text-base font-bold leading-relaxed text-neutral-800">
+                    <p className="mt-2 text-base font-bold leading-relaxed text-neutral-800">
                       {hole.tip}
                     </p>
                   </>
