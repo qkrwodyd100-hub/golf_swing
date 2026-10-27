@@ -140,8 +140,22 @@ function buildDetail(hole: Hole): { label: string; text: string }[] {
   const out: { label: string; text: string }[] = [];
   const cut = (s: string, n = 48) => (s.length > n ? s.slice(0, n).trimEnd() + "…" : s);
   const norm = (x: string) => x.replace(/\s+/g, "");
-  if (hole.hazards && hole.hazards.length > 0)
-    out.push({ label: "해저드", text: cut(hole.hazards.join(" · ")) });
+  // 해저드 칩이 있으면 [해저드] 불릿 생략 (칩과 문구 중복 방지). 칩이 없는 홀만 불릿으로 표시.
+  if (hole.hazards && hole.hazards.length > 0) {
+    const hazardNorm = norm(hole.hazards.join(" · "));
+    const parts = (hole.singleNote?.text ?? "")
+      .split("·")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+    const tee =
+      hole.consensus?.fairway ?? parts.find((p) => !/그린/.test(p)) ?? hole.tip ?? null;
+    const green =
+      hole.consensus?.green ?? parts.find((p) => /그린/.test(p)) ?? null;
+    if (tee && norm(tee) !== hazardNorm) out.push({ label: "티샷", text: cut(tee) });
+    if (green && green !== tee) out.push({ label: "그린 공략", text: cut(green) });
+    return out;
+  }
+  // 해저드 칩이 없는 홀은 위에서 조기 반환되지 않으므로 그대로 진행 (불릿 없음).
   const hazardNorm = norm(hole.hazards?.join(" · ") ?? "");
   const parts = (hole.singleNote?.text ?? "")
     .split("·")
@@ -633,11 +647,6 @@ export default function YardageBookPage() {
               <div className="mb-3 rounded-xl bg-fairway-950/60 px-3 py-2">
                 <p className="text-base font-bold text-emerald-100/90">
                   코스 내 상대 전장 · {teeLabel(tee)} {teeDist.toLocaleString()}m
-                  {briefing.longest && briefing.shortest && (
-                    <span className="text-emerald-100/60">
-                      {" "}(최장 {briefing.longest.d.toLocaleString()}m · 최단 {briefing.shortest.d.toLocaleString()}m)
-                    </span>
-                  )}
                 </p>
                 <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-fairway-700">
                   <div
@@ -743,17 +752,6 @@ export default function YardageBookPage() {
                 )}
               </details>
               <div className="mt-2">
-                <p className="text-lg leading-relaxed">
-                  <span className="font-extrabold text-emerald-200">• 티별 거리 : </span>
-                  <span className="font-bold">
-                    {hole.teeOrder
-                      .map(
-                        (t) =>
-                          `${teeLabel(t)} ${hole.tee[t] != null ? `${hole.tee[t]!.toLocaleString()}m` : "미표기"}`
-                      )
-                      .join(" · ")}
-                  </span>
-                </p>
                 {hole.holeName && (
                   <p className="mt-2 text-base text-emerald-100/80">홀명: {hole.holeName}</p>
                 )}
