@@ -360,7 +360,7 @@ export default function YardageBookPage() {
           <h2 className="flex items-center gap-2 text-xl font-extrabold">
             <ClipboardList className="h-5 w-5 text-emerald-300" aria-hidden />
             <span className="rounded-md bg-emerald-300 px-2 py-0.5 text-lg font-black text-fairway-950">01</span>
-            {club.name} {course} 코스 총 전장
+            {course} 코스 총 전장
           </h2>
           <p className="mt-1 text-base text-emerald-100/80">
             총 {briefing.holes.length}홀 (Par3: {briefing.par3}홀 / Par4: {briefing.par4}홀 / Par5: {briefing.par5}홀)
