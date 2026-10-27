@@ -1608,7 +1608,7 @@
         "imageUrl": "/holes/solago/SOL-IN-2.jpg",
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
         "consensus": {
-          "fairway": "좌우 OB·좌측 해저드. 좌로 질러가면 해저드 위험 → 중앙으로 가볍게. 비거리가 짧으면 해저드 넘김이 발생하므로 우회 권장. 좌 벙커 위협·우 해저드, 티샷만 살리면 세컨 편함",
+          "fairway": "좌우 OB·좌측 해저드. 좌로 질러가면 해저드 위험 → 중앙으로 가볍게. 비거리가 짧으면 해저드 넘김이 발생하므로 우회 권장. 우측 티샷이면 세컨에서 해저드 걸림 없이 레귤러온 공략",
           "green": "그린 좌 대형벙커(넓음) 주의, 중앙보다 우측이 안전. 중간 마운드 큰 2단 오르막",
           "strength": "strong",
           "sources": [
@@ -1622,9 +1622,9 @@
             {
               "type": "blog",
               "author": "골프야디지",
-              "title": "안가보고 쓰는 라운드 후기 1탄 - 현대솔라고",
-              "date": "2017-07-31",
-              "url": "https://golfyardages.com/roundepi/1?page=6"
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
@@ -1653,7 +1653,7 @@
         "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
         "consensus": {
           "fairway": "파3 — 해당 없음",
-          "green": "좌측 해저드가 움푹 들어와 짧으면 빠짐 → 그린 중앙 공략. 좌우·우뒤 벙커 있음",
+          "green": "우측 해저드 파3 — 클럽 선택·거리 조절이 승부. 그린 좌우·우뒤 벙커, 우측 높고 중앙 마운드 오르막 — 그린 중앙 공략",
           "strength": "strong",
           "sources": [
             {
@@ -1666,9 +1666,9 @@
             {
               "type": "blog",
               "author": "골프야디지",
-              "title": "안가보고 쓰는 라운드 후기 1탄 - 현대솔라고",
-              "date": "2017-07-31",
-              "url": "https://golfyardages.com/roundepi/1?page=6"
+              "title": "현대솔라고 코스맵 야디지북 2",
+              "date": "2017-08-07",
+              "url": "https://golfyardage.co.kr/roundepi/2"
             }
           ]
         }
