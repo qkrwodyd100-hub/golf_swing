@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   BookOpen,
   ChevronLeft,
@@ -108,6 +108,35 @@ function splitSingle(text: string): { tee: string | null; green: string | null }
     tee: teeParts.length > 0 ? teeParts.join(" · ") : null,
     green: parts[greenIdx],
   };
+}
+
+/** OB·해저드·벙커 낱말을 색 칩으로 강조 (문구는 그대로, 색으로만 구분). */
+function hazardChips(text: string): ReactNode[] {
+  const re = /(워터\s?해저드|해저드|H\.?\s?Z|OB|오비|벙커|샌드|bunker)/gi;
+  const out: ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let k = 0;
+  const cls = (w: string) =>
+    /^(OB|오비)$/i.test(w)
+      ? "bg-red-600 text-white"
+      : /^(벙커|샌드|bunker)$/i.test(w)
+        ? "bg-amber-300 text-black"
+        : "bg-sky-600 text-white";
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    out.push(
+      <span
+        key={k++}
+        className={`mx-0.5 inline-block rounded-md px-1.5 py-px align-baseline text-base font-black ${cls(m[0])}`}
+      >
+        {m[0]}
+      </span>
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
 }
 
 /** 불릿 분리: 문장(.) 우선, 40자 초과 장문만 ·로 추가 분리 (짧은 조각 분리 방지). */
@@ -691,15 +720,15 @@ export default function YardageBookPage() {
                       <span aria-hidden className="font-black">·</span>
                       <span>
                         <span className="font-black">좌우 해저드·OB: </span>
-                        {hole.hazards.join(" · ")}
+                        {hazardChips(hole.hazards.join(" · "))}
                       </span>
                     </li>
                   )}
                   {sections.F &&
                     toBullets(sections.F).map((b, i) => (
-                        <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
-                          <span aria-hidden className="font-black">·</span>
-                          <span>{b}</span>
+                      <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
+                        <span aria-hidden className="font-black">·</span>
+                        <span>{hazardChips(b)}</span>
                         </li>
                       ))}
                 </ul>
@@ -711,9 +740,9 @@ export default function YardageBookPage() {
                 {sections.G ? (
                   <ul className="mt-2 space-y-1.5">
                     {toBullets(sections.G).map((b, i) => (
-                        <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
-                          <span aria-hidden className="font-black">·</span>
-                          <span>{b}</span>
+                      <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
+                        <span aria-hidden className="font-black">·</span>
+                        <span>{hazardChips(b)}</span>
                         </li>
                       ))}
                   </ul>
@@ -728,7 +757,7 @@ export default function YardageBookPage() {
                       </span>
                     </h3>
                     <p className="mt-2 text-base font-bold leading-relaxed text-neutral-800">
-                      {hole.tip}
+                      {hole.tip ? hazardChips(hole.tip) : null}
                     </p>
                   </>
                 )}
