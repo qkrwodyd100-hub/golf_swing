@@ -379,6 +379,7 @@ export default function YardageBookPage() {
         <section aria-label="코스 브리핑" className="mb-4 rounded-2xl bg-fairway-900 p-4 shadow">
           <h2 className="flex items-center gap-2 text-xl font-extrabold">
             <ClipboardList className="h-5 w-5 text-emerald-300" aria-hidden />
+            <span className="rounded-md bg-emerald-300 px-2 py-0.5 text-lg font-black text-fairway-950">01</span>
             코스 브리핑 · {club.name} {course}
           </h2>
           <p className="mt-1 text-base text-emerald-100/80">
@@ -468,13 +469,14 @@ export default function YardageBookPage() {
         <section aria-label="홀 전장표" className="mb-4 rounded-2xl bg-fairway-900 p-4 shadow">
           <h2 className="flex items-center gap-2 text-xl font-extrabold">
             <TableProperties className="h-5 w-5 text-emerald-300" aria-hidden />
+            <span className="rounded-md bg-emerald-300 px-2 py-0.5 text-lg font-black text-fairway-950">02</span>
             홀 전장표
           </h2>
           <p className="mt-1 text-sm text-emerald-100/70">
             홀 번호를 누르면 아래 상세로 이동 · {teeLabel(tee)} 기준 강조
           </p>
-          <div className="mt-2 overflow-x-auto rounded-xl border border-fairway-700">
-            <table className="w-full min-w-[520px] border-collapse text-center text-base">
+          <div className="mt-2 overflow-x-auto rounded-xl border-2 border-fairway-600">
+            <table className="w-full min-w-[560px] border-collapse text-center text-lg">
               <thead>
                 <tr className="bg-fairway-950/80">
                   <th className="sticky left-0 bg-fairway-950 px-2 py-2 font-extrabold">홀</th>
@@ -494,13 +496,13 @@ export default function YardageBookPage() {
                   const h = courseHoles[String(n)];
                   const active = n === holeNo;
                   return (
-                    <tr key={n} className={`border-t border-fairway-700 ${active ? "bg-fairway-700/70" : ""}`}>
-                      <td className="sticky left-0 bg-fairway-900 px-1 py-1">
+                    <tr key={n} className={`border-t-2 border-fairway-700 ${active ? "bg-fairway-600/60" : n % 2 === 0 ? "bg-fairway-950/40" : ""}`}>
+                      <td className="sticky left-0 bg-fairway-900 px-1 py-1.5">
                         <button
                           type="button"
                           onClick={() => setHoleNo(n)}
                           aria-pressed={active}
-                          className={`w-full rounded-lg px-2 py-1.5 text-lg font-extrabold ${
+                          className={`w-full rounded-lg px-2 py-2 text-xl font-black ${
                             active ? "bg-emerald-300 text-fairway-950" : "bg-fairway-950 text-white hover:bg-fairway-700"
                           }`}
                         >
@@ -512,13 +514,13 @@ export default function YardageBookPage() {
                         return (
                           <td
                             key={t}
-                            className={`px-2 py-2 font-bold ${t === tee ? "text-emerald-200" : "text-white/90"}`}
+                            className={`px-2 py-2.5 font-extrabold ${t === tee ? "bg-emerald-300/15 text-emerald-200" : "text-white/90"}`}
                           >
                             {typeof v === "number" ? v.toLocaleString() : "–"}
                           </td>
                         );
                       })}
-                      <td className="whitespace-nowrap px-2 py-2 font-bold text-white/90">
+                      <td className="whitespace-nowrap px-2 py-2.5 font-extrabold text-white/90">
                         {h.par}/{h.handicap ?? "–"}
                       </td>
                     </tr>
@@ -530,9 +532,9 @@ export default function YardageBookPage() {
         </section>
       )}
 
-      {/* 홀 선택: 실제 홀 수만큼 탭 (9홀 코스는 9개) */}
-      <nav aria-label="홀 선택" className="mb-4">
-        <div className="flex gap-2 overflow-x-auto pb-2" role="tablist">
+      {/* 홀 선택: 실제 홀 수만큼 탭 (9홀 코스는 9개) — 상단 고정으로 이동 피로 감소 */}
+      <nav aria-label="홀 선택" className="sticky top-0 z-20 -mx-4 mb-4 bg-fairway-950/95 px-4 py-2 backdrop-blur">
+        <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
           {holeNos.map((n) => {
             const h = courseHoles[String(n)];
             const active = n === holeNo;
@@ -587,23 +589,23 @@ export default function YardageBookPage() {
               <StatusBadge verified={hole.verified} />
             </div>
 
-            {/* 이전/다음 홀 */}
-            <div className="mb-3 flex gap-2">
+            {/* 이전/다음 홀 — 하단 고정으로 한 손 이동 */}
+            <div className="sticky bottom-0 z-10 mb-3 flex gap-2 bg-fairway-900/95 py-2 backdrop-blur">
               <button
                 type="button"
                 disabled={prevHole == null}
                 onClick={() => prevHole != null && setHoleNo(prevHole)}
-                className="flex flex-1 items-center justify-center gap-1 rounded-xl bg-fairway-700 py-2.5 text-lg font-bold disabled:opacity-40 hover:bg-fairway-600"
+                className="flex flex-1 items-center justify-center gap-1 rounded-2xl bg-fairway-700 py-4 text-xl font-extrabold disabled:opacity-40 hover:bg-fairway-600"
               >
-                <ChevronLeft className="h-5 w-5" aria-hidden /> {prevHole != null ? `${prevHole}번홀` : "이전"}
+                <ChevronLeft className="h-6 w-6" aria-hidden /> {prevHole != null ? `${prevHole}번홀` : "이전"}
               </button>
               <button
                 type="button"
                 disabled={nextHole == null}
                 onClick={() => nextHole != null && setHoleNo(nextHole)}
-                className="flex flex-1 items-center justify-center gap-1 rounded-xl bg-fairway-700 py-2.5 text-lg font-bold disabled:opacity-40 hover:bg-fairway-600"
+                className="flex flex-1 items-center justify-center gap-1 rounded-2xl bg-emerald-300 py-4 text-xl font-extrabold text-fairway-950 disabled:opacity-40 hover:bg-emerald-200"
               >
-                {nextHole != null ? `${nextHole}번홀` : "다음"} <ChevronRight className="h-5 w-5" aria-hidden />
+                {nextHole != null ? `${nextHole}번홀` : "다음"} <ChevronRight className="h-6 w-6" aria-hidden />
               </button>
             </div>
 
@@ -690,22 +692,28 @@ export default function YardageBookPage() {
               ) : null}
             </div>
 
-            {/* 캐디 브리핑 (홀별 동일 형식): 해저드 / 티샷 / 그린 공략 */}
+            {/* 캐디 브리핑 (홀별 동일 형식): 해저드 / 티샷 / 그린 공략 — 햇빛용 종이 카드 */}
             {points.length > 0 && (
-              <div className="mt-2.5 rounded-xl border border-emerald-300/50 bg-fairway-950/60 px-3 py-2.5">
-                <h3 className="mb-1 text-lg font-extrabold text-emerald-200">
-                  캐디 브리핑
+              <div className="mt-3 rounded-2xl border-4 border-emerald-300 bg-white px-4 py-3 text-black shadow-lg">
+                <h3 className="mb-2 flex items-center gap-2 text-xl font-black tracking-tight">
+                  <span className="rounded-md bg-black px-2 py-0.5 text-lg font-black text-emerald-300">캐디</span>
+                  브리핑
                 </h3>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {points.map((d, i) => (
-                    <li key={i} className="text-lg leading-relaxed">
-                      <span className="font-extrabold text-emerald-200">• {d.label} : </span>
-                      <span className="font-bold">{d.text}</span>
+                    <li key={i} className="flex gap-2 text-xl font-bold leading-snug">
+                      <span className="mt-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-black px-2 text-base font-black text-emerald-300">
+                        {i + 1}
+                      </span>
+                      <span>
+                        <span className="font-black">[{d.label}] </span>
+                        {d.text}
+                      </span>
                     </li>
                   ))}
                 </ul>
                 {(hole.consensus || hole.singleNote) && (
-                  <p className="mt-2 text-sm text-emerald-100/60">
+                  <p className="mt-2 border-t-2 border-neutral-200 pt-2 text-base font-bold text-neutral-600">
                     {hole.consensus
                       ? `공개자료 ${hole.consensus.strength === "strong" ? "복수일치" : "단일합의"} · 출처 ${hole.consensus.sources.length}곳`
                       : `참고(단일 출처) · 출처 ${hole.singleNote?.sources.length ?? 0}곳`}
