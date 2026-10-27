@@ -10,7 +10,34 @@
         "LAGO-IN",
         "LAGO-OUT"
       ],
-      "courseLevelConsensus": []
+      "courseLevelConsensus": [
+        {
+          "text": "그린 스피드 2.5~2.6m 안팎으로 느린 편. 그린 난이도도 높은 편 아님",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "자바루",
+              "title": "[일상] 태안 솔라고CC 2부 주간 라운딩 후기(솔 코스)",
+              "date": "2025-07-19",
+              "url": "https://gourmet-database.tistory.com/932"
+            },
+            {
+              "type": "blog",
+              "author": "쭘***",
+              "title": "어느 골퍼의 솔직한 후기 - 현대 솔라고 CC",
+              "date": "2020-09-13",
+              "url": "https://allthatgolf.kr/blogPost/solagoCC-524"
+            },
+            {
+              "type": "blog",
+              "author": "kin1584",
+              "title": "솔라고cc 라운딩 후기 2022년 2월 중순",
+              "date": "2022-02-18",
+              "url": "https://m.blog.naver.com/kin1584/222652668558"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "baekje",
@@ -74,6 +101,30 @@
               "title": "신규오픈 충남골프장 청양 예미지CC 1박2일골프패키지 정보 라운딩 후기 (좁은 페어웨이·언듈레이션·오르막, 중상급 체감)",
               "date": "2026-04-14",
               "url": "https://m.blog.naver.com/ryangolftour/224251648731"
+            }
+          ]
+        },
+        {
+          "text": "지코스 1~4번홀 그린스피드 약 2.7m(9월 개장), 5번홀부터 약 2.9m·일부 3.0m+(4월 개장 구간, 잔디 안정)",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "리요(골프치리요)",
+              "title": "신생 골프장 예미지CC 라운딩 후기｜그린피 16만원, 이 가격은 글쎄?",
+              "date": "2026-09-24",
+              "url": "https://m.blog.naver.com/daharyyo/224421679307"
+            }
+          ]
+        },
+        {
+          "text": "2단 그린 존재, 핀은 그린 양쪽 가장자리에 꽂히는 경우 있음",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "혜주(필드의 설렘)",
+              "title": "예미지CC 재방문 27홀 오픈 라운딩 후기",
+              "date": "2026-09-15",
+              "url": "https://m.blog.naver.com/tom981130/224412130463"
             }
           ]
         }
@@ -215,6 +266,30 @@
               "title": "솔직한 골프장 리뷰 - '25. 7월의 로얄링스 CC (Queens)",
               "date": null,
               "url": "https://v.daum.net/v/WOMR2WbYbx"
+            }
+          ]
+        },
+        {
+          "text": "Queens 그린: 소/중 사이즈·둥글거나 타원형, 큰 언듈레이션 없음",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "올댓골프리뷰(테크스킨 골프)",
+              "title": "솔직한 골프장 리뷰 - '25. 7월의 로얄링스 CC",
+              "date": "2025-07-11",
+              "url": "https://v.daum.net/v/WOMR2WbYbx"
+            }
+          ]
+        },
+        {
+          "text": "King 코스 그린 스피드 빠르면 2.9m, 체감 2.7 수준(2026년 5월)",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "찬찬골프일기",
+              "title": "로얄링스CC 후기 | 주말 8만원에 다녀온 링크스 코스 솔직 리뷰",
+              "date": "2026-06-16",
+              "url": "https://boarderfeel.tistory.com/11"
             }
           ]
         }
@@ -4774,7 +4849,7 @@
         "tip": "좌, 우측 H.Z 입니다. 정확한 티샷이 중요한 파3 홀입니다.",
         "tipSource": "예미지CC 공식 코스 가이드",
         "singleNote": {
-          "text": "파3. 레드티 100m 이내로 부담이 작은 홀",
+          "text": "파3. 레드티 100m 이내로 부담이 작은 홀 · 그린 착시·내리막 브레이크 심해 퍼팅 주의(언론)",
           "sources": [
             {
               "type": "blog",
@@ -4782,6 +4857,13 @@
               "title": "신생 골프장 예미지CC 라운딩 후기",
               "date": "2026-09-24",
               "url": "https://m.blog.naver.com/daharyyo/224421679307"
+            },
+            {
+              "type": "media",
+              "author": "편성희 기자",
+              "title": "칠갑산 능선에 그려진 27홀 명품 코스 예미지CC… 유리 그린에 도전심 자극",
+              "date": "2026-07-22",
+              "url": "http://www.ttlnews.com/news/articleView.html?idxno=3127625"
             }
           ]
         }
@@ -4964,7 +5046,7 @@
         "tip": "좌, 우측 H.Z 입니다. 거리 조절이 중요한 파3 홀입니다.",
         "tipSource": "예미지CC 공식 코스 가이드",
         "singleNote": {
-          "text": "110m 심한 내리막 파3",
+          "text": "110m 심한 내리막 파3 · 그린 뒤 페널티 주의, 한 클럽 길게 하프스윙(언론)",
           "sources": [
             {
               "type": "youtube",
@@ -4972,6 +5054,13 @@
               "title": "예미지CC 후반홀(미코스 1,2,3,9/지코스 5,6,7,8,9) 4주 후",
               "date": "2026-06",
               "url": "https://www.youtube.com/watch?v=y-5WZ315Wgs"
+            },
+            {
+              "type": "media",
+              "author": "편성희 기자",
+              "title": "칠갑산 능선에 그려진 27홀 명품 코스 예미지CC… 유리 그린에 도전심 자극",
+              "date": "2026-07-22",
+              "url": "http://www.ttlnews.com/news/articleView.html?idxno=3127625"
             }
           ]
         }
@@ -5131,7 +5220,7 @@
         "tip": "좌측 H.Z, 우측 O.B 입니다. 아름다운 클럽하우스와 함께 라운드를 마무리하는 파5 홀입니다.",
         "tipSource": "예미지CC 공식 코스 가이드",
         "singleNote": {
-          "text": "449m(블루티 474m) 파5. 뒷바람 시 장타자 투온 도전 가능, 300m 이상 비거리 언급 · 전방 벙커를 넘겨야 하는 어프로치가 관건",
+          "text": "449m(블루티 474m) 파5. 뒷바람 시 장타자 투온 도전 가능, 300m 이상 비거리 언급 · 전방 벙커를 넘겨야 하는 어프로치가 관건 · 쓰리온 전략으로 내리막 퍼팅 남기지 않기(언론)",
           "sources": [
             {
               "type": "youtube",
@@ -5139,6 +5228,13 @@
               "title": "미 코스 9번홀 롱홀 티샷 300m 이상 / 후반홀 4주 후",
               "date": "2026-05~06",
               "url": "https://www.youtube.com/watch?v=H6nV2XfH7HY"
+            },
+            {
+              "type": "media",
+              "author": "편성희 기자",
+              "title": "칠갑산 능선에 그려진 27홀 명품 코스 예미지CC… 유리 그린에 도전심 자극",
+              "date": "2026-07-22",
+              "url": "http://www.ttlnews.com/news/articleView.html?idxno=3127625"
             }
           ]
         }
@@ -5390,8 +5486,10 @@
         "memo": null,
         "tip": "좌, 우측 H.Z 입니다. 그린 공략이 까다로운 시그니처 파3 홀입니다.",
         "tipSource": "예미지CC 공식 코스 가이드",
-        "singleNote": {
-          "text": "파3(164m 언급). 심한 내리막으로 찍어치는 공략 언급(영상), 그린 난이도·해저드 조심(블로그) — 서로 다른 포인트라 consensus 아님 · 그린 난이도가 있는 파3(블로그)",
+        "consensus": {
+          "fairway": "파3 — 해당 없음",
+          "green": "심한 내리막 파3 — 찍어치기 유리(영상). 짧으면 그린 앞 경사에 굴러 내려오므로 살짝 길게(2곳 일치). 그린 난이도·해저드 주의",
+          "strength": "strong",
           "sources": [
             {
               "type": "blog",
@@ -5406,6 +5504,13 @@
               "title": "예미지CC 지 코스 6번홀! 파3 바람 불 때 찍어쳐야",
               "date": "2026-06",
               "url": "https://www.youtube.com/watch?v=kUlmiUjdy8Y"
+            },
+            {
+              "type": "blog",
+              "author": "혜주(필드의 설렘)",
+              "title": "예미지CC 재방문 27홀 오픈 라운딩 후기",
+              "date": "2026-09-15",
+              "url": "https://m.blog.naver.com/tom981130/224412130463"
             }
           ]
         }
@@ -5472,7 +5577,7 @@
         "tip": "좌, 우측 H.Z 입니다. 위험과 보상이 공존하는 전략형 홀입니다.",
         "tipSource": "예미지CC 공식 코스 가이드",
         "singleNote": {
-          "text": "파4. 페어웨이 벙커 주의",
+          "text": "파4. 페어웨이 벙커 주의 · 양쪽 OB, 세컨 오르막 한 클럽 크게(언론)",
           "sources": [
             {
               "type": "blog",
@@ -5480,6 +5585,13 @@
               "title": "신생 골프장 예미지CC 라운딩 후기",
               "date": "2026-09-24",
               "url": "https://m.blog.naver.com/daharyyo/224421679307"
+            },
+            {
+              "type": "media",
+              "author": "편성희 기자",
+              "title": "칠갑산 능선에 그려진 27홀 명품 코스 예미지CC… 유리 그린에 도전심 자극",
+              "date": "2026-07-22",
+              "url": "http://www.ttlnews.com/news/articleView.html?idxno=3127625"
             }
           ]
         }
@@ -6373,7 +6485,7 @@
         "tipSource": "로얄링스CC 공식 코스 가이드",
         "consensus": {
           "fairway": "짧은 파4(화이트 255m). 티샷만 안착하면 버디 기회",
-          "green": null,
+          "green": "그린 경사 완만(승파리 단일 언급)",
           "strength": "strong",
           "sources": [
             {
@@ -6615,7 +6727,7 @@
         "tipSource": "로얄링스CC 공식 코스 가이드",
         "consensus": {
           "fairway": "양쪽 해저드가 압박감을 주나 과감한 중앙 공략 유효",
-          "green": null,
+          "green": "발끝 오르막 라이 — 한 클럽 크게(승파리 단일 언급)",
           "strength": "strong",
           "sources": [
             {
