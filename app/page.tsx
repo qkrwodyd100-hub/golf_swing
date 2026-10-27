@@ -318,7 +318,7 @@ export default function YardageBookPage() {
                 <span>
                   {c.name}
                   <span className="ml-2 text-base font-normal text-emerald-100/80">
-                    {c.region} · {c.courses.join(" / ")}
+                    {c.region}
                   </span>
                 </span>
                 <ChevronRight className="h-5 w-5 shrink-0" aria-hidden />
