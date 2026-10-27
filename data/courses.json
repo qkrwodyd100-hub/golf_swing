@@ -3032,7 +3032,19 @@
         "verified": true,
         "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole15.asp",
         "imageUrl": "/holes/solago/LAGO-OUT-6.jpg",
-        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
+        "singleNote": {
+          "text": "왼쪽 도그렉 파5(레이디티 418m). 왼쪽 벙커(초입 130m·넘기는 거리 170m) 오른쪽 공략. 150m 왼쪽 긴 벙커 있어 세컨은 오른쪽이 유리(레이디티 기준)",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "쉬즈다이어리",
+              "title": "솔라고cc Lago - out 레이디 티 공략",
+              "date": "2021-04-30",
+              "url": "https://m.blog.naver.com/lsyzx3134/222328387874"
+            }
+          ]
+        }
       },
       "7": {
         "par": 4,
@@ -3055,7 +3067,19 @@
         "verified": true,
         "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole16.asp",
         "imageUrl": "/holes/solago/LAGO-OUT-7.jpg",
-        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
+        "singleNote": {
+          "text": "우측 벙커 2개(좌 벙커 넘기는 거리 150m·우 벙커 140m). 멀리 보이는 오두막 방향 티샷이 정석(레이디티 253m 기준)",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "쉬즈다이어리",
+              "title": "솔라고cc Lago - out 레이디 티 공략",
+              "date": "2021-04-30",
+              "url": "https://m.blog.naver.com/lsyzx3134/222328387874"
+            }
+          ]
+        }
       },
       "8": {
         "par": 3,
@@ -3078,7 +3102,19 @@
         "verified": true,
         "sourceUrl": "https://sollago.co.kr/pagesite/course/two/hole17.asp",
         "imageUrl": "/holes/solago/LAGO-OUT-8.jpg",
-        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)"
+        "memo": "handicap_hazard_null: 공식 홈페이지 텍스트에 핸디캡·해저드/특징 설명 없음(이미지만 존재)",
+        "singleNote": {
+          "text": "해저드를 건너야 되는 파3 · 우측으로 많이 밀리면 벙커·물 주의 → 중앙~살짝 왼쪽. 우측 벙커턱 높음, 그린 우측 높은 오르막(중간 마운드)",
+          "sources": [
+            {
+              "type": "youtube",
+              "author": "리보플TV [리얼보기플레이어]",
+              "title": "태안 솔라고CC 라고 Out코스 5분 공략",
+              "date": "2024-06-10",
+              "url": "https://www.youtube.com/watch?v=Akq9JZIM1qM"
+            }
+          ]
+        }
       },
       "9": {
         "par": 4,
@@ -7153,7 +7189,7 @@
         "consensus": {
           "fairway": "정면 해저드 넘겨 페어웨이 — 이후 우측 벙커·페어웨이 이어져 좌측 지키기",
           "green": "그린 우측 벙커 경계, 좌측으로",
-          "strength": "weak",
+          "strength": "strong",
           "sources": [
             {
               "type": "official",
@@ -7168,6 +7204,13 @@
               "title": "[충청남도/태안] 골든베이 - 마운틴/밸리 라운딩 후기",
               "date": "2021년경(추정)",
               "url": "https://worldtravellerjp.tistory.com/64"
+            },
+            {
+              "type": "blog",
+              "author": "kin1584",
+              "title": "충남 태안 골든베이CC 마운틴코스 2022년 11월초 라운딩 후기",
+              "date": "2022-11-12",
+              "url": "https://m.blog.naver.com/kin1584/222926891405"
             }
           ]
         }
@@ -7263,7 +7306,28 @@
         "imageUrl": "/holes/goldenbay/마운틴-3.jpg",
         "memo": null,
         "tip": "내막 경사의 약간 우측 DOG LEG 코스로서 티잉그라운드에서 호쾌한 장타를 구사할 수 있는 홀이다. 오르막 경사가 시작되는 1ST IP는 POSITION에 따라 그린이 보이지 않는 블라인드 지역이 생길 수 있고 슬라이스 라이이므로 이점에 유의해야 한다.",
-        "tipSource": "골든베이 공식 코스 가이드"
+        "tipSource": "골든베이 공식 코스 가이드",
+        "consensus": {
+          "fairway": "오르막 파5",
+          "green": "중간 호리병/개미허리 협착 — 넘길 거리 안 되면 끊어가기",
+          "strength": "strong",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "투어링스",
+              "title": "[답사문] 태안 골든베이CC 패키지 리얼 후기 | 충남 골프장 추천",
+              "date": "2026-04-03",
+              "url": "https://m.blog.naver.com/tourlinks/224238275894"
+            },
+            {
+              "type": "blog",
+              "author": "kin1584",
+              "title": "충남 태안 골든베이CC 마운틴코스 2022년 11월초 라운딩 후기",
+              "date": "2022-11-12",
+              "url": "https://m.blog.naver.com/kin1584/222926891405"
+            }
+          ]
+        }
       },
       "4": {
         "par": 4,
@@ -7295,7 +7359,7 @@
         "consensus": {
           "fairway": "오르막 좌측 도그렉 — 장타는 우측 벙커 직접 겨냥도 가능",
           "green": "자신 없으면 끊어가는 3온 전략",
-          "strength": "weak",
+          "strength": "strong",
           "sources": [
             {
               "type": "official",
@@ -7310,6 +7374,13 @@
               "title": "[golf&] 명문 골프장 탐방 [10] 충남 태안 골든베이 골프&리조트",
               "date": "2010-12-17",
               "url": "https://www.joongang.co.kr/article/4804709"
+            },
+            {
+              "type": "blog",
+              "author": "kin1584",
+              "title": "충남 태안 골든베이CC 마운틴코스 2022년 11월초 라운딩 후기",
+              "date": "2022-11-12",
+              "url": "https://m.blog.naver.com/kin1584/222926891405"
             }
           ]
         }
@@ -7457,7 +7528,19 @@
         "imageUrl": "/holes/goldenbay/마운틴-7.jpg",
         "memo": null,
         "tip": "심한 오르막의 우측 DOG LEG 코스이다. 1ST IP의 UP&DOWN FAIRWAY는 스탠스 확보에 어려움이 예상돼 그린 공략에 변수로 작용한다.",
-        "tipSource": "골든베이 공식 코스 가이드"
+        "tipSource": "골든베이 공식 코스 가이드",
+        "singleNote": {
+          "text": "심한 오르막 우측 도그렉 시그니처홀. 숲 넘기기 부담에 당겨치면 왼쪽도 좁음 → 아이언·유틸 티샷 권장",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "투어링스",
+              "title": "[답사문] 태안 골든베이CC 패키지 리얼 후기 | 충남 골프장 추천",
+              "date": "2026-04-03",
+              "url": "https://m.blog.naver.com/tourlinks/224238275894"
+            }
+          ]
+        }
       },
       "8": {
         "par": 4,
@@ -7486,7 +7569,28 @@
         "imageUrl": "/holes/goldenbay/마운틴-8.jpg",
         "memo": "공식 표기상 골드(286m)가 화이트(285m)보다 1m 김. 오타 가능이나 원문 그대로 기록",
         "tip": "비교적 짧은 거리의 PAR4홀로 모든 PLAYER가 쉽게 2 ON 할 수 있다. 좌측의 수림지역의 벙커를 의식하지 않고 홀을 공략한다면 PAR SAVE이상의 SCORE를 기록 할 수 있으나 그린 주변의 벙커를 의식하고 그린 좌측을 타겟으로 PIN을 공략해야 한다.",
-        "tipSource": "골든베이 공식 코스 가이드"
+        "tipSource": "골든베이 공식 코스 가이드",
+        "consensus": {
+          "fairway": "비교적 짧은 파4",
+          "green": "많은 골퍼가 투온 버디 노림 — 그린 가운데 방향 티샷",
+          "strength": "strong",
+          "sources": [
+            {
+              "type": "blog",
+              "author": "투어링스",
+              "title": "[답사문] 태안 골든베이CC 패키지 리얼 후기 | 충남 골프장 추천",
+              "date": "2026-04-03",
+              "url": "https://m.blog.naver.com/tourlinks/224238275894"
+            },
+            {
+              "type": "blog",
+              "author": "kin1584",
+              "title": "충남 태안 골든베이CC 마운틴코스 2022년 11월초 라운딩 후기",
+              "date": "2022-11-12",
+              "url": "https://m.blog.naver.com/kin1584/222926891405"
+            }
+          ]
+        }
       },
       "9": {
         "par": 5,
@@ -7518,7 +7622,7 @@
         "consensus": {
           "fairway": "S자 긴 파5 — 티는 페어웨이 중간~약 우측, 러프 진입 시 라이 악화",
           "green": "전략적 랜딩존 선정이 핵심",
-          "strength": "weak",
+          "strength": "strong",
           "sources": [
             {
               "type": "official",
@@ -7533,6 +7637,13 @@
               "title": "[충청남도/태안] 골든베이 - 마운틴/밸리 라운딩 후기",
               "date": "2021년경(추정)",
               "url": "https://worldtravellerjp.tistory.com/64"
+            },
+            {
+              "type": "blog",
+              "author": "투어링스",
+              "title": "[답사문] 태안 골든베이CC 패키지 리얼 후기 | 충남 골프장 추천",
+              "date": "2026-04-03",
+              "url": "https://m.blog.naver.com/tourlinks/224238275894"
             }
           ]
         }
