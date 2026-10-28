@@ -157,12 +157,30 @@ function toBullets(text: string): string[] {
   return out;
 }
 
-/** 홀 정보 섹션: 동일 출처 문구 중복 없이 페어웨이/그린 2섹션으로 정리. */
+/** 공백 제거 정규화 (중복 비교용). */
+function normText(x: string): string {
+  return x.replace(/\s+/g, "");
+}
+
+/** 공식 해저드 키워드 종류로 라벨 생성 (OB인지 해저드인지 한눈에). */
+function hazardLabel(items: string[]): string {
+  const t = items.join(" ");
+  const parts: string[] = [];
+  if (/해저드|H\.?\s?Z|워터|pond/i.test(t)) parts.push("해저드");
+  if (/OB|오비/i.test(t)) parts.push("OB");
+  if (/벙커|샌드|bunker/i.test(t)) parts.push("벙커");
+  return parts.length > 0 ? `${parts.join("·")} 구역` : "공식 특징";
+}
 interface HoleSections {
   F: string | null;
   G: string | null;
   showTipFull: boolean;
   hasBox: boolean;
+  fwItems: string[];
+  fwHaz: string | null;
+  fwLabel: string | null;
+  greenExtra: string[];
+  fwCover: string;
 }
 
 function buildSections(hole: Hole): HoleSections {
@@ -171,12 +189,29 @@ function buildSections(hole: Hole): HoleSections {
     : { tee: null as string | null, green: null as string | null };
   const consF = hole.consensus?.fairway || null;
   const F = consF || split.tee || hole.tip || null;
-  const G = hole.consensus?.green || split.green || null;
+  // 공식 키워드 분리: 그린 언급은 그린 공략으로, 나머지만 페어웨이 첫줄로
+  const isGreenKw = (s: string) => /그린/.test(s);
+  const fwItems = (hole.hazards ?? []).filter((s) => !isGreenKw(s));
+  const grItems = (hole.hazards ?? []).filter(isGreenKw);
+  let G = hole.consensus?.green || split.green || null;
+  if (!G && grItems.length > 0) G = grItems.join(" · ");
+  const gNorm = normText(G ?? "");
+  const greenExtra = grItems.filter((g) => !gNorm.includes(normText(g)));
   const Fsrc = consF ? "consensus" : split.tee ? "single" : hole.tip ? "tip" : null;
   // 공식 TIP이 F에 이미 그대로 실렸으면 원문란에 반복하지 않음.
   const showTipFull = !!hole.tip && Fsrc !== "tip";
-  const hasBox = (hole.hazards?.length ?? 0) > 0 || !!F || !!G;
-  return { F, G, showTipFull, hasBox };
+  const hasBox = fwItems.length > 0 || grItems.length > 0 || !!F || !!G;
+  return {
+    F,
+    G,
+    showTipFull,
+    hasBox,
+    fwItems,
+    fwHaz: fwItems.length > 0 ? fwItems.join(" · ") : null,
+    fwLabel: fwItems.length > 0 ? hazardLabel(fwItems) : null,
+    greenExtra,
+    fwCover: normText(fwItems.join("·")),
+  };
 }
 
 function StatusBadge({ verified }: { verified: boolean }) {
@@ -714,18 +749,25 @@ export default function YardageBookPage() {
                   </span>
                 </h3>
                 <ul className="mt-2 space-y-1.5">
-                  {/* 공식 해저드 키워드가 있을 때만 표시 (없으면 아래 공개자료 불릿과 모순되므로 생략) */}
-                  {hole.hazards && hole.hazards.length > 0 && (
+                  {/* 공식 페어웨이 키워드가 있을 때만 표시 (그린 키워드는 그린 공략으로) */}
+                  {sections.fwHaz && sections.fwLabel && (
                     <li className="flex gap-2 text-lg font-bold leading-relaxed">
                       <span aria-hidden className="font-black">·</span>
                       <span>
-                        <span className="font-black">좌우 해저드·OB: </span>
-                        {hazardChips(hole.hazards.join(" · "))}
+                        <span className="font-black">{sections.fwLabel}: </span>
+                        {hazardChips(sections.fwHaz)}
                       </span>
                     </li>
                   )}
                   {sections.F &&
-                    toBullets(sections.F).map((b, i) => (
+                    toBullets(sections.F)
+                      .filter(
+                        (b) =>
+                          !sections.fwCover ||
+                          normText(b).length > sections.fwCover.length ||
+                          !sections.fwCover.includes(normText(b))
+                      )
+                      .map((b, i) => (
                       <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
                         <span aria-hidden className="font-black">·</span>
                         <span>{hazardChips(b)}</span>
@@ -737,14 +779,21 @@ export default function YardageBookPage() {
                     그린 공략
                   </span>
                 </h3>
-                {sections.G ? (
+                {sections.G || sections.greenExtra.length > 0 ? (
                   <ul className="mt-2 space-y-1.5">
-                    {toBullets(sections.G).map((b, i) => (
-                      <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
-                        <span aria-hidden className="font-black">·</span>
-                        <span>{hazardChips(b)}</span>
+                    {sections.G &&
+                      toBullets(sections.G).map((b, i) => (
+                        <li key={i} className="flex gap-2 text-lg font-bold leading-relaxed">
+                          <span aria-hidden className="font-black">·</span>
+                          <span>{hazardChips(b)}</span>
                         </li>
                       ))}
+                    {sections.greenExtra.map((g, i) => (
+                      <li key={`gx${i}`} className="flex gap-2 text-lg font-bold leading-relaxed">
+                        <span aria-hidden className="font-black">·</span>
+                        <span>{hazardChips(g)}</span>
+                      </li>
+                    ))}
                   </ul>
                 ) : (
                   <p className="mt-2 text-lg font-bold leading-relaxed">언급 없음</p>
